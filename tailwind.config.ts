@@ -29,6 +29,16 @@ const config: Config = {
         mono: ["var(--font-mono)", ...fontFamily.mono],
         serif: ["var(--font-serif)", ...fontFamily.serif],
       },
+      animation: {
+        "grow-and-shrink": "grow-and-shrink 600ms forwards infinite",
+      },
+      keyframes: {
+        "grow-and-shrink": {
+          "0%": { transform: "scale(0)" },
+          "50%": { transform: "scale(1)" },
+          "100%": { transform: "scale(0)" },
+        },
+      },
     },
   },
   plugins: [typography],

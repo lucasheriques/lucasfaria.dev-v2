@@ -24,7 +24,7 @@ export default function RootLayout({
         className={clsx(
           sourceSans.className,
           "min-h-svh flex flex-col transition-all max-w-3xl mx-auto",
-          "dark:bg-gradient-to-b from-gray-950 to-gray-900 dark:text-slate-300"
+          "dark:bg-gradient-to-b from-gray-950 to-gray-800 dark:text-slate-300"
         )}
       >
         <Header />

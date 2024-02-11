@@ -43,7 +43,7 @@ export default function RootLayout({
           mainFont.variable,
           monoFont.variable,
           serifFont.variable,
-          "min-h-svh flex flex-col transition-all max-w-3xl text-lg mx-auto font-sans",
+          "min-h-svh flex flex-col max-w-3xl text-lg mx-auto font-sans",
           "dark:bg-gradient-to-b from-gray-950 to-gray-800 dark:text-slate-300"
         )}
       >

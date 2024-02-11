@@ -1,14 +1,16 @@
 import { Moon, Sun } from "lucide-react";
-import Link from "next/link";
 import React from "react";
+import HeaderNavigation from "./header-navigation";
 
-export default function Header() {
+const Header = () => {
   return (
-    <header className="flex w-full px-6 justify-between items-center h-[5rem]">
-      <Link href="/">Lucas Faria</Link>
+    <header className="flex w-full px-6 justify-between items-center h-40">
+      <HeaderNavigation />
       <div className="flex gap-2">
         <Moon />
       </div>
     </header>
   );
-}
+};
+
+export default Header;

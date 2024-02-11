@@ -1,3 +1,5 @@
+import { cache } from "react";
+import "server-only";
 import fs from "fs/promises";
 import path from "path";
 import matter from "gray-matter";
@@ -22,9 +24,16 @@ export async function getBlogPostList() {
 }
 
 // Function to load a blog post from /content/ideas that gets the slug as argument
-export async function getBlogPost(slug: string) {
+async function _getBlogPost(slug: string) {
   const filePath = path.join(process.cwd(), `content/ideas/${slug}.mdx`);
   const fileContents = await fs.readFile(filePath, "utf8");
   const { data: frontmatter, content } = matter(fileContents);
-  return { frontmatter, content };
+  return {
+    title: frontmatter.title,
+    abstract: frontmatter.abstract,
+    publishedOn: frontmatter.publishedOn,
+    content: content,
+  };
 }
+
+export const getBlogPost = cache(_getBlogPost);

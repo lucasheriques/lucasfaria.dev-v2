@@ -1,16 +1,27 @@
 import type { Metadata } from "next";
-import { DM_Sans as FontSans } from "next/font/google";
+import { DM_Sans, Spline_Sans_Mono } from "next/font/google";
 import "./globals.css";
 import clsx from "clsx";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { SITE_DESCRIPTION, SITE_TITLE } from "@/helpers/constants";
 
-const sourceSans = FontSans({ subsets: ["latin"], weight: ["400", "700"] });
+const mainFont = DM_Sans({
+  subsets: ["latin"],
+  display: "fallback",
+  weight: "variable",
+  variable: "--font-sans",
+});
+const monoFont = Spline_Sans_Mono({
+  subsets: ["latin"],
+  display: "fallback",
+  weight: "variable",
+  variable: "--font-mono",
+});
 
 export const metadata: Metadata = {
-  title: "Lucas Faria",
-  description:
-    "Product Engineer working at Brex. I write about software engineering, product management, and personal growth.",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
 };
 
 export default function RootLayout({
@@ -22,8 +33,9 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={clsx(
-          sourceSans.className,
-          "min-h-svh flex flex-col transition-all max-w-3xl mx-auto",
+          mainFont.variable,
+          monoFont.variable,
+          "min-h-svh flex flex-col transition-all max-w-3xl text-lg mx-auto font-sans",
           "dark:bg-gradient-to-b from-gray-950 to-gray-800 dark:text-slate-300"
         )}
       >

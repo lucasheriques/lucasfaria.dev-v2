@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Source_Sans_3 } from "next/font/google";
 import "./globals.css";
+import clsx from "clsx";
+import Link from "next/link";
+import { Sun } from "lucide-react";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const sourceSans = Source_Sans_3({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +21,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={clsx(
+          sourceSans.className,
+          "min-h-svh flex flex-col transition-all"
+        )}
+      >
+        <Header />
+        <main className="flex-1 px-6 max-w-screen-xl mx-auto w-full">
+          {children}
+        </main>
+        <Footer />
+      </body>
     </html>
   );
 }

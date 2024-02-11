@@ -16,14 +16,66 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer base {
+  /*
+    CSS RESET
+    https://www.joshwcomeau.com/css/custom-css-reset/
+  */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+  }
+
+  html {
+    /* scrollbar-gutter: stable; */
+  }
+
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+}
+
+@layer base {
+  :root {
+    --content-width: 55rem;
+    --outer-content-width: 80rem;
+    --viewport-padding: 16px;
+    --trimmed-content-width: calc(
+      var(--content-width) - var(--viewport-padding) * 2
+    );
+  }
 }
 
 @layer utilities {

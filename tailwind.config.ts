@@ -8,6 +8,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      width: {
+        "content-width": "var(--content-width)",
+        "outer-content-width": "var(--outer-content-width)",
+        "--trimmed-content-width":
+          "calc(var(--content-width) - 2 * var(--outer-content-width))",
+      },
+      height: {
+        header: "var(--header-height)",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

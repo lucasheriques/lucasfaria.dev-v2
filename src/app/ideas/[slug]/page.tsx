@@ -21,15 +21,13 @@ export default async function Idea({ params }: any) {
   const post = await getBlogPost(params.slug as string);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <article className="prose dark:prose-invert text-xl">
-        <MDXRemote
-          source={post.content}
-          components={{
-            pre: (props) => <CodeSnippet {...props} />,
-          }}
-        />
-      </article>
-    </Suspense>
+    <article className="prose dark:prose-invert text-xl font-serif">
+      <MDXRemote
+        source={post.content}
+        components={{
+          pre: (props) => <CodeSnippet {...props} />,
+        }}
+      />
+    </article>
   );
 }

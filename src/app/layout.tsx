@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Spline_Sans_Mono } from "next/font/google";
+import { DM_Sans, Spline_Sans_Mono, Lora } from "next/font/google";
 import "./globals.css";
 import clsx from "clsx";
 import Header from "@/components/header";
@@ -19,6 +19,13 @@ const monoFont = Spline_Sans_Mono({
   variable: "--font-mono",
 });
 
+const serifFont = Lora({
+  subsets: ["latin"],
+  display: "fallback",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-serif",
+});
+
 export const metadata: Metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
@@ -35,6 +42,7 @@ export default function RootLayout({
         className={clsx(
           mainFont.variable,
           monoFont.variable,
+          serifFont.variable,
           "min-h-svh flex flex-col transition-all max-w-3xl text-lg mx-auto font-sans",
           "dark:bg-gradient-to-b from-gray-950 to-gray-800 dark:text-slate-300"
         )}

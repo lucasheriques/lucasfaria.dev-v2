@@ -30,13 +30,22 @@ const config: Config = {
         serif: ["var(--font-serif)", ...fontFamily.serif],
       },
       animation: {
-        "grow-and-shrink": "grow-and-shrink 600ms forwards infinite",
+        "grow-and-shrink": "grow-and-shrink 600ms ease-in-out forwards",
+        "controlled-spin": "controlled-spin 600ms linear infinite",
       },
       keyframes: {
         "grow-and-shrink": {
           "0%": { transform: "scale(0)" },
           "50%": { transform: "scale(1)" },
           "100%": { transform: "scale(0)" },
+        },
+        "controlled-spin": {
+          from: {
+            transform: "rotate(0deg)",
+          },
+          to: {
+            transform: "rotate(45deg)",
+          },
         },
       },
     },

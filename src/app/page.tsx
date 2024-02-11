@@ -15,7 +15,7 @@ export default async function Home() {
         </h1>
         <p>
           I'm a software engineer with a passion for impactful technology and
-          building <SparklesWhimsy>magical</SparklesWhimsy> experiences.
+          building <SparklesWhimsy rainbow>magical</SparklesWhimsy> experiences.
         </p>
         <p>
           Whenever I'm not coding, I'll probably be spending time with my

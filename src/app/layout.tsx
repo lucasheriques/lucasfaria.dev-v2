@@ -5,6 +5,7 @@ import clsx from "clsx";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/helpers/constants";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
 
 const mainFont = DM_Sans({
   subsets: ["latin"],
@@ -50,6 +51,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1 px-6 pb-16">{children}</main>
         <Footer />
+        <TailwindIndicator />
       </body>
     </html>
   );

@@ -3,6 +3,8 @@
 import React from "react";
 import { HeaderBackdropAnimation } from "./header-backdrop-animation";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 const navItems = [
   { label: "home", href: "/" },
@@ -16,23 +18,31 @@ const HeaderNavigation = () => {
     null
   );
 
+  const pathname = usePathname();
+
   return (
     <nav
       className="flex font-semibold -ml-4"
       onMouseLeave={() => setHoveredNavItem(null)}
     >
-      {navItems.map((item) => (
-        <div key={item.label} className="relative flex">
-          {hoveredNavItem === item.href && <HeaderBackdropAnimation />}
-          <Link
-            href={item.href}
-            className="relative px-4 py-2 transition-colors duration-300 hover:text-amber-300-400 dark:hover:text-amber-400"
-            onMouseEnter={() => setHoveredNavItem(item.href)}
-          >
-            {item.label}
-          </Link>
-        </div>
-      ))}
+      {navItems.map((item) => {
+        const isActive = pathname === item.href;
+        return (
+          <div key={item.label} className="relative flex">
+            {hoveredNavItem === item.href && <HeaderBackdropAnimation />}
+            <Link
+              href={item.href}
+              className={clsx(
+                "relative px-4 py-2 transition-colors duration-300 dark:hover:text-amber-400",
+                isActive ? "text-amber-400" : ""
+              )}
+              onMouseEnter={() => setHoveredNavItem(item.href)}
+            >
+              {item.label}
+            </Link>
+          </div>
+        );
+      })}
     </nav>
   );
 };

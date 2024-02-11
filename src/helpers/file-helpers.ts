@@ -20,3 +20,11 @@ export async function getBlogPostList() {
   );
   return blogPosts;
 }
+
+// Function to load a blog post from /content/ideas that gets the slug as argument
+export async function getBlogPost(slug: string) {
+  const filePath = path.join(process.cwd(), `content/ideas/${slug}.mdx`);
+  const fileContents = await fs.readFile(filePath, "utf8");
+  const { data: frontmatter, content } = matter(fileContents);
+  return { frontmatter, content };
+}

@@ -1,8 +1,8 @@
+import fs from "fs/promises";
+import matter from "gray-matter";
+import path from "path";
 import { cache } from "react";
 import "server-only";
-import fs from "fs/promises";
-import path from "path";
-import matter from "gray-matter";
 
 export async function getBlogPostList() {
   const directory = path.join(process.cwd(), "content/ideas");
@@ -18,7 +18,7 @@ export async function getBlogPostList() {
         abstract: frontmatter.abstract,
         publishedOn: frontmatter.publishedOn,
       };
-    })
+    }),
   );
   return blogPosts;
 }

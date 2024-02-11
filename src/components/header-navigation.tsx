@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
-import { HeaderBackdropAnimation } from "./header-backdrop-animation";
+import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import clsx from "clsx";
+import React from "react";
+
+import { HeaderBackdropAnimation } from "./header-backdrop-animation";
 
 const navItems = [
   { label: "home", href: "/" },
@@ -15,7 +16,7 @@ const navItems = [
 
 const HeaderNavigation = () => {
   const [hoveredNavItem, setHoveredNavItem] = React.useState<string | null>(
-    null
+    null,
   );
 
   const pathname = usePathname();
@@ -34,7 +35,7 @@ const HeaderNavigation = () => {
               href={item.href}
               className={clsx(
                 "relative px-4 py-2 transition-colors duration-300 dark:hover:text-amber-400",
-                isActive ? "text-amber-400" : ""
+                isActive ? "text-amber-400" : "",
               )}
               onMouseEnter={() => setHoveredNavItem(item.href)}
             >

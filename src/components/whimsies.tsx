@@ -1,6 +1,7 @@
-import { generateSparkle } from "@/helpers/functions";
 import { Sparkle } from "lucide-react";
 import React from "react";
+
+import { generateSparkle } from "@/helpers/functions";
 
 type Props = {
   children: React.ReactNode;

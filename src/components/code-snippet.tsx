@@ -1,5 +1,5 @@
-import React from "react";
 import { Code } from "bright";
+import React from "react";
 
 const CodeSnippet = (props: any) => {
   return (

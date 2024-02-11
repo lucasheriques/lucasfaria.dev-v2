@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
-import { DM_Sans, Spline_Sans_Mono, Lora } from "next/font/google";
-import "./globals.css";
 import clsx from "clsx";
-import Header from "@/components/header";
+import type { Metadata } from "next";
+import { DM_Sans, Lora, Spline_Sans_Mono } from "next/font/google";
+
+import "./globals.css";
+
 import Footer from "@/components/footer";
-import { SITE_DESCRIPTION, SITE_TITLE } from "@/helpers/constants";
+import Header from "@/components/header";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
+import { SITE_DESCRIPTION, SITE_TITLE } from "@/helpers/constants";
 
 const mainFont = DM_Sans({
   subsets: ["latin"],
@@ -45,7 +47,7 @@ export default function RootLayout({
           monoFont.variable,
           serifFont.variable,
           "min-h-svh flex flex-col max-w-3xl text-lg mx-auto font-sans",
-          "dark:bg-gradient-to-b from-gray-950 to-gray-800 dark:text-slate-300"
+          "dark:bg-gradient-to-b from-gray-950 to-gray-800 dark:text-slate-300",
         )}
       >
         <Header />

@@ -1,6 +1,7 @@
 import { Title } from "@/components/typography";
+import { SparklesWhimsy } from "@/components/whimsies";
 import { getBlogPostList } from "@/helpers/file-helpers";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, SparkleIcon, Sparkle, Star } from "lucide-react";
 import Link from "next/link";
 
 export default async function Home() {
@@ -13,7 +14,7 @@ export default async function Home() {
         </h1>
         <p>
           I'm a software engineer with a passion for impactful technology and
-          building magical experiences. ✨
+          building <SparklesWhimsy>magical</SparklesWhimsy> experiences.
         </p>
         <p>
           Whenever I'm not coding, I'll probably be spending time with my

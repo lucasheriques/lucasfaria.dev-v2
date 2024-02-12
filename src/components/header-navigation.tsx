@@ -23,7 +23,7 @@ const HeaderNavigation = () => {
 
   return (
     <nav
-      className="flex font-semibold -ml-4"
+      className="flex font-semibold -ml-4 text-base"
       onMouseLeave={() => setHoveredNavItem(null)}
     >
       {navItems.map((item) => {

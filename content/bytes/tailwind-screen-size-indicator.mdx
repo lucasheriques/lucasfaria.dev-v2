@@ -1,0 +1,30 @@
+---
+title: "Tailwind screen size indicator"
+abstract: "A simple Tailwind CSS component to display the current screen size (2xl, xl, lg, md, sm, xs)"
+date: 2024-01-11
+---
+
+Whenever I'm working with Tailwind (which is most of the time in my personal projects), I enjoy this small component to display the current screen size.
+
+Just add it wherever you want in your app, and it will display the current screen size (2xl, xl, lg, md, sm, xs) in the bottom left corner of the screen. I usually put it in the `App` component.
+
+It's only visible in development mode.
+
+```tsx
+export function TailwindIndicator() {
+  if (process.env.NODE_ENV === "production") return null;
+
+  return (
+    <div className="fixed bottom-1 left-1 z-50 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800 p-3 font-mono text-xs text-white">
+      <div className="block sm:hidden">xs</div>
+      <div className="hidden sm:block md:hidden lg:hidden xl:hidden 2xl:hidden">
+        sm
+      </div>
+      <div className="hidden md:block lg:hidden xl:hidden 2xl:hidden">md</div>
+      <div className="hidden lg:block xl:hidden 2xl:hidden">lg</div>
+      <div className="hidden xl:block 2xl:hidden">xl</div>
+      <div className="hidden 2xl:block">2xl</div>
+    </div>
+  );
+}
+```

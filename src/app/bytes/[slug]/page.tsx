@@ -9,7 +9,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }) {
-  const post = await getBlogPost("ideas/" + params.slug);
+  const post = await getBlogPost("bytes/" + params.slug);
 
   return {
     title: post.title,
@@ -17,8 +17,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function Idea({ params }: { params: { slug: string } }) {
-  const post = await getBlogPost("ideas/" + params.slug);
+export default async function Byte({ params }: { params: { slug: string } }) {
+  const post = await getBlogPost("bytes/" + params.slug);
 
   return (
     <article className="prose dark:prose-invert text-xl font-serif">

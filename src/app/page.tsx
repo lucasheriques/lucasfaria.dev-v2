@@ -1,21 +1,23 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-import { Title } from "@/components/typography";
+import { GradientText, Title } from "@/components/typography";
 import { SparklesWhimsy } from "@/components/whimsies";
-import { getBlogPostList } from "@/helpers/file-helpers";
+import { getBlogPostList, getBytesList } from "@/helpers/file-helpers";
 
 export default async function Home() {
   const posts = await getBlogPostList();
+  const bytes = await getBytesList();
   return (
     <div className="grid gap-y-16">
       <div className="flex flex-col gap-4">
-        <h1 className="dark:text-emerald-400 text-xl font-semibold">
-          welcome to my little 🏡 on the web! {"I'm"} Lucas
-        </h1>
+        <Title as="h1">welcome to my little 🏡 on the web! {"I'm"} Lucas</Title>
         <p>
           {"I'm"} a software engineer with a passion for impactful technology
-          and building <SparklesWhimsy rainbow>magical</SparklesWhimsy>{" "}
+          and building{" "}
+          <SparklesWhimsy rainbow>
+            <GradientText>magical</GradientText>
+          </SparklesWhimsy>{" "}
           experiences.
         </p>
         <p>
@@ -43,7 +45,7 @@ export default async function Home() {
 
       <div className="grid gap-4">
         <Title as="h2">⚡ latest bytes</Title>
-        {posts.map((post) => (
+        {bytes.map((post) => (
           <Link href={`${post.slug}`} prefetch={true} key={post.slug}>
             <h2 className="flex items-center gap-4">
               {post.title} <ArrowRight size={16} />

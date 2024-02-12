@@ -1,0 +1,356 @@
+---
+title: "Setting up my MacBook Pro for development"
+abstract: "How I set up my MacBook Pro for development as a software engineer, including workflows, tools and tech stacks."
+date: "2014-01-08"
+---
+
+## TL;DR
+
+- Apply a bunch of arbitrary system preferences changes (find below in "System Preferences").
+- Install [1Password](https://1password.com/downloads/mac/thank-you/) (or whatever password manager you use).
+- Install [iTerm2](https://iterm2.com/downloads.html). Open it so it prompts you to install the command line tools.
+- While it installs, log in to the usual Apple stuff since now you have your passwords. Apple ID, iCloud, App Store, etc.
+
+- Install [Homebrew](https://brew.sh).
+```zsh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+- Install Google Chrome, Raycast, Obsidian and VS Code.
+
+```zsh
+brew install --cask obsidian
+brew install --cask google-chrome
+brew install --cask raycast
+brew install --cask visual-studio-code
+```
+
+- Add [Night Owl](https://github.com/nickcernis/iterm2-night-owl) colors to iTerm.
+- Setup Git config.
+
+```zsh
+git config --global user.name "Your Name"
+git config --global user.email "you@your-domain.com"
+```
+
+- Install oh-my-zsh with `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+12. Install a bunch of zsh related stuff:
+
+```zsh
+brew install fzf # for fuzzy find files, commands, etc
+brew install starship
+$(brew --prefix)/opt/fzf/install
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting # syntax highlight for zsh
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions # smart autosuggestions for zsh
+echo 'eval "$(starship init zsh)"' >> ~/.zshrc
+```
+
+Then edit the `.zshrc`. [Here's mine](https://github.com/lucasheriques/dotfiles/blob/main/.zshrc).
+
+- Install JetBrains Mono and use it as the iTerm font.
+
+```zshrc
+brew tap homebrew/cask-fonts
+brew install font-jetbrains-mono-nerd-font
+```
+
+- Install [VS Code Extensions](https://github.com/lucasheriques/dotfiles/blob/main/vscode-extension-install.sh) and [update its settings](https://github.com/lucasheriques/dotfiles/blob/main/vscode-settings.json).
+- Install language stuff (for me it's Node and Go).
+
+```zsh
+curl -fsSL https://fnm.vercel.app/install | bash # node version manager
+fnm install --lts
+brew install go
+```
+
+- Finally, install other applications that I also use daily.
+
+```zsh
+brew install --cask discord
+brew install --cask slack
+brew install --cask spotify
+brew install --cask screen-studio
+brew install --cask appcleaner
+brew install --cask figma
+brew install --cask iina # modern video player for mac
+brew install --cask zoom
+brew install --cask todoist
+brew install --cask obs
+```
+
+---
+
+
+It’s that time of the year.
+
+I just got a new laptop. It’s a MacBook M3 Pro.
+
+I decided to not copy anything from my old MacBook Air M1. So I could start fresh.
+
+And look for new tools. Which I hope to write more about soon - especially the ones that make cut to my daily usage.
+
+But, for now, let’s set up with my usual tools. First, some context: I’m a software engineer, so you can decide if this is worth following along. Professionally, I work in the web domain. React, Node, TypeScript, you know.
+
+However, I’m learning Golang this year as well. So that will be important.
+
+Also, I love using the terminal and productivity tools and hacks.
+
+I’m still however finding what works for me. I hope that 2024 will be the year I find the tools that level up me the most. New computer, so can’t wait to try shiny new things too.
+
+Let’s get to it.
+
+## The basics
+
+### System Preferences
+
+- Appearance
+	- Show scroll bar -> "Always"
+
+- Desktop & Dock
+	- Remove most apps form Dock (hint that I just learned: just grab the icon and throw it far away to remove quickly)
+	- Automatic hide
+	- "Show suggested and recent applications in Dock" off
+	- Hot Corners -> disable all
+
+- Trackpad
+	- Tap to Click
+	- Point & Click -> Look up & data detectors off
+
+- Keyboard
+	- `defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false` so key repeat works
+	- Key repeat rate -> Fast
+	- Delay until repeat -> Short
+
+- Spelling and prediction
+	- Capitalize words automatically -> false
+	- Add period with double-space -> false
+
+On terminal:
+
+```zsh
+defaults write com.apple.dock appswitcher-all-displays -bool true # show window switcher on all screens
+killall Dock
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false # when long pressing a key, repeat it instead of showing other options
+
+```
+
+### Daily applications
+
+I use 1Password. It’s essential to getting all my login info. So let’s start with [downloading the Mac app](https://1password.com/downloads/mac/thank-you/).
+
+Now, I can use it to log in to App Store, and get my other credentials, which will be needed soon.
+
+Next, my terminal. I use [iTerm2](https://iterm2.com/downloads.html) since I bought my first MacBook in 2016. Not sure if there’s a better one these days, but I like it.
+
+Let’s open it.
+
+It prompted me to install the command line tools. Which I need anyway. So while we wait, let’s setup Apple ID and iCloud in the System Preferences.
+
+Okay, with that out of the way, we can install [Homebrew](https://brew.sh), which we’ll use extensively to install the other tools.
+
+While Homebrew is installing, let’s download Obsidian so we can leave the Notes app which is where I’m writing this post so far.
+
+Now, since I started paying for Obsidian sync last year, I get my second brain back. So we can move this post now.
+
+And now that Homebrew is probably finished, we can also install Chrome, which is my default browser.
+
+```zsh
+brew install --cask google-chrome
+```
+
+Then log into Google and to get the sync stuff.
+
+Let's also install Raycast, which is a Spotlight replacement that is incredible. It has window management, clipboard history, integrations with all kinds of tools, and many more that I might yet learn. Can't recommend it enough.
+
+I use the "Magnet" hotkey preset for window management.
+
+```zsh
+brew install --cask raycast
+```
+
+Last one before the dev tools, since we might start taking a few screenshots: [CleanShot X](https://licenses.cleanshot.com/download/cleanshotx).
+
+Now, let's go to the dev tools.
+
+## The development tools
+
+I use VS Code. I keep hearing things about vim, and I already use vim navigation in VS Code, so I might try neovim later this year. Not right now though.
+
+However, I'd like to make a clean install of VS Code. So I'll not copy any of my old settings. And just try out some new things.
+
+I'd like to get a clean UI, with not much clutter. Dark mode and vim are staples. Then finding out what are some good extension these days. We'll do that soon. For now, let's just install it.
+
+```zsh
+brew install --cask visual-studio-code
+```
+
+Now, while installing VS Code I noticed my terminal is still ugly. Let's change that.
+
+### Terminal customization
+
+For the iTerm colors, I like the [Night Owl](https://github.com/nickcernis/iterm2-night-owl), which is the same theme I use in VS Code.
+
+ Now let's just setup Git config.
+
+Just the usual git config.
+
+```zsh
+git config --global user.name "Your Name"
+git config --global user.email "you@your-domain.com"
+brew install gh # github cli
+gh auth login # auth to GitHub
+```
+
+I like oh-my-zsh. It comes with great defaults and has a great plugin system.
+
+```zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+Now, let's install a few useful packages that we'll be using:
+
+
+```zsh
+brew install fzf # for fuzzy find files, commands, etc
+brew install starship
+$(brew --prefix)/opt/fzf/install
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting # syntax highlight for zsh
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions # smart autosuggestions for zsh
+curl -fsSL https://fnm.vercel.app/install | bash # node version manager
+echo 'eval "$(starship init zsh)"' >> ~/.zshrc
+```
+
+Now let's edit the zsh profile by running `code ~/.zshrc` and add some plugins and aliases.
+
+I'll share my version with you, but before that, I forgot to install GitHub CLI to clone my dotfiles repo. So let's do that, then copy the new `.zshrc` to the repo.
+
+```zsh
+mkdir src; cd src # folder where I intend to keep all my repos
+gh repo clone lucasheriques/dotfiles
+cd dotfiles # then copy new .zshrc
+gaa # alias provided by oh-my-zsh plugin, means git add all
+gc -m "Update zsh config"
+ggpush
+```
+
+Now you can see the [.zshrc file](https://github.com/lucasheriques/dotfiles/blob/main/.zshrc). I might change it in the future, but I'll try to keep my repository up-to-date. This might even be its README now that I'm thinking of that.
+
+Now, we have a beautiful terminal.
+
+
+![iTerm screenshot with a colored setup](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/st27u2pshhrieueh89jy.png)
+
+Let's just add one last thing: a good mono font. This year, I'll try JetBrains Mono.
+
+```zsh
+brew tap homebrew/cask-fonts
+brew install font-jetbrains-mono-nerd-font
+```
+
+Much better now:
+
+
+![iTerm screenshot with an mono font](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nrnu0zzt7g2hk2yvx0ft.png)
+
+Let's also install [SCM Breeze](https://github.com/scmbreeze/scm_breeze) which provides tools to help work with changed files in git. I learned about it from Jordan in his [High Growth Engineer newsletter](https://careercutler.substack.com/p/the-top-7-software-engineering-workflow).
+
+```zsh
+git clone https://github.com/scmbreeze/scm_breeze.git ~/.scm_breeze
+~/.scm_breeze/install.sh
+```
+
+Now we can do things like this:
+
+![iTerm screenshot demonstrating git aliases](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/60lxdl6xtfobesee5zpi.png)
+
+Great.
+
+Okay, terminal is done. Let's move on to the editor set up.
+
+### Editor set up
+
+Let's do the extensions first, as it's usually the most exciting.
+
+These is the cleaned up list of extensions I use. I removed the ones I haven't used much last year, but hopefully I'll find some good ones.
+
+```
+apollographql.vscode-apollo
+astro-build.astro-vscode
+bradlc.vscode-tailwindcss
+dbaeumer.vscode-eslint
+eamodio.gitlens
+esbenp.prettier-vscode
+GitHub.copilot
+GitHub.copilot-chat
+golang.go
+GraphQL.vscode-graphql
+heybourn.headwind
+kamikillerto.vscode-colorize
+mikestead.dotenv
+Orta.vscode-jest
+Prisma.prisma
+sdras.night-owl
+VisualStudioExptTeam.vscodeintellicode
+vscodevim.vim
+```
+
+As I said before, I'm usually programming in TypeScript. However, I plan to learn Go as well, which is why its extension is present.
+
+I also like Tailwind, GraphQL, ESLint, Prisma, Prettier, Astro, Jest. All of these are tools common in the TS world. So I have a bunch of extensions to help with that.
+
+For my theme, I love Night Owl by [Sarah Drasner](https://twitter.com/sarah_edo).
+
+And these days I can't live without my vim navigation.
+
+If you want to copy my extensions, you can clone my [dotfiles repo](https://github.com/lucasheriques/dotfiles) and execute the [vscode-extension-install.sh](https://github.com/lucasheriques/dotfiles/blob/main/vscode-extension-install.sh "vscode-extension-install.sh") script.
+
+With extensions out of the way, let's add some changes to VS Code settings. This is very personal, but [this is mine](https://github.com/lucasheriques/dotfiles/blob/main/vscode-settings.json) if you wanna copy it.
+
+### Languages set up
+
+#### Node
+
+To manage Node versions, I like `fnm`:
+
+```zsh
+curl -fsSL https://fnm.vercel.app/install | bash # node version manager
+```
+
+I never really know which Node version to use. Feel like this is almost as the Angular situation (which I only really used when Angular 2 released back in 2016, so maybe I'm not being fair).
+
+I did some quick googling, and apparently it's a good idea to use the [current LTS version](https://nodejs.org/en) (which makes sense).
+
+So let's do that.
+
+```zsh
+fnm install --lts
+```
+
+#### Go
+
+Go is as simple as it gets. I guess it follows the language principle. I'm so excited to dive more into it this year.
+
+```zsh
+brew install go
+```
+
+## Other applications
+
+Then, just install the rest of applications I use. Mostly self-explanatory.
+
+```zsh
+brew install --cask discord
+brew install --cask slack
+brew install --cask spotify
+brew install --cask screen-studio
+brew install --cask appcleaner
+brew install --cask figma
+brew install --cask iina # modern video player for mac
+brew install --cask zoom
+brew install --cask todoist
+brew install --cask obs
+```
+
+That's it. Hope you were able to find out about some new tools that can help you as well.
+
+See you next time!

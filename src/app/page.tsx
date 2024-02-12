@@ -11,8 +11,11 @@ export default async function Home() {
   const bytes = await getBytesList();
   return (
     <div className="grid gap-y-16">
-      <div className="flex flex-col gap-4">
-        <Title as="h1">welcome to my little 🏡 on the web! {"I'm"} Lucas</Title>
+      <section className="flex flex-col gap-4">
+        <Title as="h1">
+          welcome to my little 🏡<span className="sr-only">home</span> on the
+          web! {"I'm"} Lucas
+        </Title>
         <p>
           {"I'm"} a software engineer with a passion for impactful technology
           and building{" "}
@@ -31,9 +34,9 @@ export default async function Home() {
           divide my thoughts between two: ideas and bytes. Ideas are longer,
           more thought-out pieces, while bytes are shorter and more frequent.
         </p>
-      </div>
+      </section>
 
-      <div className="grid gap-4">
+      <section className="grid gap-4">
         <Title as="h2">💡 latest ideas</Title>
         {posts.map((post) => (
           <Link
@@ -47,9 +50,9 @@ export default async function Home() {
             <ArrowRight size={16} />
           </Link>
         ))}
-      </div>
+      </section>
 
-      <div className="grid gap-4">
+      <section className="grid gap-4">
         <Title as="h2">⚡ latest bytes</Title>
         {bytes.map((post) => (
           <Link href={`${post.slug}`} prefetch={true} key={post.slug}>
@@ -58,7 +61,7 @@ export default async function Home() {
             </h2>
           </Link>
         ))}
-      </div>
+      </section>
     </div>
   );
 }

@@ -1,7 +1,4 @@
-import { MDXRemote } from "next-mdx-remote/rsc";
-import React from "react";
-
-import CodeSnippet from "@/components/code-snippet";
+import Article from "@/components/article";
 import { getBlogPost } from "@/helpers/file-helpers";
 
 export async function generateMetadata({
@@ -20,14 +17,5 @@ export async function generateMetadata({
 export default async function Idea({ params }: { params: { slug: string } }) {
   const post = await getBlogPost("ideas/" + params.slug);
 
-  return (
-    <article className="prose dark:prose-invert text-xl font-serif">
-      <MDXRemote
-        source={post.content}
-        components={{
-          pre: (props) => <CodeSnippet {...props} />,
-        }}
-      />
-    </article>
-  );
+  return <Article content={post.content} />;
 }

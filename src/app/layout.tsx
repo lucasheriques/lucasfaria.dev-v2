@@ -6,6 +6,7 @@ import "./globals.css";
 
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import RespectMotionPreferences from "@/components/respect-motion-preferences";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/helpers/constants";
 
@@ -40,24 +41,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className="bg-gray-800 dark:bg-gradient-to-b from-gray-950 to-gray-800 dark:text-gray-300"
-    >
-      <body
-        className={clsx(
-          mainFont.variable,
-          monoFont.variable,
-          serifFont.variable,
-          "min-h-dvh text-lg font-sans flex flex-col",
-          "md:max-w-3xl mx-auto overflow-y-scroll",
-        )}
+    <RespectMotionPreferences>
+      <html
+        lang="en"
+        className="bg-gray-800 dark:bg-gradient-to-b from-gray-950 to-gray-800 dark:text-gray-300"
       >
-        <Header />
-        <main className="flex-1 px-4">{children}</main>
-        <Footer />
-        <TailwindIndicator />
-      </body>
-    </html>
+        <body
+          className={clsx(
+            mainFont.variable,
+            monoFont.variable,
+            serifFont.variable,
+            "min-h-dvh text-lg font-sans flex flex-col",
+            "md:max-w-3xl mx-auto overflow-y-scroll",
+          )}
+        >
+          <Header />
+          <main className="flex-1 px-4">{children}</main>
+          <Footer />
+          <TailwindIndicator />
+        </body>
+      </html>
+    </RespectMotionPreferences>
   );
 }

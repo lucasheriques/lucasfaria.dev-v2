@@ -34,7 +34,7 @@ export default function PostList({
             <Tag className="">{post.title}</Tag>
             <motion.div
               aria-hidden
-              animate={hoveredSlug === post.slug ? { x: 12, scale: 1.2 } : {}}
+              animate={hoveredSlug === post.slug ? { x: 8, scale: 1.2 } : {}}
               className="hidden md:block"
             >
               <ArrowRight size={16} />

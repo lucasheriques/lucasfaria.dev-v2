@@ -31,7 +31,7 @@ const HeaderNavigation = () => {
         const isActive = pathname === item.href;
         return (
           <div key={item.label} className="relative flex">
-            {hoveredNavItem === item.href && <HeaderBackdropAnimation />}
+            <HeaderBackdropAnimation isVisible={hoveredNavItem === item.href} />
             <Link
               href={item.href}
               className={clsx(

@@ -15,8 +15,9 @@ type ArticleProps = {
 const Article = ({ title, date, content, type }: ArticleProps) => {
   const humanizedDate = format(new Date(date), "MMMM do, yyyy");
   return (
-    <div>
-      <article className="prose dark:prose-invert text-xl font-serif text-gray-100">
+    <div className="grid lg:article-grid gap-y-8 sm:gap-y-12 max-w-3xl mx-auto lg:max-w-full px-4">
+      <aside className="hidden lg:flex"></aside>
+      <article className="prose dark:prose-invert text-xl font-serif text-gray-100 lg:px-4">
         <h1>{title}</h1>
         {humanizedDate}
         <MDXRemote
@@ -34,6 +35,7 @@ const Article = ({ title, date, content, type }: ArticleProps) => {
           <ArrowLeft size={16} /> Back to {type === "byte" ? "bytes" : "ideas"}
         </Link>
       </article>
+      <aside className="hidden lg:flex">Table of Contents</aside>
     </div>
   );
 };

@@ -83,4 +83,10 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: 1fr 768px 1fr; /* 1fr for flexible columns and 768px for the middle column */
+    gap: 16px; /* Adjust the gap between columns as needed */
+  }
 }

@@ -11,7 +11,7 @@ export default async function Home() {
     <div className="grid gap-y-16">
       <div className="flex flex-col gap-4">
         <h1 className="dark:text-emerald-400 text-xl font-semibold">
-          welcome to my little 🏡 on the web! I'm Lucas
+          welcome to my little 🏡 on the web! {"I'm"} Lucas
         </h1>
         <p>
           {"I'm"} a software engineer with a passion for impactful technology

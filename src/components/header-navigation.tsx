@@ -11,7 +11,7 @@ const navItems = [
   { label: "home", href: "/" },
   { label: "ideas", href: "/ideas" },
   { label: "bytes", href: "/bytes" },
-  { label: "work", href: "/work" },
+  { label: "about", href: "/about" },
 ];
 
 const HeaderNavigation = () => {

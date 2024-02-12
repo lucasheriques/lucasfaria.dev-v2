@@ -71,7 +71,6 @@ export async function getLastXBytePosts(amount: number = 3) {
 
 // Function to load a blog post from /content/ideas that gets the slug as argument
 async function _getBlogPost(slug: string) {
-  console.log(`content/${slug}.mdx`);
   const filePath = path.join(process.cwd(), `content/${slug}.mdx`);
   const fileContents = await fs.readFile(filePath, "utf8");
   const { data: frontmatter, content } = matter(fileContents);

@@ -36,7 +36,7 @@ export default function PostList({
             className="flex px-4 py-2 -ml-4 items-center hover:text-amber-600 dark:hover:text-amber-400 font-semibold transition-colors duration-300 gap-2"
             prefetch={true}
             onClick={() =>
-              setPostLanguage(post.tags.includes("en") ? "en" : "pt-br")
+              setPostLanguage(post.language?.includes("pt-br") ? "pt-br" : "en")
             }
           >
             {post.language && <Badge>{post.language}</Badge>}

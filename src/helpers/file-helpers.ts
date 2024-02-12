@@ -40,8 +40,8 @@ export function getPostInfoFromData(
     title: frontmatter.title as string,
     abstract: frontmatter.abstract as string,
     date: frontmatter.date as string,
-    language: frontmatter.language as string,
-    tags: frontmatter.tags as string,
+    language: frontmatter.language as string | undefined,
+    tags: frontmatter.tags as string | undefined,
     headings: extractTableOfContents(fileContents),
     ...(needContent && { content }),
   };

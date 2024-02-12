@@ -28,6 +28,25 @@ export function extractTableOfContents(content: string) {
   return toReturn;
 }
 
+export function getPostInfoFromData(
+  fileContents: string,
+  slug: string,
+  type: "ideas" | "bytes",
+  needContent?: boolean,
+) {
+  const { data: frontmatter, content } = matter(fileContents);
+  return {
+    slug: `/${type}/${slug}`,
+    title: frontmatter.title,
+    abstract: frontmatter.abstract,
+    date: frontmatter.date,
+    language: frontmatter.language,
+    tags: frontmatter.tags,
+    headings: extractTableOfContents(fileContents),
+    ...(needContent && { content }),
+  };
+}
+
 export async function getBlogPostList() {
   const directory = path.join(process.cwd(), "content/ideas");
   const files = await fs.readdir(directory);
@@ -35,15 +54,11 @@ export async function getBlogPostList() {
     files.map(async (file) => {
       const filePath = path.join(directory, file);
       const fileContents = await fs.readFile(filePath, "utf8");
-      const { data: frontmatter } = matter(fileContents);
-      return {
-        slug: `/ideas/${file.replace(/\.mdx$/, "")}`,
-        title: frontmatter.title,
-        abstract: frontmatter.abstract,
-        date: frontmatter.date,
-        language: frontmatter.language,
-        headings: extractTableOfContents(fileContents),
-      };
+      return getPostInfoFromData(
+        fileContents,
+        file.replace(/\.mdx$/, ""),
+        "ideas",
+      );
     }),
   );
 
@@ -68,15 +83,11 @@ export async function getBytesList() {
     files.map(async (file) => {
       const filePath = path.join(directory, file);
       const fileContents = await fs.readFile(filePath, "utf8");
-      const { data: frontmatter } = matter(fileContents);
-      return {
-        slug: `/bytes/${file.replace(/\.mdx$/, "")}`,
-        title: frontmatter.title,
-        abstract: frontmatter.abstract,
-        date: frontmatter.date,
-        language: frontmatter.language,
-        headings: extractTableOfContents(fileContents),
-      };
+      return getPostInfoFromData(
+        fileContents,
+        file.replace(/\.mdx$/, ""),
+        "bytes",
+      );
     }),
   );
 
@@ -97,15 +108,7 @@ export async function getLastXBytePosts(amount: number = 3) {
 async function _getBlogPost(slug: string) {
   const filePath = path.join(process.cwd(), `content/${slug}.mdx`);
   const fileContents = await fs.readFile(filePath, "utf8");
-  const { data: frontmatter, content } = matter(fileContents);
-  return {
-    title: frontmatter.title,
-    abstract: frontmatter.abstract,
-    date: frontmatter.date,
-    content: content,
-    language: frontmatter.language,
-    headings: extractTableOfContents(fileContents),
-  };
+  return getPostInfoFromData(fileContents, slug, "ideas", true);
 }
 
 export const getBlogPost = cache(_getBlogPost);

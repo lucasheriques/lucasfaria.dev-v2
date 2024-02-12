@@ -91,7 +91,7 @@ const Article = ({ title, date, content, type, headings }: ArticleProps) => {
         <Link
           href={`
           /${type === "byte" ? "bytes" : "ideas"}`}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 pt-12 md:pt-24"
           prefetch={true}
         >
           <ArrowLeft size={16} /> Back to {type === "byte" ? "bytes" : "ideas"}

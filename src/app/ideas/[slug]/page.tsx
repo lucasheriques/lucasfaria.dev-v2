@@ -17,6 +17,10 @@ export async function generateMetadata({
 export default async function Idea({ params }: { params: { slug: string } }) {
   const post = await getBlogPost("ideas/" + params.slug);
 
+  if (!post.content) {
+    return null;
+  }
+
   return (
     <Article
       title={post.title}

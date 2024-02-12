@@ -5,12 +5,12 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
+import Badge from "./badge";
+
+import { getPostInfoFromData } from "@/helpers/file-helpers";
+
 type PostListProps = {
-  posts: {
-    title: string;
-    slug: string;
-    abstract: string;
-  }[];
+  posts: ReturnType<typeof getPostInfoFromData>[];
   titleAs?: "h1" | "h2" | "h3" | "h4";
 };
 
@@ -19,6 +19,7 @@ export default function PostList({
   titleAs: Tag = "h3",
 }: PostListProps) {
   const [hoveredSlug, setHoveredSlug] = React.useState<string | null>(null);
+
   return (
     <ul className="grid">
       {posts.map((post) => (
@@ -32,6 +33,7 @@ export default function PostList({
             className="flex px-4 py-2 -ml-4 items-center hover:text-amber-400 font-semibold transition-colors duration-300 gap-2"
             prefetch={true}
           >
+            {post.tags && <Badge>{post.tags}</Badge>}
             <Tag className="">{post.title}</Tag>
             <motion.div
               aria-hidden

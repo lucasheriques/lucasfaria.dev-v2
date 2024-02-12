@@ -31,7 +31,6 @@ const ArticleHeading = ({
         const [entry] = entries;
 
         if (entry.isIntersecting) {
-          console.log("entry id is", id);
           setCurrentHeading(id);
         }
       },

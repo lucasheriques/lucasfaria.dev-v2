@@ -37,11 +37,11 @@ export function getPostInfoFromData(
   const { data: frontmatter, content } = matter(fileContents);
   return {
     slug: `/${type}/${slug}`,
-    title: frontmatter.title,
-    abstract: frontmatter.abstract,
-    date: frontmatter.date,
-    language: frontmatter.language,
-    tags: frontmatter.tags,
+    title: frontmatter.title as string,
+    abstract: frontmatter.abstract as string,
+    date: frontmatter.date as string,
+    language: frontmatter.language as string,
+    tags: frontmatter.tags as string,
     headings: extractTableOfContents(fileContents),
     ...(needContent && { content }),
   };

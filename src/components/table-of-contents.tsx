@@ -1,11 +1,11 @@
 "use client";
 
 import clsx from "clsx";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 
 import { Title } from "./typography";
 
-import { currentHeadingAtom } from "@/helpers/atoms";
+import { currentHeadingAtom, postLanguageAtom } from "@/helpers/atoms";
 
 type TableOfContentsProps = {
   headings: {
@@ -26,6 +26,7 @@ const marginsForHeadingLevels = {
 
 const TableOfContents = ({ headings }: TableOfContentsProps) => {
   const [activeHeading, setCurrentHeading] = useAtom(currentHeadingAtom);
+  const postLanguage = useAtomValue(postLanguageAtom);
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -62,7 +63,7 @@ const TableOfContents = ({ headings }: TableOfContentsProps) => {
           )}
           onClick={handleAnchorClick}
         >
-          Introduction
+          {postLanguage === "en" ? "Introduction" : "Introdução"}
         </a>
         {headings.map((heading) => {
           return (

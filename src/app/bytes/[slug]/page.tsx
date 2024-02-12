@@ -17,5 +17,12 @@ export async function generateMetadata({
 export default async function Byte({ params }: { params: { slug: string } }) {
   const post = await getBlogPost("bytes/" + params.slug);
 
-  return <Article content={post.content} type="byte" />;
+  return (
+    <Article
+      content={post.content}
+      type="byte"
+      title={post.title}
+      date={post.date}
+    />
+  );
 }

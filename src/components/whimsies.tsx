@@ -30,7 +30,7 @@ const generateSparkle = ({
   color?: string;
   rainbow?: boolean;
 }) => {
-  const randomTop = random(0, 20) % 2 === 0 ? random(0, 20) : random(50, 70);
+  const randomTop = random(0, 20) % 2 === 0 ? random(0, 15) : random(55, 70);
 
   return {
     id: String(random(10000, 99999)),
@@ -41,7 +41,7 @@ const generateSparkle = ({
     style: {
       // Pick a random spot in the available space
       top: randomTop + "%",
-      left: random(0, 70) + "%",
+      left: random(0, 90) + "%",
       // Float sparkles above sibling content
       zIndex: 10,
     },

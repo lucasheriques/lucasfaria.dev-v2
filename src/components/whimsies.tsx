@@ -52,8 +52,8 @@ type SparkleType = ReturnType<typeof generateSparkle>;
 
 const SparkleInstance = ({ color, style, size }: SparkleType) => (
   <span
-    className="absolute pointer-events-none
-    motion-safe:animate-grow-and-shrink block"
+    className="pointer-events-none absolute
+    block motion-safe:animate-grow-and-shrink"
     style={style}
   >
     <Sparkle

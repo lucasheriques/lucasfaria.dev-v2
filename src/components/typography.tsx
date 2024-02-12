@@ -13,7 +13,7 @@ const _Title = (
 ) => {
   return (
     <Tag
-      className={`dark:text-emerald-400 text-emerald-600 text-2xl font-semibold ${className}`}
+      className={`text-2xl font-semibold text-emerald-600 dark:text-emerald-400 ${className}`}
       {...props}
       ref={ref}
     >
@@ -29,7 +29,7 @@ export const GradientText = ({ children }: { children: React.ReactNode }) => {
       className={clsx(
         "dark:bg-gradient-to-r dark:from-purple-500 dark:to-purple-200",
         "bg-gradient-to-r from-purple-800 to-blue-500",
-        "bg-clip-text bg-transparent text-transparent",
+        "bg-transparent bg-clip-text text-transparent",
       )}
     >
       {children}

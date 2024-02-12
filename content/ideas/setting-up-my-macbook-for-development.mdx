@@ -4,7 +4,7 @@ abstract: "How I set up my MacBook Pro for development as a software engineer, i
 date: 2024-01-08
 ---
 
-<IntroAnchor/>
+<IntroAnchor />
 
 It’s that time of the year.
 
@@ -32,6 +32,7 @@ Let’s get to it.
 - While it installs, log in to the usual Apple stuff since now you have your passwords. Apple ID, iCloud, App Store, etc.
 
 - Install [Homebrew](https://brew.sh).
+
 ```zsh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
@@ -54,6 +55,7 @@ git config --global user.email "you@your-domain.com"
 ```
 
 - Install oh-my-zsh with `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+
 12. Install a bunch of zsh related stuff:
 
 ```zsh
@@ -101,26 +103,30 @@ brew install --cask obs
 ## System Preferences
 
 - Appearance
-	- Show scroll bar -> "Always"
+
+  - Show scroll bar -> "Always"
 
 - Desktop & Dock
-	- Remove most apps form Dock (hint that I just learned: just grab the icon and throw it far away to remove quickly)
-	- Automatic hide
-	- "Show suggested and recent applications in Dock" off
-	- Hot Corners -> disable all
+
+  - Remove most apps form Dock (hint that I just learned: just grab the icon and throw it far away to remove quickly)
+  - Automatic hide
+  - "Show suggested and recent applications in Dock" off
+  - Hot Corners -> disable all
 
 - Trackpad
-	- Tap to Click
-	- Point & Click -> Look up & data detectors off
+
+  - Tap to Click
+  - Point & Click -> Look up & data detectors off
 
 - Keyboard
-	- `defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false` so key repeat works
-	- Key repeat rate -> Fast
-	- Delay until repeat -> Short
+
+  - `defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false` so key repeat works
+  - Key repeat rate -> Fast
+  - Delay until repeat -> Short
 
 - Spelling and prediction
-	- Capitalize words automatically -> false
-	- Add period with double-space -> false
+  - Capitalize words automatically -> false
+  - Add period with double-space -> false
 
 On terminal:
 
@@ -187,7 +193,7 @@ Now, while installing VS Code I noticed my terminal is still ugly. Let's change 
 
 For the iTerm colors, I like the [Night Owl](https://github.com/nickcernis/iterm2-night-owl), which is the same theme I use in VS Code.
 
- Now let's just setup Git config.
+Now let's just setup Git config.
 
 Just the usual git config.
 
@@ -205,7 +211,6 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 ```
 
 Now, let's install a few useful packages that we'll be using:
-
 
 ```zsh
 brew install fzf # for fuzzy find files, commands, etc
@@ -234,7 +239,6 @@ Now you can see the [.zshrc file](https://github.com/lucasheriques/dotfiles/blob
 
 Now, we have a beautiful terminal.
 
-
 ![iTerm screenshot with a colored setup](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/st27u2pshhrieueh89jy.png)
 
 Let's just add one last thing: a good mono font. This year, I'll try JetBrains Mono.
@@ -245,7 +249,6 @@ brew install font-jetbrains-mono-nerd-font
 ```
 
 Much better now:
-
 
 ![iTerm screenshot with an mono font](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nrnu0zzt7g2hk2yvx0ft.png)
 

@@ -51,12 +51,12 @@ export default function RootLayout({
             mainFont.variable,
             monoFont.variable,
             serifFont.variable,
-            "min-h-dvh text-lg font-sans flex flex-col",
+            "flex min-h-dvh flex-col font-sans text-lg",
             "overflow-y-scroll",
           )}
         >
           <Header />
-          <main className="flex-1 relative">{children}</main>
+          <main className="relative flex-1">{children}</main>
           <Footer />
           <TailwindIndicator />
         </body>

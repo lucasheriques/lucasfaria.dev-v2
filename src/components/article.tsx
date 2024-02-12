@@ -23,9 +23,9 @@ type ArticleProps = {
 const Article = ({ title, date, content, type, headings }: ArticleProps) => {
   const humanizedDate = format(new Date(date), "MMMM do, yyyy");
   return (
-    <div className="grid xl:article-grid gap-y-8 sm:gap-y-12 px-6 relative xl:max-w-full max-w-3xl mx-auto scroll-smooth">
+    <div className="xl:article-grid relative mx-auto grid max-w-3xl gap-y-8 scroll-smooth px-6 sm:gap-y-12 xl:max-w-full">
       <aside className="hidden xl:flex"></aside>
-      <article className="prose dark:prose-invert text-xl font-serif max-w-full overflow-hidden dark:text-gray-200 text-gray-950 xl:px-6">
+      <article className="prose max-w-full overflow-hidden font-serif text-xl text-gray-950 dark:prose-invert xl:px-6 dark:text-gray-200">
         <h1>{title}</h1>
         {humanizedDate}
         <MDXRemote
@@ -89,7 +89,7 @@ const Article = ({ title, date, content, type, headings }: ArticleProps) => {
             },
             IntroAnchor: (props) => (
               <ArticleHeading
-                className="h-[1px] -mb-4"
+                className="-mb-4 h-[1px]"
                 title="introduction"
                 as="h2"
                 {...props}

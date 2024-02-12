@@ -53,7 +53,7 @@ const ArticleHeading = ({
       as={as}
       ref={headingRef}
       id={id}
-      className={`dark:text-amber-400 scroll-my-32 ${className}`}
+      className={`scroll-my-32 dark:text-amber-400 ${className}`}
     >
       {title === "introduction" ? "" : title}
     </Title>

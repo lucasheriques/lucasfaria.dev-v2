@@ -47,15 +47,15 @@ const TableOfContents = ({ headings }: TableOfContentsProps) => {
   }
 
   return (
-    <aside className="hidden lg:block sticky top-1/4 h-40 max-w-xl mx-auto pt-0 table-of-contents text-sm 2xl:text-base">
-      <Title as="h2" className="text-sm pb-2">
+    <aside className="table-of-contents sticky top-1/4 mx-auto hidden h-40 max-w-xl pt-0 text-sm lg:block 2xl:text-base">
+      <Title as="h2" className="pb-2 text-sm">
         Table of Contents
       </Title>
       <nav className="flex flex-col gap-1 py-4">
         <a
           href="#introduction"
           className={clsx(
-            "block hover:text-amber-400 transition-colors duration-300 scroll-smooth",
+            "block scroll-smooth transition-colors duration-300 hover:text-amber-400",
             marginsForHeadingLevels[2],
             "introduction" === activeHeading
               ? "text-amber-400"
@@ -71,7 +71,7 @@ const TableOfContents = ({ headings }: TableOfContentsProps) => {
               key={heading.id}
               href={`#${heading.id}`}
               className={clsx(
-                "block hover:text-amber-400 transition-colors duration-300 scroll-smooth",
+                "block scroll-smooth transition-colors duration-300 hover:text-amber-400",
                 marginsForHeadingLevels[heading.level],
                 heading.id === activeHeading
                   ? "text-amber-400"

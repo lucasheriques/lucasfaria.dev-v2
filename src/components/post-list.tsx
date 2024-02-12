@@ -33,7 +33,7 @@ export default function PostList({
         >
           <Link
             href={post.slug}
-            className="flex px-4 py-2 -ml-4 items-center hover:text-amber-600 dark:hover:text-amber-400 font-semibold transition-colors duration-300 gap-2"
+            className="-ml-4 flex flex-col items-start gap-0 px-4 py-2 font-semibold transition-colors duration-300 hover:text-amber-600 md:flex-row md:items-center md:gap-2 dark:hover:text-amber-400"
             prefetch={true}
             onClick={() =>
               setPostLanguage(post.language?.includes("pt-br") ? "pt-br" : "en")

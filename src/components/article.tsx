@@ -22,9 +22,9 @@ type ArticleProps = {
 const Article = ({ title, date, content, type, headings }: ArticleProps) => {
   const humanizedDate = format(new Date(date), "MMMM do, yyyy");
   return (
-    <div className="grid lg:article-grid gap-y-8 sm:gap-y-12 px-6 relative">
-      <aside className="hidden lg:flex"></aside>
-      <article className="prose dark:prose-invert text-xl font-serif max-w-full overflow-hidden text-gray-100 lg:px-6">
+    <div className="grid xl:article-grid gap-y-8 sm:gap-y-12 px-6 relative xl:max-w-full max-w-3xl mx-auto scroll-smooth">
+      <aside className="hidden xl:flex"></aside>
+      <article className="prose dark:prose-invert text-xl font-serif max-w-full overflow-hidden dark:text-gray-200 xl:px-6">
         <h1>{title}</h1>
         {humanizedDate}
         <MDXRemote

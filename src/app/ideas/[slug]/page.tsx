@@ -1,6 +1,5 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
 import React from "react";
-import { Suspense } from "react";
 
 import CodeSnippet from "@/components/code-snippet";
 import { getBlogPost } from "@/helpers/file-helpers";

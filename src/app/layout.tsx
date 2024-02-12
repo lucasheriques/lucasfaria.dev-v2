@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import type { Metadata } from "next";
-import { DM_Sans, Lora, Spline_Sans_Mono } from "next/font/google";
+import { Lora, Spline_Sans_Mono, Work_Sans } from "next/font/google";
 
 import "./globals.css";
 
@@ -9,7 +9,7 @@ import Header from "@/components/header";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/helpers/constants";
 
-const mainFont = DM_Sans({
+const mainFont = Work_Sans({
   subsets: ["latin"],
   display: "fallback",
   weight: "variable",
@@ -47,7 +47,7 @@ export default function RootLayout({
           monoFont.variable,
           serifFont.variable,
           "min-h-svh flex flex-col max-w-3xl text-lg mx-auto font-sans",
-          "dark:bg-gradient-to-b from-gray-950 to-gray-800 dark:text-slate-300",
+          "dark:bg-gradient-to-b from-gray-950 to-gray-800 dark:text-gray-300 overflow-y-scroll",
         )}
       >
         <Header />

@@ -40,14 +40,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className="bg-gray-800 dark:bg-gradient-to-b from-gray-950 to-gray-800 dark:text-gray-300"
+    >
       <body
         className={clsx(
           mainFont.variable,
           monoFont.variable,
           serifFont.variable,
-          "min-h-svh flex flex-col max-w-3xl text-lg mx-auto font-sans",
-          "dark:bg-gradient-to-b from-gray-950 to-gray-800 dark:text-gray-300 overflow-y-scroll",
+          "min-h-dvh text-lg font-sans flex flex-col",
+          "md:max-w-3xl mx-auto overflow-y-scroll",
         )}
       >
         <Header />

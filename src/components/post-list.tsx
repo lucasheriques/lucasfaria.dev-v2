@@ -1,6 +1,9 @@
 "use client";
 
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import React from "react";
 
 type PostListProps = {
   posts: {
@@ -15,18 +18,28 @@ export default function PostList({
   posts,
   titleAs: Tag = "h3",
 }: PostListProps) {
+  const [hoveredSlug, setHoveredSlug] = React.useState<string | null>(null);
   return (
-    <ul className="grid gap-4">
+    <ul className="grid">
       {posts.map((post) => (
-        <li key={post.slug}>
-          <Tag>
-            <Link
-              href={post.slug}
-              className="font-semibold hover:text-amber-400 transition-colors duration-300"
+        <li
+          key={post.slug}
+          onMouseEnter={() => setHoveredSlug(post.slug)}
+          onMouseLeave={() => setHoveredSlug(null)}
+        >
+          <Link
+            href={post.slug}
+            className="flex px-4 py-2 -ml-4 items-center hover:text-amber-400 font-semibold transition-colors duration-300 gap-2"
+          >
+            <Tag className="">{post.title}</Tag>
+            <motion.div
+              aria-hidden
+              animate={hoveredSlug === post.slug ? { x: 12, scale: 1.2 } : {}}
+              className="hidden md:block"
             >
-              {post.title}
-            </Link>
-          </Tag>
+              <ArrowRight size={16} />
+            </motion.div>
+          </Link>
         </li>
       ))}
     </ul>

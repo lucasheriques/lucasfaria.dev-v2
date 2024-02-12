@@ -7,7 +7,7 @@ export default async function Home() {
   const posts = await getLastXBlogPosts();
   const bytes = await getLastXBytePosts();
   return (
-    <div className="grid gap-y-16">
+    <div className="grid gap-y-8 sm:gap-y-12">
       <section className="flex flex-col gap-4">
         <Title as="h1">
           welcome to my little 🏡<span className="sr-only">home</span> on the

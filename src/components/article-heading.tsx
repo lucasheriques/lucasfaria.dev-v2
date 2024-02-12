@@ -47,7 +47,7 @@ const ArticleHeading = ({
   }, [id, setCurrentHeading]);
 
   return (
-    <Title as={as} ref={headingRef} id={id}>
+    <Title as={as} ref={headingRef} id={id} className="dark:text-amber-400">
       {title}
     </Title>
   );

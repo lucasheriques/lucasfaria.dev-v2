@@ -30,6 +30,7 @@ export default function PostList({
           <Link
             href={post.slug}
             className="flex px-4 py-2 -ml-4 items-center hover:text-amber-400 font-semibold transition-colors duration-300 gap-2"
+            prefetch={true}
           >
             <Tag className="">{post.title}</Tag>
             <motion.div

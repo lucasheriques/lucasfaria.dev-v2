@@ -17,6 +17,7 @@ const Article = ({ content, type }: ArticleProps) => {
           source={content}
           components={{
             pre: (props) => <CodeSnippet {...props} />,
+            a: (props) => <a {...props} target="_blank" />,
           }}
         />
         <Link

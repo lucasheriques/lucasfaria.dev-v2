@@ -1,7 +1,22 @@
-export default function IdeasPage() {
+import PostList from "@/components/post-list";
+import { Title } from "@/components/typography";
+import { getBlogPostList } from "@/helpers/file-helpers";
+
+export default async function IdeasPage() {
+  const posts = await getBlogPostList();
   return (
-    <div>
-      <h1>Ideas</h1>
+    <div className="grid gap-y-16">
+      <section>
+        <Title as="h1">Ideas 💡</Title>
+        <p>
+          Longer reflections on software engineering, product management, and
+          personal growth. A personal exploration of the subjects {"I'm"}{" "}
+          passionate about.
+        </p>
+      </section>
+      <section>
+        <PostList posts={posts} />
+      </section>
     </div>
   );
 }

@@ -32,6 +32,12 @@ export async function getBlogPostList() {
   return blogPosts;
 }
 
+// Function to read only the last 3 blog posts
+export async function getLastXBlogPosts(amount: number = 3) {
+  const blogPosts = await getBlogPostList();
+  return blogPosts.slice(0, amount);
+}
+
 export async function getBytesList() {
   const directory = path.join(process.cwd(), "content/bytes");
   const files = await fs.readdir(directory);
@@ -56,6 +62,11 @@ export async function getBytesList() {
   );
 
   return bytePosts;
+}
+
+export async function getLastXBytePosts(amount: number = 3) {
+  const bytePosts = await getBytesList();
+  return bytePosts.slice(0, amount);
 }
 
 // Function to load a blog post from /content/ideas that gets the slug as argument

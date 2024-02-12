@@ -17,5 +17,5 @@ export async function generateMetadata({
 export default async function Idea({ params }: { params: { slug: string } }) {
   const post = await getBlogPost("ideas/" + params.slug);
 
-  return <Article content={post.content} />;
+  return <Article content={post.content} type="idea" />;
 }

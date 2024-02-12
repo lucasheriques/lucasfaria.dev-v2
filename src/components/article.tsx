@@ -12,7 +12,7 @@ type ArticleProps = {
 const Article = ({ content, type }: ArticleProps) => {
   return (
     <div>
-      <article className="prose dark:prose-invert text-xl font-serif">
+      <article className="prose dark:prose-invert text-xl font-serif text-gray-100">
         <MDXRemote
           source={content}
           components={{

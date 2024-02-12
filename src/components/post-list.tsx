@@ -20,7 +20,10 @@ export default function PostList({
       {posts.map((post) => (
         <li key={post.slug}>
           <Tag>
-            <Link href={post.slug} className="font-semibold">
+            <Link
+              href={post.slug}
+              className="font-semibold hover:text-amber-400 transition-colors duration-300"
+            >
               {post.title}
             </Link>
           </Tag>

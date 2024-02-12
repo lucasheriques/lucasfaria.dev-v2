@@ -79,14 +79,21 @@
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-
+@layer components {
   .article-grid {
     display: grid;
     grid-template-columns: 1fr 768px 1fr; /* 1fr for flexible columns and 768px for the middle column */
     gap: 16px; /* Adjust the gap between columns as needed */
+  }
+
+  .table-of-contents {
+    min-height: calc(-144px + 100vh);
+    overflow: auto;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }

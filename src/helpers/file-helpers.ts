@@ -4,6 +4,8 @@ import path from "path";
 import { cache } from "react";
 import "server-only";
 
+type PossibleHeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
+
 // extract table of contents based on headings
 // ignore everything that is betweeen ```
 export function extractTableOfContents(content: string) {
@@ -11,21 +13,19 @@ export function extractTableOfContents(content: string) {
   if (!headings) {
     return [];
   }
-  const toReturn = headings.map((heading) => {
-    const level = heading.match(/#/g)?.length ?? 1;
+  return headings.map((heading) => {
+    const headingLevel = heading.match(/#/g)?.length;
     const title = heading.replace(/#/g, "").trim();
     const id = title
       .toLowerCase()
       .replace(/\s/g, "-")
       .replace(/[^a-zA-Z0-9-]/g, "");
     return {
-      level,
+      level: headingLevel as PossibleHeadingLevel,
       title,
       id,
     };
   });
-
-  return toReturn;
 }
 
 export function getPostInfoFromData(

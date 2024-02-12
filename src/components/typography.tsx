@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React from "react";
 
 type TitleProps = {
@@ -12,7 +13,7 @@ const _Title = (
 ) => {
   return (
     <Tag
-      className={`dark:text-emerald-400 text-2xl font-semibold ${className}`}
+      className={`dark:text-emerald-400 text-emerald-600 text-2xl font-semibold ${className}`}
       {...props}
       ref={ref}
     >
@@ -24,7 +25,13 @@ export const Title = React.forwardRef<HTMLHeadingElement, TitleProps>(_Title);
 
 export const GradientText = ({ children }: { children: React.ReactNode }) => {
   return (
-    <span className="dark:bg-gradient-to-r from-purple-500 dark:to-purple-200 bg-clip-text bg-transparent text-transparent">
+    <span
+      className={clsx(
+        "dark:bg-gradient-to-r dark:from-purple-500 dark:to-purple-200",
+        "bg-gradient-to-r from-purple-800 to-blue-500",
+        "bg-clip-text bg-transparent text-transparent",
+      )}
+    >
       {children}
     </span>
   );

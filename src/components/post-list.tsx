@@ -30,7 +30,7 @@ export default function PostList({
         >
           <Link
             href={post.slug}
-            className="flex px-4 py-2 -ml-4 items-center hover:text-amber-400 font-semibold transition-colors duration-300 gap-2"
+            className="flex px-4 py-2 -ml-4 items-center hover:text-amber-600 dark:hover:text-amber-400 font-semibold transition-colors duration-300 gap-2"
             prefetch={true}
           >
             {post.tags && <Badge>{post.tags}</Badge>}

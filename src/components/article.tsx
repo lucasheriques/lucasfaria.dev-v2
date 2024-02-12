@@ -13,7 +13,7 @@ type ArticleProps = {
   content: string;
   type: "byte" | "idea";
   headings: {
-    level: number;
+    level: 1 | 2 | 3 | 4 | 5 | 6;
     title: string;
     id: string;
   }[];
@@ -24,7 +24,7 @@ const Article = ({ title, date, content, type, headings }: ArticleProps) => {
   return (
     <div className="grid xl:article-grid gap-y-8 sm:gap-y-12 px-6 relative xl:max-w-full max-w-3xl mx-auto scroll-smooth">
       <aside className="hidden xl:flex"></aside>
-      <article className="prose dark:prose-invert text-xl font-serif max-w-full overflow-hidden dark:text-gray-200 xl:px-6">
+      <article className="prose dark:prose-invert text-xl font-serif max-w-full overflow-hidden dark:text-gray-200 text-gray-950 xl:px-6">
         <h1>{title}</h1>
         {humanizedDate}
         <MDXRemote
@@ -86,6 +86,14 @@ const Article = ({ title, date, content, type, headings }: ArticleProps) => {
                 />
               );
             },
+            IntroAnchor: (props) => (
+              <ArticleHeading
+                className="h-[1px] -mb-4"
+                title="introduction"
+                as="h2"
+                {...props}
+              />
+            ),
           }}
         />
         <Link

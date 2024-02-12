@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import ArticleHeading from "./article-heading";
 import CodeSnippet from "./code-snippet";
+import ResetHeading from "./reset-heading";
 import TableOfContents from "./table-of-contents";
 
 type ArticleProps = {
@@ -106,6 +107,7 @@ const Article = ({ title, date, content, type, headings }: ArticleProps) => {
         </Link>
       </article>
       <TableOfContents headings={headings} />
+      <ResetHeading />
     </div>
   );
 };

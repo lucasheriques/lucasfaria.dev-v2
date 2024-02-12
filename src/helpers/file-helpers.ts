@@ -4,6 +4,30 @@ import path from "path";
 import { cache } from "react";
 import "server-only";
 
+// extract table of contents based on headings
+// ignore everything that is betweeen ```
+export function extractTableOfContents(content: string) {
+  const headings = content.match(/(?<=^|\n)#{1,6} .*(?=\n|$)/g);
+  if (!headings) {
+    return [];
+  }
+  const toReturn = headings.map((heading) => {
+    const level = heading.match(/#/g)?.length ?? 1;
+    const title = heading.replace(/#/g, "").trim();
+    const id = title
+      .toLowerCase()
+      .replace(/\s/g, "-")
+      .replace(/[^a-zA-Z0-9-]/g, "");
+    return {
+      level,
+      title,
+      id,
+    };
+  });
+
+  return toReturn;
+}
+
 export async function getBlogPostList() {
   const directory = path.join(process.cwd(), "content/ideas");
   const files = await fs.readdir(directory);
@@ -18,6 +42,7 @@ export async function getBlogPostList() {
         abstract: frontmatter.abstract,
         date: frontmatter.date,
         language: frontmatter.language,
+        headings: extractTableOfContents(fileContents),
       };
     }),
   );
@@ -50,6 +75,7 @@ export async function getBytesList() {
         abstract: frontmatter.abstract,
         date: frontmatter.date,
         language: frontmatter.language,
+        headings: extractTableOfContents(fileContents),
       };
     }),
   );
@@ -78,6 +104,7 @@ async function _getBlogPost(slug: string) {
     date: frontmatter.date,
     content: content,
     language: frontmatter.language,
+    headings: extractTableOfContents(fileContents),
   };
 }
 

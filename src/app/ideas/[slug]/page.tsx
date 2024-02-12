@@ -23,6 +23,7 @@ export default async function Idea({ params }: { params: { slug: string } }) {
       date={post.date}
       content={post.content}
       type="idea"
+      headings={post.headings}
     />
   );
 }

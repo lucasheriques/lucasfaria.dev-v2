@@ -1,3 +1,4 @@
+import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
 import { GradientText, Title } from "@/components/typography";
 import { SparklesWhimsy } from "@/components/whimsies";
@@ -7,7 +8,7 @@ export default async function Home() {
   const posts = await getLastXBlogPosts();
   const bytes = await getLastXBytePosts();
   return (
-    <div className="grid gap-y-8 sm:gap-y-12">
+    <PageWrapper>
       <section className="flex flex-col gap-4">
         <Title as="h1">
           welcome to my little 🏡<span className="sr-only">home</span> on the
@@ -42,6 +43,6 @@ export default async function Home() {
         <Title as="h2">latest bytes ⚡</Title>
         <PostList posts={bytes} />
       </section>
-    </div>
+    </PageWrapper>
   );
 }

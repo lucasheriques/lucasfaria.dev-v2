@@ -24,11 +24,16 @@ const HeaderNavigation = () => {
 
   return (
     <nav
-      className="font-semibold -ml-4 text-lg py-2 gap-2 hidden md:flex"
+      className="font-semibold -ml-4 text-lg py-2 gap-2 flex"
       onMouseLeave={() => setHoveredNavItem(null)}
     >
       {navItems.map((item) => {
         const isActive = pathname === item.href;
+
+        if (item.href === "/recommendations") {
+          return null;
+        }
+
         return (
           <div key={item.label} className="relative flex">
             <HeaderBackdropAnimation isVisible={hoveredNavItem === item.href} />

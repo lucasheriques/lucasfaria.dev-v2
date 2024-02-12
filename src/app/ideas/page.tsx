@@ -1,3 +1,4 @@
+import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
 import { Title } from "@/components/typography";
 import { getBlogPostList } from "@/helpers/file-helpers";
@@ -5,7 +6,7 @@ import { getBlogPostList } from "@/helpers/file-helpers";
 export default async function IdeasPage() {
   const posts = await getBlogPostList();
   return (
-    <div className="grid gap-y-16">
+    <PageWrapper>
       <section>
         <Title as="h1">Ideas 💡</Title>
         <p>
@@ -17,6 +18,6 @@ export default async function IdeasPage() {
       <section>
         <PostList posts={posts} />
       </section>
-    </div>
+    </PageWrapper>
   );
 }

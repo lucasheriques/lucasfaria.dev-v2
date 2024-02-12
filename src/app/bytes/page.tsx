@@ -1,3 +1,4 @@
+import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
 import { Title } from "@/components/typography";
 import { getBytesList } from "@/helpers/file-helpers";
@@ -5,7 +6,7 @@ import { getBytesList } from "@/helpers/file-helpers";
 export default async function BytesPage() {
   const posts = await getBytesList();
   return (
-    <div className="grid gap-y-12">
+    <PageWrapper>
       <section>
         <Title as="h1">Bytes ⚡</Title>
         <p>
@@ -16,6 +17,6 @@ export default async function BytesPage() {
       <section>
         <PostList posts={posts} />
       </section>
-    </div>
+    </PageWrapper>
   );
 }

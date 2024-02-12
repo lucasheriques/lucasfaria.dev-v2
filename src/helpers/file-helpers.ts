@@ -17,6 +17,7 @@ export async function getBlogPostList() {
         title: frontmatter.title,
         abstract: frontmatter.abstract,
         date: frontmatter.date,
+        language: frontmatter.language,
       };
     }),
   );
@@ -25,6 +26,8 @@ export async function getBlogPostList() {
   blogPosts.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
+
+  console.log({ blogPosts });
 
   return blogPosts;
 }
@@ -42,6 +45,7 @@ export async function getBytesList() {
         title: frontmatter.title,
         abstract: frontmatter.abstract,
         date: frontmatter.date,
+        language: frontmatter.language,
       };
     }),
   );
@@ -65,6 +69,7 @@ async function _getBlogPost(slug: string) {
     abstract: frontmatter.abstract,
     date: frontmatter.date,
     content: content,
+    language: frontmatter.language,
   };
 }
 

@@ -56,7 +56,7 @@ export default function RootLayout({
           )}
         >
           <Header />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 relative">{children}</main>
           <Footer />
           <TailwindIndicator />
         </body>

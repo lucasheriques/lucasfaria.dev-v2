@@ -25,6 +25,7 @@ export default async function Byte({ params }: { params: { slug: string } }) {
       type="byte"
       title={post.title}
       date={post.date}
+      headings={post.headings}
     />
   );
 }

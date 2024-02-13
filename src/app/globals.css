@@ -97,3 +97,96 @@
     text-wrap: balance;
   }
 }
+
+.espresso-machine {
+  position: relative;
+  width: 200px; /* Adjusted for more detailed styling */
+  height: 200px; /* Adjusted for more detailed styling */
+  margin: 50px auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.machine-body {
+  position: relative;
+  width: 120px;
+  height: 140px;
+  background-color: #666; /* Darker shade for contrast */
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.spout {
+  position: absolute;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #333; /* Spout color */
+  border-radius: 0 0 10px 10px;
+}
+
+.knob {
+  position: absolute;
+  top: 30px;
+  width: 20px;
+  height: 20px;
+  background-color: #999; /* Knob color */
+  border-radius: 50%;
+  margin-left: -10px; /* Half of the width to center it */
+}
+
+.base {
+  width: 140px;
+  height: 20px;
+  background-color: #444; /* Base color */
+  border-radius: 5px;
+}
+
+/* Adjust the knob position as needed */
+.knob:first-child {
+  left: 40%;
+}
+
+.knob:last-child {
+  left: 60%;
+}
+
+.coffee {
+  position: absolute;
+  bottom: 20px; /* Adjust based on cup position */
+  left: 50%; /* Align with the spout */
+  transform: translateX(-50%);
+  width: 2px; /* Simulate a thin stream */
+  height: 0;
+  background-color: #603813; /* Coffee color */
+  animation: pour 2s infinite;
+}
+
+.cup {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 0 0 15px 15px; /* Rounded bottom */
+  border: 2px solid #666; /* Cup styling */
+}
+
+@keyframes pour {
+  0%,
+  100% {
+    height: 0;
+    opacity: 0; /* Start and end transparently */
+  }
+  30%,
+  70% {
+    height: 60px; /* Adjust based on distance from spout to cup */
+    opacity: 1; /* Fully visible when pouring */
+  }
+}

@@ -1,3 +1,4 @@
+import MagicHomeTooltip from "@/components/magic-home-tooltip";
 import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
 import { GradientText, Title } from "@/components/typography";
@@ -11,8 +12,7 @@ export default async function Home() {
     <PageWrapper>
       <section className="flex flex-col gap-4">
         <Title as="h1">
-          welcome to my little 🏡<span className="sr-only">home</span> on the
-          web! {"I'm"} Lucas
+          welcome to my <MagicHomeTooltip /> on the web! {"I'm"} Lucas
         </Title>
         <p>
           {"I'm"} a software engineer with a passion for impactful technology

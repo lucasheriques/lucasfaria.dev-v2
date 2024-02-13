@@ -1,7 +1,7 @@
 .espressoMachine {
   position: relative;
   width: 200px;
-  height: 250px;
+  height: 200px;
   margin: 16px auto;
   display: flex;
   flex-direction: column;
@@ -11,7 +11,7 @@
 .machineBody {
   position: relative;
   width: 120px;
-  height: 140px;
+  height: 100px;
   background-color: #666;
   border-radius: 10px 10px 0 0;
   display: flex;
@@ -34,10 +34,10 @@
 
 .backgroundConnector {
   position: absolute;
-  bottom: 30px; /* Adjust to position correctly between the body and tray */
-  width: 100%;
-  height: 20px;
-  background-color: #666;
+  bottom: 20px;
+  width: 60%;
+  height: 80px;
+  background-color: #4d609d;
   z-index: 2;
 }
 
@@ -63,13 +63,13 @@
 
 .coffee {
   position: absolute;
-  top: 160px;
+  bottom: 80px; /* Adjust if necessary to align with the spout */
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
-  height: 0;
-  background-color: #603813;
-  animation: pour 2s infinite;
+  height: 0; /* Ensure this starts as not extended */
+  background-color: #ed9638;
+  animation: pourCoffee 8s infinite; /* Match the cycle duration */
   z-index: 4;
 }
 
@@ -86,15 +86,54 @@
   z-index: 4;
 }
 
-@keyframes pour {
-  0%,
-  100% {
+.coffeeInside {
+  position: absolute;
+  bottom: 2px; /* Slightly raise the starting position to simulate padding */
+  left: 2px; /* Start a bit from the left to simulate side padding */
+  width: calc(
+    100% - 4px
+  ); /* Reduce width to account for left and right "padding" */
+  height: 0; /* Start with an empty cup */
+  background-color: #ed9638; /* Same color as the pouring coffee */
+  animation: fillCup 8s infinite;
+  border-radius: 0 0 15px 15px; /* Smooth bottom edges like the cup, matching your update */
+}
+
+@keyframes pourCoffee {
+  0% {
     height: 0;
-    opacity: 0;
+    opacity: 1; /* Ensure opacity allows visibility */
+    bottom: 80px;
   }
-  30%,
-  70% {
-    height: 40px;
+  25% {
+    height: 35px; /* Full extension of the coffee stream */
     opacity: 1;
+    bottom: 50px;
+  }
+  50% {
+    height: 35px; /* Maintain full extension */
+    opacity: 1;
+    bottom: 50px;
+  }
+  75%,
+  100% {
+    height: 0; /* Retract the coffee stream */
+    opacity: 0; /* Transition to invisible */
+    bottom: 80px;
+  }
+}
+
+@keyframes fillCup {
+  0%,
+  50% {
+    height: 0%;
+  }
+  50%,
+  75% {
+    height: 80%; /* Begins filling as soon as the pouring ends */
+  }
+  75%,
+  100% {
+    height: 80%; /* Cup remains filled */
   }
 }

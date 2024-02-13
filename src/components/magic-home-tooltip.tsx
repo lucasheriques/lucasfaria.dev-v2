@@ -5,7 +5,7 @@ import EspressoMachine from "./espresso-machine";
 
 export default function MagicHomeTooltip() {
   return (
-    <TooltipTrigger delay={1000}>
+    <TooltipTrigger delay={1000} isOpen={true}>
       <Button className="lg:underline lg:decoration-wavy">little home</Button>
       <Tooltip className="border-12 mt-4 flex items-start rounded-3xl border-8 border-dotted border-purple-900 bg-gray-900">
         <div className="flex gap-8 p-4">

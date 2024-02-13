@@ -10,7 +10,14 @@ function EspressoMachine() {
       <div className={styles.tray}></div>
       <div className={styles.base}></div>
       <div className={styles.coffee}></div>
-      <div className={styles.cup}></div>
+      <div className={styles.cup}>
+        <div className={styles.coffeeInside}></div>
+        <div className={styles.smoke}>
+          <div className={styles.smokeLine}></div>
+          <div className={styles.smokeLine}></div>
+          <div className={styles.smokeLine}></div>
+        </div>
+      </div>
     </div>
   );
 }

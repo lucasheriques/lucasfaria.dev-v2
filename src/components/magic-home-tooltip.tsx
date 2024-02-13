@@ -28,7 +28,7 @@ export default function MagicHomeTooltip() {
               magical little interactions and products people love using.
             </p>
             <p>
-              Come in, and help yourself to some coffee. I'd love to get you
+              Come in, and help yourself to some coffee. {"I'd"} love to get you
               know you a little bit better.
             </p>
             <EspressoMachine />

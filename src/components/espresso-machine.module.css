@@ -1,7 +1,7 @@
 .espressoMachine {
   position: relative;
   width: 200px;
-  height: 200px;
+  height: 220px;
   margin: 16px auto;
   display: flex;
   flex-direction: column;
@@ -11,7 +11,7 @@
 .machineBody {
   position: relative;
   width: 120px;
-  height: 90px;
+  height: 110px;
   border-radius: 10px 10px 0 0;
   z-index: 3;
 }

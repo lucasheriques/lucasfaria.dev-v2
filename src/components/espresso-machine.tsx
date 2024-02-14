@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Coffee } from "lucide-react";
+import { Coffee, Heart } from "lucide-react";
 import React from "react";
 
 import CloudIcon from "./cloud-icon";
@@ -23,12 +23,17 @@ function EspressoMachine() {
   return (
     <div className={styles.espressoMachine}>
       <div
-        className={`${styles.machineBody} flex flex-col items-center bg-amber-800`}
+        className={`${styles.machineBody} flex flex-col items-center bg-stone-300`}
       >
-        <div className="mt-4">
+        <div className="mt-1 flex w-full flex-col items-center justify-center gap-3">
+          <div className="flex w-full items-center justify-center border-b border-dashed border-b-rose-600 p-1 text-rose-700">
+            <Heart />
+            <Heart />
+            <Heart />
+          </div>
           <button
             onClick={handleCoffeeClick}
-            className="rounded border border-white p-1 text-xs text-white"
+            className="text--500 rounded border-2 border-dashed border-rose-700 p-1 text-xs text-rose-700"
           >
             {!isLoading && <Coffee />}
             {isLoading && !isCoffeeReady && "Preparing..."}

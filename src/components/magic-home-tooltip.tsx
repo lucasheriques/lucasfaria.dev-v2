@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { Button, Tooltip, TooltipTrigger } from "react-aria-components";
 
@@ -5,9 +7,9 @@ import EspressoMachine from "./espresso-machine";
 
 export default function MagicHomeTooltip() {
   return (
-    <TooltipTrigger delay={1000} isOpen={true}>
+    <TooltipTrigger delay={500}>
       <Button className="lg:underline lg:decoration-wavy">little home</Button>
-      <Tooltip className="border-12 mt-4 flex items-start rounded-3xl border-8 border-dotted border-purple-900 bg-gray-900">
+      <Tooltip className="border-12 mt-4 flex items-start overflow-auto rounded-3xl border-8 border-dotted border-purple-900 bg-slate-900">
         <div className="flex gap-8 p-4">
           <div>
             <Image

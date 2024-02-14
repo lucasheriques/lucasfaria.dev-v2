@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import clsx from "clsx";
 import type { Metadata } from "next";
 import { Lora, Spline_Sans_Mono, Work_Sans } from "next/font/google";
@@ -59,6 +60,7 @@ export default function RootLayout({
           <main className="relative flex-1">{children}</main>
           <Footer />
           <TailwindIndicator />
+          <Analytics />
         </body>
       </html>
     </RespectMotionPreferences>

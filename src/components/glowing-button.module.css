@@ -1,0 +1,24 @@
+.rotatingBackground {
+  background: linear-gradient(
+    var(--gradient-angle),
+    rgb(255, 255, 255),
+    rgb(184, 108, 15)
+  );
+  animation: gradient-rotate 5s linear infinite reverse;
+}
+
+.hover\:glow:hover {
+  box-shadow:
+    0 0 15px rgba(255, 255, 255, 0.5),
+    0 0 20px rgba(213, 34, 255, 0.7);
+}
+
+@keyframes gradient-rotate {
+  0% {
+    --gradient-angle: 360deg;
+  }
+
+  100% {
+    --gradient-angle: 0deg;
+  }
+}

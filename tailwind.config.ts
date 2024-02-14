@@ -35,6 +35,12 @@ const config: Config = {
         "pour-coffee": "pour-coffee 6s",
         "fill-cup": "fill-cup 6s",
         "show-smoke": "show-smoke 6s",
+        rotate: "rotate 20s linear infinite",
+        glow: "glow 2s ease-in-out infinite",
+      },
+      boxShadow: {
+        "custom-glow":
+          "0 0 8px rgba(255, 255, 255, 0.2), 0 0 10px rgba(255, 255, 255, 0.3), 0 0 12px rgba(213, 34, 255, 0.7), 0 0 14px rgba(213, 34, 255, 0.5), 0 0 16px rgba(213, 34, 255, 0.3)",
       },
       keyframes: {
         "grow-and-shrink": {
@@ -52,9 +58,8 @@ const config: Config = {
         },
         "pour-coffee": {
           "0%": { height: "0", opacity: "1", bottom: "100px" },
-          "25%": { height: "45px", opacity: "1", bottom: "50px" },
-          "50%": { height: "45px", opacity: "1", bottom: "50px" },
-          "75%,100%": { height: "0", opacity: "0", bottom: "30px" },
+          "40%": { height: "45px", opacity: "1", bottom: "50px" },
+          "80%": { height: "0", opacity: "0", bottom: "30px" },
         },
         "fill-cup": {
           "0%,50%": { height: "0" },
@@ -65,6 +70,20 @@ const config: Config = {
           "0%,58.33%": { opacity: "0" },
           "75%": { opacity: "1" },
           "100%": { opacity: "0" },
+        },
+        rotate: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        glow: {
+          "0%, 100%": {
+            boxShadow:
+              "0 0 8px rgba(255, 255, 255, 0.2), 0 0 10px rgba(255, 255, 255, 0.3), 0 0 12px rgba(213, 34, 255, 0.7), 0 0 14px rgba(213, 34, 255, 0.5), 0 0 16px rgba(213, 34, 255, 0.3)",
+          },
+          "50%": {
+            boxShadow:
+              "0 0 12px rgba(255, 255, 255, 0.3), 0 0 14px rgba(255, 255, 255, 0.4), 0 0 16px rgba(213, 34, 255, 0.9), 0 0 18px rgba(213, 34, 255, 0.7), 0 0 20px rgba(213, 34, 255, 0.5)",
+          },
         },
       },
     },

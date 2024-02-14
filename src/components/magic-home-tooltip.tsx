@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { Button, Tooltip, TooltipTrigger } from "react-aria-components";
 
@@ -8,9 +9,12 @@ import EspressoMachine from "./espresso-machine";
 export default function MagicHomeTooltip() {
   return (
     <TooltipTrigger delay={500}>
-      <Button className="lg:underline lg:decoration-wavy">little home</Button>
-      <Tooltip className="border-12 mt-4 flex items-start overflow-auto rounded-3xl border-8 border-dotted border-purple-900 bg-slate-900">
-        <div className="flex gap-8 p-4">
+      <Button className="underline decoration-wavy">little home</Button>
+      <Tooltip className="m-4 overflow-auto rounded-3xl border-4 border-dotted border-purple-900 bg-slate-900">
+        <motion.div
+          animate={{}}
+          className="flex flex-col items-center gap-8 p-4 lg:flex-row"
+        >
           <div>
             <Image
               src="/magic-home.jpg"
@@ -20,22 +24,21 @@ export default function MagicHomeTooltip() {
               height={512}
             />
           </div>
-          <div className="flex max-w-96 flex-col items-center justify-center gap-4 text-base">
+          <div className="flex max-w-96 flex-col items-center justify-center gap-4">
             <p>
-              This is how I imagine of my house on the web! (with a little bit
-              of help from AI)
+              Welcome to my digital home, crafted with a sprinkle of AI magic!
             </p>
             <p>
-              A place where I feel comfortable and can work towards making
-              magical little interactions and products people love using.
+              Here, I try to create interactions people love and share all my
+              learning stories. {"It's"} a place of creativity and warmth.
             </p>
             <p>
-              Come in, and help yourself to some coffee. {"I'd"} love to get you
-              know you a little bit better.
+              Feel free to explore and enjoy a virtual cup of coffee. {"I'm"}{" "}
+              excited to get to know you better.
             </p>
             <EspressoMachine />
           </div>
-        </div>
+        </motion.div>
       </Tooltip>
     </TooltipTrigger>
   );

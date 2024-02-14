@@ -10,10 +10,12 @@ export default function MagicHomeTooltip() {
   return (
     <TooltipTrigger delay={500}>
       <Button className="underline decoration-wavy">little home</Button>
-      <Tooltip className="m-4 overflow-auto rounded-3xl border-4 border-dotted border-purple-900 bg-slate-900">
+      <Tooltip className="">
         <motion.div
-          animate={{}}
-          className="flex flex-col items-center gap-8 p-4 lg:flex-row"
+          animate={{
+            scale: [0, 1],
+          }}
+          className="m-4 flex flex-col items-center gap-8 overflow-auto rounded-3xl border-4 border-dotted border-purple-900 bg-slate-900 p-4 lg:flex-row"
         >
           <div>
             <Image

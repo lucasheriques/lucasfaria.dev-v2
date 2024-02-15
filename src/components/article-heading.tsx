@@ -34,7 +34,7 @@ const ArticleHeading = ({
           setCurrentHeading(id);
         }
       },
-      { rootMargin: "-30% 0px", threshold: 0 },
+      { rootMargin: "-10% 0px", threshold: 0 },
     );
 
     if (headingRef.current) {

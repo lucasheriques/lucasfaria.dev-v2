@@ -26,7 +26,7 @@ export default function MagicHomeTooltip() {
         {({ isEntering, isExiting }) => {
           console.log(isEntering);
           return (
-            <Dialog className="outline-none" ref={scrollRef}>
+            <Dialog className="overflow-auto outline-none" ref={scrollRef}>
               {({ close }) => (
                 <motion.div
                   animate={{
@@ -76,7 +76,7 @@ export default function MagicHomeTooltip() {
 export function MagicHomeTooltipV2() {
   return (
     <Sheet>
-      <div className="m-4 flex flex-col items-center gap-8 rounded-3xl border-4 border-dotted border-purple-900 bg-slate-900 p-4">
+      <div className="m-4 flex flex-col items-center gap-8  overflow-auto rounded-3xl border-4 border-dotted border-purple-900 bg-slate-900 p-4 md:overflow-hidden">
         <div className="flex flex-col items-center gap-8 rounded-3xl lg:flex-row">
           <div>
             <Image

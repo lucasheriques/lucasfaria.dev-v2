@@ -55,11 +55,11 @@ const TableOfContents = ({ headings }: TableOfContentsProps) => {
         <a
           href="#introduction"
           className={clsx(
-            "block scroll-smooth transition-colors duration-300 hover:text-amber-400",
+            "block scroll-smooth transition-colors duration-300 hover:text-amber-700 hover:dark:text-amber-400",
             marginsForHeadingLevels[2],
             "introduction" === activeHeading
-              ? "text-amber-400"
-              : "text-gray-500",
+              ? "font-medium text-amber-700 dark:text-amber-400"
+              : "text-gray-700 dark:text-gray-500",
           )}
           onClick={handleAnchorClick}
         >
@@ -71,11 +71,11 @@ const TableOfContents = ({ headings }: TableOfContentsProps) => {
               key={heading.id}
               href={`#${heading.id}`}
               className={clsx(
-                "block scroll-smooth transition-colors duration-300 hover:text-amber-400",
+                "block scroll-smooth transition-colors duration-300 hover:text-amber-700 hover:dark:text-amber-400",
                 marginsForHeadingLevels[heading.level],
                 heading.id === activeHeading
-                  ? "text-amber-400"
-                  : "text-gray-500",
+                  ? "font-medium text-amber-700 dark:text-amber-400"
+                  : "text-gray-700 dark:text-gray-500",
               )}
               onClick={handleAnchorClick}
             >

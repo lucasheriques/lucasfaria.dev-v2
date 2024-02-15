@@ -45,7 +45,7 @@ export default function RootLayout({
     <RespectMotionPreferences>
       <html
         lang="en"
-        className="bg-amber-50 bg-gradient-to-b from-amber-50 to-emerald-50 dark:bg-gray-800 dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900 dark:text-gray-300"
+        className="bg-amber-50 bg-gradient-to-b from-amber-100 to-emerald-100 dark:bg-gray-800 dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900 dark:text-gray-300"
       >
         <body
           className={clsx(

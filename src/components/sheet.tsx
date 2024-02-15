@@ -30,15 +30,19 @@ const staticTransition = {
 const SHEET_MARGIN = 34;
 
 type BottomSheetProps = {
-  children: React.ReactNode;
+  children: (close: () => void) => React.ReactNode;
 };
 
 export default function Sheet({ children }: BottomSheetProps) {
   let [isOpen, setOpen] = useState(false);
-  let h = window.innerHeight - SHEET_MARGIN;
+  let h = typeof window !== "undefined" ? window.innerHeight - SHEET_MARGIN : 0;
   let y = useMotionValue(h);
   let bgOpacity = useTransform(y, [0, h], [0.4, 0]);
   let bg = useMotionTemplate`rgba(0, 0, 0, ${bgOpacity})`;
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
@@ -89,7 +93,7 @@ export default function Sheet({ children }: BottomSheetProps) {
                     Done
                   </Button>
                 </div>
-                {children}
+                {children(handleClose)}
               </Dialog>
             </MotionModal>
           </MotionModalOverlay>

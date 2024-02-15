@@ -1,5 +1,6 @@
 import typography from "@tailwindcss/typography";
 import type { Config } from "tailwindcss";
+import tailwindCssReactAria from "tailwindcss-react-aria-components";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 const config: Config = {
@@ -88,6 +89,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [typography],
+  plugins: [typography, tailwindCssReactAria],
 };
 export default config;

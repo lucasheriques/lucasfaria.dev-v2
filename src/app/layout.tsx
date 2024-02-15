@@ -53,7 +53,6 @@ export default function RootLayout({
             monoFont.variable,
             serifFont.variable,
             "flex min-h-dvh flex-col font-sans text-lg",
-            "overflow-y-scroll",
           )}
         >
           <Header />

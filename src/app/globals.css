@@ -39,7 +39,6 @@
   }
 
   html {
-    scrollbar-gutter: stable;
     scrollbar-color: #030712 #111827;
   }
 
@@ -102,5 +101,9 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .scrollbar-stable {
+    scrollbar-gutter: stable;
   }
 }

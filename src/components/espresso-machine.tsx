@@ -50,6 +50,7 @@ function EspressoMachine() {
       <div
         className={clsx(
           styles.coffee,
+          "bg-amber-600",
           isLoading ? "animate-pour-coffee" : "animate-none",
         )}
       ></div>
@@ -57,6 +58,7 @@ function EspressoMachine() {
         <div
           className={clsx(
             styles.coffeeInside,
+            "bg-amber-600",
             isLoading ? "animate-fill-cup" : "animate-none",
           )}
         ></div>

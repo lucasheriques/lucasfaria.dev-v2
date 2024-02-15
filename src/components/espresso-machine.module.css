@@ -60,7 +60,6 @@
   transform: translateX(-50%);
   width: 2px;
   height: 0; /* Ensure this starts as not extended */
-  background-color: #ed9638;
   /* animation: pourCoffee 6s; */
   z-index: 4;
 }
@@ -86,7 +85,6 @@
     100% - 4px
   ); /* Reduce width to account for left and right "padding" */
   height: 0; /* Start with an empty cup */
-  background-color: #ed9638; /* Same color as the pouring coffee */
   /* animation: fillCup 6s; */
   border-radius: 0 0 15px 15px; /* Smooth bottom edges like the cup, matching your update */
 }

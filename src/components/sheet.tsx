@@ -62,7 +62,7 @@ export default function Sheet({ children }: BottomSheetProps) {
             style={{ backgroundColor: bg as any }}
           >
             <MotionModal
-              className="absolute bottom-0 w-full  overflow-auto rounded-t-xl bg-gray-950 shadow-lg will-change-transform md:overflow-hidden"
+              className="absolute bottom-0 w-full overflow-auto rounded-t-xl bg-stone-900 shadow-lg will-change-transform md:overflow-hidden"
               initial={{ y: h }}
               animate={{ y: 0 }}
               exit={{ y: h }}

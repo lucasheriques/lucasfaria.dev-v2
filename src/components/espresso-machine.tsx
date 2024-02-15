@@ -35,7 +35,7 @@ function EspressoMachine() {
           </div>
           <button
             onClick={handleCoffeeClick}
-            className="text--500 rounded border-2 border-dashed border-rose-700 p-1 text-xs text-rose-700"
+            className="rounded border-2 border-dashed border-rose-700 p-1 text-xs text-rose-700"
           >
             {!isLoading && <Coffee />}
             {isLoading && !isCoffeeReady && "Preparing..."}

@@ -7,14 +7,14 @@ function Footer() {
       <div className="flex gap-4">
         <a
           href={socials.github}
-          className="transition-colors hover:text-amber-400"
+          className="transition-colors hover:text-amber-700 dark:hover:text-amber-400"
           target="_blank"
         >
           GitHub
         </a>
         <a
           href={socials.linkedin}
-          className="transition-colors hover:text-amber-400"
+          className="transition-colors hover:text-amber-700 dark:hover:text-amber-400"
           target="_blank"
         >
           LinkedIn

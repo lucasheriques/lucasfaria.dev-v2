@@ -11,7 +11,7 @@ export function MagicHomeTooltipV2() {
   return (
     <Sheet>
       {(close) => (
-        <div className="flex flex-col items-center justify-center gap-4">
+        <div className="flex flex-col items-center justify-center gap-4 text-gray-200">
           <div className="m-4 flex flex-col items-center gap-8  overflow-auto rounded-3xl border-4 border-dotted border-purple-900 bg-slate-900 p-4 md:overflow-hidden">
             <div className="flex flex-col items-center gap-8 rounded-3xl lg:flex-row">
               <div>

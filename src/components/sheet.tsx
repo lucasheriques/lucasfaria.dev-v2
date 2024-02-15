@@ -62,7 +62,7 @@ export default function Sheet({ children }: BottomSheetProps) {
             style={{ backgroundColor: bg as any }}
           >
             <MotionModal
-              className="absolute bottom-0 w-full overflow-auto rounded-t-xl bg-stone-900 shadow-lg will-change-transform md:overflow-hidden"
+              className="absolute bottom-0 w-full overflow-auto rounded-t-xl bg-slate-950 shadow-lg will-change-transform md:overflow-hidden"
               initial={{ y: h }}
               animate={{ y: 0 }}
               exit={{ y: h }}
@@ -87,7 +87,7 @@ export default function Sheet({ children }: BottomSheetProps) {
               <Dialog className="px-4 pb-4 outline-none">
                 <div className="flex justify-end">
                   <Button
-                    className="pressed:text-blue-700 mb-8 rounded border-none bg-transparent text-lg font-semibold text-blue-600 outline-none focus-visible:ring"
+                    className="mb-8 rounded border-none bg-transparent text-lg font-semibold text-blue-600 outline-none focus-visible:ring pressed:text-blue-700"
                     onPress={() => setOpen(false)}
                   >
                     Done

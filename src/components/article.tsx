@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import ArticleHeading from "./article-heading";
 import CodeSnippet from "./code-snippet";
+import EspressoMachine from "./espresso-machine";
 import ResetHeading from "./reset-heading";
 import TableOfContents from "./table-of-contents";
 
@@ -95,6 +96,7 @@ const Article = ({ title, date, content, type, headings }: ArticleProps) => {
                 {...props}
               />
             ),
+            EspressoMachine: () => <EspressoMachine />,
           }}
         />
         <Link

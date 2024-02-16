@@ -30,10 +30,11 @@ const staticTransition = {
 const SHEET_MARGIN = 34;
 
 type BottomSheetProps = {
+  triggerButton: (props: { onPress: () => void }) => React.ReactNode;
   children: (close: () => void) => React.ReactNode;
 };
 
-export default function Sheet({ children }: BottomSheetProps) {
+export default function Sheet({ children, triggerButton }: BottomSheetProps) {
   let [isOpen, setOpen] = useState(false);
   let h = typeof window !== "undefined" ? window.innerHeight - SHEET_MARGIN : 0;
   let y = useMotionValue(h);
@@ -46,12 +47,7 @@ export default function Sheet({ children }: BottomSheetProps) {
 
   return (
     <>
-      <Button
-        className="underline decoration-wavy outline-1 outline-emerald-800"
-        onPress={() => setOpen(true)}
-      >
-        little home
-      </Button>
+      {triggerButton({ onPress: () => setOpen(true) })}
       <AnimatePresence>
         {isOpen && (
           <MotionModalOverlay
@@ -87,7 +83,7 @@ export default function Sheet({ children }: BottomSheetProps) {
               <Dialog className="px-4 pb-4 outline-none">
                 <div className="flex justify-end">
                   <Button
-                    className="mb-8 rounded border-none bg-transparent text-lg font-semibold text-blue-600 outline-none focus-visible:ring pressed:text-blue-700"
+                    className="pressed:text-blue-700 mb-8 rounded border-none bg-transparent text-lg font-semibold text-blue-600 outline-none focus-visible:ring"
                     onPress={() => setOpen(false)}
                   >
                     Done

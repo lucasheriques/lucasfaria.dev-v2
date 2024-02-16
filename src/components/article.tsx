@@ -3,12 +3,12 @@ import { ArrowLeft } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 
-import ArticleHeading from "./article-heading";
-import CodeSnippet from "./code-snippet";
-import EspressoMachine from "./espresso-machine";
-import ResetHeading from "./reset-heading";
-import SandpackWrapper from "./sandpack-wrapper";
-import TableOfContents from "./table-of-contents";
+import ArticleHeading from "@/components/article-heading";
+import CodeSnippet from "@/components/code-snippet";
+import EspressoMachine from "@/components/espresso-machine";
+import ResetHeading from "@/components/reset-heading";
+import SandpackWrapper from "@/components/sandpack-wrapper";
+import TableOfContents from "@/components/table-of-contents";
 
 type ArticleProps = {
   title: string;

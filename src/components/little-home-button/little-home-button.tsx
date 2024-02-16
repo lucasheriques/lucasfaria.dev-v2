@@ -1,39 +1,29 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useAtom } from "jotai";
 import { Button } from "react-aria-components";
 
 import { TooltipContent } from "@/components/little-home-button/tooltip-content";
 import Sheet from "@/components/sheet";
 import { GradientText } from "@/components/typography";
-import { displayLittleHomeAnimation } from "@/helpers/atoms";
+import { setLittleHomeDisplayAnimation } from "@/helpers/server-actions";
 
 const MotionButton = motion(Button);
 
-export default function MagicHomeTooltipV2() {
-  const [display, setDisplay] = useAtom(displayLittleHomeAnimation);
-
-  const scaleVariants = {
-    pulse: {
-      scale: [1, 1.05, 1],
-      transition: {
-        duration: 2,
-        ease: "easeInOut",
-        repeat: Infinity,
-      },
-    },
-  };
-
+export default function LittleHomeButton({
+  displayAnimation,
+}: {
+  displayAnimation: boolean;
+}) {
   return (
     <Sheet
       triggerButton={({ onPress }) =>
-        !display ? (
+        !displayAnimation ? (
           <MotionButton
             className="outline-1 outline-emerald-800"
             onPress={() => {
-              setDisplay(false);
               onPress();
+              setLittleHomeDisplayAnimation();
             }}
             animate={{
               scale: [1, 1.05, 1],

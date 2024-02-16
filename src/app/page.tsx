@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+
 import { LittleHomeButton } from "@/components/little-home-button";
 import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
@@ -8,11 +10,22 @@ import { getLastXBlogPosts, getLastXBytePosts } from "@/helpers/file-helpers";
 export default async function Home() {
   const posts = await getLastXBlogPosts();
   const bytes = await getLastXBytePosts();
+
+  const playLittleHomeAnimation = cookies().get("playLittleHomeAnimation");
+
+  console.log({
+    playLittleHomeAnimation,
+  });
+
   return (
     <PageWrapper>
       <section className="flex flex-col gap-4">
         <Title as="h1">
-          welcome to my <LittleHomeButton /> on the web! {"I'm"} Lucas
+          welcome to my{" "}
+          <LittleHomeButton
+            displayAnimation={!!playLittleHomeAnimation?.value}
+          />{" "}
+          on the web! {"I'm"} Lucas
         </Title>
         <p>
           {"I'm"} a software engineer with a passion for impactful technology

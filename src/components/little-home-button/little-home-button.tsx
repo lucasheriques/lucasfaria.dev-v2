@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useAtom } from "jotai";
 import { Button } from "react-aria-components";
 
-import { TooltipContent } from "@/components/magic-home-tooltip/tooltip-content";
+import { TooltipContent } from "@/components/little-home-button/tooltip-content";
 import Sheet from "@/components/sheet";
 import { GradientText } from "@/components/typography";
 import { displayLittleHomeAnimation } from "@/helpers/atoms";

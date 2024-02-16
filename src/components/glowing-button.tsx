@@ -17,7 +17,7 @@ const GlowingButton = ({ onClick, children }: GlowingButtonProps) => {
       className={clsx(
         styles.rotatingBackground,
         styles["hover:glow"],
-        "mx-auto w-full rounded-xl p-1 font-bold transition-all duration-300 md:mr-0 lg:mr-auto lg:w-72 dark:block dark:hover:shadow-[0_0_2rem_-0.5rem_#fff8]",
+        "mx-auto w-full rounded-xl p-1 font-bold text-gray-50 transition-all duration-300 md:mr-0 lg:mr-auto lg:w-72 dark:block",
       )}
       onClick={onClick}
       whileHover={{ scale: 1.05 }}

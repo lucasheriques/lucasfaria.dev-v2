@@ -10,8 +10,8 @@ type TooltipContentProps = {
 
 export function TooltipContent({ close }: TooltipContentProps) {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 text-gray-200">
-      <div className="m-4 flex flex-col items-center gap-8  overflow-auto rounded-3xl border-4 border-dotted border-purple-900 bg-slate-900 p-4 md:overflow-hidden">
+    <div className="flex flex-col items-center justify-center gap-4">
+      <div className="m-4 flex flex-col items-center gap-8  overflow-auto rounded-3xl border-4 border-dotted border-amber-600 bg-amber-100 p-4 font-medium md:overflow-hidden dark:border-purple-900 dark:bg-slate-900">
         <div className="flex flex-col items-center gap-8 rounded-3xl lg:flex-row">
           <div>
             <Image

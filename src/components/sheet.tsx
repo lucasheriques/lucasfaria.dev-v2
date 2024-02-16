@@ -58,7 +58,7 @@ export default function Sheet({ children, triggerButton }: BottomSheetProps) {
             style={{ backgroundColor: bg as any }}
           >
             <MotionModal
-              className="absolute bottom-0 w-full overflow-auto rounded-t-xl bg-slate-950 shadow-lg will-change-transform md:overflow-hidden"
+              className="absolute bottom-0 w-full overflow-auto rounded-t-xl bg-gray-50 shadow-lg will-change-transform lg:overflow-hidden dark:bg-slate-950"
               initial={{ y: h }}
               animate={{ y: 0 }}
               exit={{ y: h }}

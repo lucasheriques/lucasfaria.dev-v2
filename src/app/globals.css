@@ -102,4 +102,8 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .scrollbar-stable {
+    scrollbar-gutter: stable;
+  }
 }

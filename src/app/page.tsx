@@ -13,10 +13,6 @@ export default async function Home() {
 
   const playLittleHomeAnimation = cookies().get("playLittleHomeAnimation");
 
-  console.log({
-    playLittleHomeAnimation,
-  });
-
   return (
     <PageWrapper>
       <section className="flex flex-col gap-4">

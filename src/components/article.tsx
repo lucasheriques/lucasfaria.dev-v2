@@ -7,6 +7,7 @@ import ArticleHeading from "./article-heading";
 import CodeSnippet from "./code-snippet";
 import EspressoMachine from "./espresso-machine";
 import ResetHeading from "./reset-heading";
+import SandpackWrapper from "./sandpack-wrapper";
 import TableOfContents from "./table-of-contents";
 
 type ArticleProps = {
@@ -97,6 +98,7 @@ const Article = ({ title, date, content, type, headings }: ArticleProps) => {
               />
             ),
             EspressoMachine: () => <EspressoMachine />,
+            Sandpack: (props) => <SandpackWrapper {...props} />,
           }}
         />
         <Link

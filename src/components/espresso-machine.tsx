@@ -1,11 +1,12 @@
 "use client";
 
-import clsx from "clsx";
 import { Coffee, Heart } from "lucide-react";
 import React from "react";
 
 import CloudIcon from "./cloud-icon";
 import styles from "./espresso-machine.module.css";
+
+import { cn } from "@/helpers/functions";
 
 function EspressoMachine() {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -48,7 +49,7 @@ function EspressoMachine() {
       <div className={`${styles.tray} bg-stone-600`}></div>
       <div className={styles.base}></div>
       <div
-        className={clsx(
+        className={cn(
           styles.coffee,
           "bg-amber-600",
           isLoading ? "animate-pour-coffee" : "animate-none",
@@ -56,7 +57,7 @@ function EspressoMachine() {
       ></div>
       <div className={styles.cup}>
         <div
-          className={clsx(
+          className={cn(
             styles.coffeeInside,
             "bg-amber-600",
             isLoading ? "animate-fill-cup" : "animate-none",
@@ -66,21 +67,21 @@ function EspressoMachine() {
           className={`${styles.smoke} bottom-[30px] flex flex-col items-center justify-center`}
         >
           <CloudIcon
-            className={clsx(
+            className={cn(
               styles.smokeLine,
               isLoading ? "animate-show-smoke" : "animate-none",
               "h-4 w-8 fill-amber-300",
             )}
           />
           <CloudIcon
-            className={clsx(
+            className={cn(
               styles.smokeLine,
               isLoading ? "animate-show-smoke" : "animate-none",
               "h-4 w-4 fill-amber-400",
             )}
           />
           <CloudIcon
-            className={clsx(
+            className={cn(
               styles.smokeLine,
               isLoading ? "animate-show-smoke" : "animate-none",
               "h-2 w-3 fill-amber-400",

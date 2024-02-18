@@ -1,11 +1,11 @@
 "use client";
 
-import clsx from "clsx";
 import { useAtom, useAtomValue } from "jotai";
 
 import { Title } from "./typography";
 
 import { currentHeadingAtom, postLanguageAtom } from "@/helpers/atoms";
+import { cn } from "@/helpers/functions";
 
 type TableOfContentsProps = {
   headings: {
@@ -54,7 +54,7 @@ const TableOfContents = ({ headings }: TableOfContentsProps) => {
       <nav className="flex flex-col gap-1 py-4">
         <a
           href="#introduction"
-          className={clsx(
+          className={cn(
             "block scroll-smooth transition-colors duration-300 hover:text-amber-700 hover:dark:text-amber-400",
             marginsForHeadingLevels[2],
             "introduction" === activeHeading
@@ -70,7 +70,7 @@ const TableOfContents = ({ headings }: TableOfContentsProps) => {
             <a
               key={heading.id}
               href={`#${heading.id}`}
-              className={clsx(
+              className={cn(
                 "block scroll-smooth transition-colors duration-300 hover:text-amber-700 hover:dark:text-amber-400",
                 marginsForHeadingLevels[heading.level],
                 heading.id === activeHeading

@@ -1,11 +1,12 @@
 "use client";
 
-import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
 import { HeaderBackdropAnimation } from "./header-backdrop-animation";
+
+import { cn } from "@/helpers/functions";
 
 const navItems = [
   { label: "home", href: "/" },
@@ -39,7 +40,7 @@ const HeaderNavigation = () => {
             <HeaderBackdropAnimation isVisible={hoveredNavItem === item.href} />
             <Link
               href={item.href}
-              className={clsx(
+              className={cn(
                 "relative p-2 transition-colors duration-300 hover:text-amber-700 dark:hover:text-amber-400",
                 isActive ? "text-amber-700 dark:text-amber-400" : "",
               )}

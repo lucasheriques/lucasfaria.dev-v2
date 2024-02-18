@@ -1,10 +1,9 @@
-import clsx from "clsx";
 import { motion } from "framer-motion";
 import React from "react";
 
 import styles from "./glowing-button.module.css";
 
-// Adjust the import path as needed
+import { cn } from "@/helpers/functions";
 
 type GlowingButtonProps = {
   onClick: () => void;
@@ -14,7 +13,7 @@ type GlowingButtonProps = {
 const GlowingButton = ({ onClick, children }: GlowingButtonProps) => {
   return (
     <motion.button
-      className={clsx(
+      className={cn(
         styles.rotatingBackground,
         styles["hover:glow"],
         "mx-auto w-full rounded-xl p-1 font-bold text-gray-50 transition-all duration-300 md:mr-0 lg:mr-auto lg:w-72 dark:block",

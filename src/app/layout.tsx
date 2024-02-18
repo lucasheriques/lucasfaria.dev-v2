@@ -1,5 +1,4 @@
 import { Analytics } from "@vercel/analytics/react";
-import clsx from "clsx";
 import type { Metadata } from "next";
 import { Lora, Spline_Sans_Mono, Work_Sans } from "next/font/google";
 
@@ -10,6 +9,7 @@ import Header from "@/components/header";
 import RespectMotionPreferences from "@/components/respect-motion-preferences";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/helpers/constants";
+import { cn } from "@/helpers/functions";
 
 const mainFont = Work_Sans({
   subsets: ["latin"],
@@ -45,13 +45,13 @@ export default function RootLayout({
     <RespectMotionPreferences>
       <html
         lang="en"
-        className={clsx(
+        className={cn(
           "bg-amber-100 bg-gradient-to-b from-amber-100 to-emerald-100",
           "dark:bg-gray-900 dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900 dark:text-gray-300",
         )}
       >
         <body
-          className={clsx(
+          className={cn(
             mainFont.variable,
             monoFont.variable,
             serifFont.variable,

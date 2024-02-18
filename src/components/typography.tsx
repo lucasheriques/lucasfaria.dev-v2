@@ -1,5 +1,6 @@
-import clsx from "clsx";
 import React from "react";
+
+import { cn } from "@/helpers/functions";
 
 type TitleProps = {
   as: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
@@ -62,7 +63,7 @@ export const GradientText = ({
 }: GradientTextProps) => {
   return (
     <span
-      className={clsx(
+      className={cn(
         gradientTextColors[lightModeColor],
         gradientDarkModeTextColors[darkModeColor],
         "bg-gradient-to-r from-purple-800 to-blue-500",

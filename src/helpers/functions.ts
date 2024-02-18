@@ -1,3 +1,6 @@
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 export const random = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min)) + min;
 
@@ -12,3 +15,7 @@ export const range = (start: number, end?: number, step = 1) => {
   }
   return output;
 };
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}

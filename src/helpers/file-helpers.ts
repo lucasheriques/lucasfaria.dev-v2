@@ -112,3 +112,11 @@ async function _getBlogPost(slug: string) {
 }
 
 export const getBlogPost = cache(_getBlogPost);
+
+export async function getAboutMe() {
+  const filePath = path.join(process.cwd(), "content/about-me.mdx");
+  const fileContents = await fs.readFile(filePath, "utf8");
+  const { content } = matter(fileContents);
+
+  return content;
+}

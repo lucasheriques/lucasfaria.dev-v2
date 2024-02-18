@@ -2,6 +2,7 @@ import typography from "@tailwindcss/typography";
 import type { Config } from "tailwindcss";
 import tailwindCssReactAria from "tailwindcss-react-aria-components";
 import { fontFamily } from "tailwindcss/defaultTheme";
+import { default as flattenColorPalette } from "tailwindcss/lib/util/flattenColorPalette";
 
 const config: Config = {
   content: [
@@ -89,6 +90,17 @@ const config: Config = {
       },
     },
   },
-  plugins: [typography, tailwindCssReactAria],
+  plugins: [typography, tailwindCssReactAria, addVariablesForColors],
 };
+
+function addVariablesForColors({ addBase, theme }: any) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}
 export default config;

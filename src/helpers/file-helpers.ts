@@ -110,7 +110,12 @@ export async function getLastXBytePosts(amount: number = 3) {
 async function _getBlogPost(slug: string) {
   const filePath = path.join(process.cwd(), `content/${slug}.mdx`);
   const fileContents = await fs.readFile(filePath, "utf8");
-  return getPostInfoFromData(fileContents, slug, "ideas", true);
+  return getPostInfoFromData(
+    fileContents,
+    slug,
+    slug.includes("bytes/") ? "bytes" : "ideas",
+    true,
+  );
 }
 
 export const getBlogPost = cache(_getBlogPost);

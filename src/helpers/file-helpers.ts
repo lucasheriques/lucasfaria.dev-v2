@@ -66,7 +66,7 @@ export async function getBlogPostList() {
 
   // Sort the blog posts by the published date in descending order
   blogPosts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
   );
 
   return blogPosts;

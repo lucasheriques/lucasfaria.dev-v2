@@ -1,4 +1,5 @@
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Lora, Spline_Sans_Mono, Work_Sans } from "next/font/google";
 
@@ -62,6 +63,7 @@ export default function RootLayout({
           <main className="relative flex-1">{children}</main>
           <Footer />
           <TailwindIndicator />
+          <SpeedInsights />
           <Analytics />
         </body>
       </html>

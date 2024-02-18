@@ -95,7 +95,7 @@ export async function getBytesList() {
 
   // Sort the byte posts by the published date in descending order
   bytePosts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
   );
 
   return bytePosts;

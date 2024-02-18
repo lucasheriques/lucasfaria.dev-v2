@@ -21,18 +21,5 @@ export default async function Idea({ params }: { params: { slug: string } }) {
     return null;
   }
 
-  return (
-    <Article
-      abstract={post.abstract}
-      title={post.title}
-      createdAt={post.createdAt}
-      updatedAt={post.updatedAt}
-      slug={post.slug}
-      type={post.type}
-      tags={post.tags}
-      language={post.language}
-      headings={post.headings}
-      content={post.content}
-    />
-  );
+  return <Article {...post} content={post.content} />;
 }

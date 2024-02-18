@@ -9,6 +9,7 @@ import EspressoMachine from "@/components/espresso-machine";
 import ResetHeading from "@/components/reset-heading";
 import SandpackWrapper from "@/components/sandpack-wrapper";
 import TableOfContents from "@/components/table-of-contents";
+import IdeasProgressBar from "@/components/ui/ideas-progress-bar";
 
 type ArticleProps = {
   title: string;
@@ -28,6 +29,7 @@ const Article = ({ title, date, content, type, headings }: ArticleProps) => {
     <div className="xl:article-grid mx-auto grid max-w-3xl grid-cols-1 px-6 sm:gap-y-12 xl:max-w-full">
       <aside className="hidden xl:flex"></aside>
       <article className="prose max-w-full font-serif text-xl text-gray-950 dark:prose-invert xl:px-6 dark:text-gray-200">
+        {type === "idea" && <IdeasProgressBar />}
         <h1>{title}</h1>
         {humanizedDate}
         <MDXRemote

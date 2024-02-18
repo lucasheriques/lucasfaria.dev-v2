@@ -47,7 +47,7 @@ const TableOfContents = ({ headings }: TableOfContentsProps) => {
   }
 
   return (
-    <aside className="table-of-contents sticky top-1/4 mx-auto hidden h-40 max-w-xl pt-0 text-sm lg:block 2xl:text-base">
+    <aside className="table-of-contents sticky top-1/4 mx-auto hidden h-40 max-w-xl pt-0 text-sm xl:block 2xl:text-base">
       <Title as="h2" className="pb-2 text-sm">
         Table of Contents
       </Title>

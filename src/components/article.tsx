@@ -12,7 +12,9 @@ import TableOfContents from "@/components/table-of-contents";
 import IdeasProgressBar from "@/components/ui/ideas-progress-bar";
 import { type getPostInfoFromData } from "@/helpers/file-helpers";
 
-type ArticleProps = ReturnType<typeof getPostInfoFromData>;
+type ArticleProps = ReturnType<typeof getPostInfoFromData> & {
+  content: string;
+};
 
 const Article = ({
   title,
@@ -106,11 +108,11 @@ const Article = ({
         />
         <Link
           href={`
-          /${type === "byte" ? "bytes" : "ideas"}`}
+          /${type === "bytes" ? "bytes" : "ideas"}`}
           className="flex items-center gap-2 pt-12 md:pt-24"
           prefetch={true}
         >
-          <ArrowLeft size={16} /> Back to {type === "byte" ? "bytes" : "ideas"}
+          <ArrowLeft size={16} /> Back to {type === "bytes" ? "bytes" : "ideas"}
         </Link>
       </article>
       <TableOfContents headings={headings} />

@@ -23,11 +23,16 @@ export default async function Byte({ params }: { params: { slug: string } }) {
 
   return (
     <Article
-      content={post.content}
-      type="byte"
+      abstract={post.abstract}
       title={post.title}
-      date={post.date}
+      createdAt={post.createdAt}
+      updatedAt={post.updatedAt}
+      slug={post.slug}
+      type={post.type}
+      tags={post.tags}
+      language={post.language}
       headings={post.headings}
+      content={post.content}
     />
   );
 }

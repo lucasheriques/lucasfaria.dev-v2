@@ -10,26 +10,27 @@ import ResetHeading from "@/components/reset-heading";
 import SandpackWrapper from "@/components/sandpack-wrapper";
 import TableOfContents from "@/components/table-of-contents";
 import IdeasProgressBar from "@/components/ui/ideas-progress-bar";
+import { type getPostInfoFromData } from "@/helpers/file-helpers";
 
-type ArticleProps = {
-  title: string;
-  date: any;
-  content: string;
-  type: "byte" | "idea";
-  headings: {
-    level: 1 | 2 | 3 | 4 | 5 | 6;
-    title: string;
-    id: string;
-  }[];
-};
+type ArticleProps = ReturnType<typeof getPostInfoFromData>;
 
-const Article = ({ title, date, content, type, headings }: ArticleProps) => {
-  const humanizedDate = format(new Date(date), "MMMM do, yyyy");
+const Article = ({
+  title,
+  createdAt,
+  content,
+  type,
+  headings,
+}: ArticleProps) => {
+  const humanizedDate = format(new Date(createdAt), "MMMM do, yyyy");
+
+  if (!content) {
+    return null;
+  }
   return (
     <div className="xl:article-grid mx-auto grid max-w-3xl grid-cols-1 px-6 sm:gap-y-12 xl:max-w-full">
       <aside className="hidden xl:flex"></aside>
       <article className="prose max-w-full font-serif text-xl text-gray-950 dark:prose-invert xl:px-6 dark:text-gray-200">
-        {type === "idea" && <IdeasProgressBar />}
+        {type === "ideas" && <IdeasProgressBar />}
         <h1>{title}</h1>
         {humanizedDate}
         <MDXRemote

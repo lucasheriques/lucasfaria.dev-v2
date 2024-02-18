@@ -36,12 +36,14 @@ export function getPostInfoFromData(
 ) {
   const { data: frontmatter, content } = matter(fileContents);
   return {
-    slug: `/${type}/${slug}`,
+    slug: `${type}/${slug}`,
     title: frontmatter.title as string,
     abstract: frontmatter.abstract as string,
-    date: frontmatter.date as string,
+    createdAt: frontmatter.createdAt as string,
+    updatedAt: frontmatter.updatedAt as string | undefined,
     language: frontmatter.language as string | undefined,
     tags: frontmatter.tags as string | undefined,
+    type,
     headings: extractTableOfContents(fileContents),
     ...(needContent && { content }),
   };

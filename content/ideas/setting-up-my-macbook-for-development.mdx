@@ -54,11 +54,10 @@ git config --global user.name "Your Name"
 git config --global user.email "you@your-domain.com"
 ```
 
-- Install oh-my-zsh with `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
-
-12. Install a bunch of zsh related stuff:
+- Install a bunch of zsh related stuff, including oh-my-zsh:
 
 ```zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 brew install fzf # for fuzzy find files, commands, etc
 brew install starship
 $(brew --prefix)/opt/fzf/install
@@ -71,7 +70,7 @@ Then edit the `.zshrc`. [Here's mine](https://github.com/lucasheriques/dotfiles/
 
 - Install JetBrains Mono and use it as the iTerm font.
 
-```zshrc
+```zsh
 brew tap homebrew/cask-fonts
 brew install font-jetbrains-mono-nerd-font
 ```

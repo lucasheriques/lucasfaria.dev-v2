@@ -27,7 +27,7 @@ const Article = ({ title, date, content, type, headings }: ArticleProps) => {
   return (
     <div className="xl:article-grid relative mx-auto grid max-w-3xl gap-y-8 scroll-smooth px-6 sm:gap-y-12 xl:max-w-full">
       <aside className="hidden xl:flex"></aside>
-      <article className="prose max-w-full overflow-hidden font-serif text-xl text-gray-950 dark:prose-invert xl:px-6 dark:text-gray-200">
+      <article className="prose max-w-full overflow-auto font-serif text-xl text-gray-950 dark:prose-invert xl:px-6 dark:text-gray-200">
         <h1>{title}</h1>
         {humanizedDate}
         <MDXRemote

@@ -1,13 +1,23 @@
+import { MDXRemote } from "next-mdx-remote/rsc";
+import Link from "next/link";
+
 import PageWrapper from "@/components/page-wrapper";
 import { Title } from "@/components/typography";
+import { getAboutMe } from "@/helpers/file-helpers";
 
 export default async function About() {
+  const content = await getAboutMe();
   return (
     <PageWrapper>
-      <section className="flex flex-col gap-4">
+      <article className="prose max-w-full text-lg text-gray-950 dark:prose-invert dark:text-gray-200">
         <Title as="h1">a little bit more about me</Title>
-        <p>More to come, soon! </p>
-      </section>
+        <MDXRemote
+          components={{
+            Link: (props) => <Link {...props} />,
+          }}
+          source={content}
+        />
+      </article>
     </PageWrapper>
   );
 }

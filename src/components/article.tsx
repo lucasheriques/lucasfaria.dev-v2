@@ -22,6 +22,7 @@ const Article = ({
   content,
   type,
   headings,
+  language,
 }: ArticleProps) => {
   const humanizedDate = format(new Date(createdAt), "MMMM do, yyyy");
 
@@ -115,7 +116,7 @@ const Article = ({
           <ArrowLeft size={16} /> Back to {type === "bytes" ? "bytes" : "ideas"}
         </Link>
       </article>
-      <TableOfContents headings={headings} />
+      <TableOfContents postLanguage={language} headings={headings} />
       <ResetHeading />
     </div>
   );

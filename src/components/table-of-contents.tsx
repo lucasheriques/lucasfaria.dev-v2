@@ -1,13 +1,15 @@
 "use client";
 
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom } from "jotai";
+import React from "react";
 
 import { Title } from "./typography";
 
-import { currentHeadingAtom, postLanguageAtom } from "@/helpers/atoms";
+import { currentHeadingAtom } from "@/helpers/atoms";
 import { cn } from "@/helpers/functions";
 
 type TableOfContentsProps = {
+  postLanguage?: string;
   headings: {
     level: 1 | 2 | 3 | 4 | 5 | 6;
     title: string;
@@ -24,9 +26,8 @@ const marginsForHeadingLevels = {
   6: "ml-16",
 };
 
-const TableOfContents = ({ headings }: TableOfContentsProps) => {
+const TableOfContents = ({ postLanguage, headings }: TableOfContentsProps) => {
   const [activeHeading, setCurrentHeading] = useAtom(currentHeadingAtom);
-  const postLanguage = useAtomValue(postLanguageAtom);
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -63,7 +64,7 @@ const TableOfContents = ({ headings }: TableOfContentsProps) => {
           )}
           onClick={handleAnchorClick}
         >
-          {postLanguage === "en" ? "Introduction" : "Introdução"}
+          {postLanguage === "pt-br" ? "Introdução" : "Introduction"}
         </a>
         {headings.map((heading) => {
           return (

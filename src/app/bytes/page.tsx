@@ -8,7 +8,7 @@ export default async function BytesPage() {
   return (
     <PageWrapper>
       <section>
-        <Title as="h1">Bytes ⚡</Title>
+        <Title as="h1">bytes ⚡</Title>
         <p>
           Brief notes on code, tools, and tips. Quick insights from my daily
           tech encounters.

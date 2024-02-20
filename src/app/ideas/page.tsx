@@ -8,7 +8,7 @@ export default async function IdeasPage() {
   return (
     <PageWrapper>
       <section>
-        <Title as="h1">Ideas 💡</Title>
+        <Title as="h1">ideas 💡</Title>
         <p>
           Longer reflections on software engineering, product management, and
           personal growth. A personal exploration of the subjects {"I'm"}{" "}

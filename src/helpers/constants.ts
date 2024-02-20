@@ -6,4 +6,5 @@ export const SITE_DESCRIPTION =
 export const socials = {
   github: "https://github.com/lucasheriques/",
   linkedin: "https://www.linkedin.com/in/lucas-faria/",
+  twitter: "https://twitter.com/lucasfariadev",
 };

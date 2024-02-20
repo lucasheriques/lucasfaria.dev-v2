@@ -1,4 +1,5 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
+import Image from "next/image";
 import Link from "next/link";
 
 import PageWrapper from "@/components/page-wrapper";
@@ -14,6 +15,8 @@ export default async function About() {
         <MDXRemote
           components={{
             Link: (props) => <Link {...props} />,
+            Image: (props) => <Image {...props} />,
+            a: (props) => <a {...props} target="_blank" />,
           }}
           source={content}
         />

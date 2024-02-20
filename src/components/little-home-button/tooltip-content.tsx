@@ -15,7 +15,7 @@ export function TooltipContent({ close }: TooltipContentProps) {
         <div className="flex flex-col items-center gap-8 rounded-3xl lg:flex-row">
           <div>
             <Image
-              src="/magic-home.jpg"
+              src="/magic-home-big.jpg"
               alt="A little home"
               className="rounded-3xl"
               width={512}

@@ -37,7 +37,7 @@ export function TooltipContent({ close }: TooltipContentProps) {
             </p>
             <div>
               <EspressoMachine />
-              <span className="flex items-center gap-2 text-sm">
+              <span className="flex items-center justify-center gap-2 text-sm">
                 Try clicking on the <Coffee />
               </span>
             </div>

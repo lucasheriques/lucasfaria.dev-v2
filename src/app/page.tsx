@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { cookies } from "next/headers";
 
 import { LittleHomeButton } from "@/components/little-home-button";
@@ -5,7 +6,13 @@ import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
 import { GradientText, Title } from "@/components/typography";
 import { SparklesWhimsy } from "@/components/whimsies";
+import { SITE_DESCRIPTION, SITE_TITLE } from "@/helpers/constants";
 import { getLastXBlogPosts, getLastXBytePosts } from "@/helpers/file-helpers";
+
+export const metadata: Metadata = {
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+};
 
 export default async function Home() {
   const posts = await getLastXBlogPosts();

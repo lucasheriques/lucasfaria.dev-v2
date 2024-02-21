@@ -121,11 +121,16 @@ function Actions() {
 
 type LogItemProps = {
   method: SandpackMessageConsoleMethods;
-  data: Array<
-    | string
-    | { "@t": string; data: { name?: string; message?: string; stack?: any } }
-    | undefined
-  >;
+  data:
+    | Array<
+        | string
+        | {
+            "@t": string;
+            data: { name?: string; message?: string; stack?: any };
+          }
+        | Record<string, string>
+      >
+    | undefined;
 };
 
 function LogItem({ method, data }: LogItemProps) {
@@ -151,27 +156,37 @@ function LogItem({ method, data }: LogItemProps) {
     }
   };
 
-  const renderData = () => {
-    return data
-      .map((item, index) => {
-        if (typeof item === "string") {
-          return <span key={index}>{item}</span>;
-        } else if (
-          item &&
-          typeof item === "object" &&
-          item.data &&
-          item.data.message
-        ) {
-          return <span key={index}>{item.data.message}</span>;
-        }
-        return null;
-      })
-      .filter(Boolean);
-  };
-
   if (!data) {
     return null;
   }
+
+  const renderData = () => {
+    return data
+      ?.map((item, index) => {
+        if (typeof item === "string") {
+          return <span key={index}>{item}</span>;
+        } else if (item && typeof item === "object") {
+          // Check for the specific structure with `item.data.message`
+          if (
+            item["@t"] &&
+            item.data &&
+            typeof item.data !== "string" &&
+            item.data.message
+          ) {
+            return <span key={index}>{item.data.message}</span>;
+          } else {
+            // Handle general object case, including `Record<string, string>`
+            // Convert object to string to display it. Adjust formatting as needed.
+            const objectString = Object.entries(item)
+              .map(([key, value]) => `${key}: ${value}`)
+              .join(", ");
+            return <span key={index}>{`{ ${objectString} }`}</span>;
+          }
+        }
+        return null; // In case none of the above conditions match
+      })
+      .filter(Boolean); // Filter out any null values
+  };
 
   console.log({ data });
   return (

@@ -65,7 +65,7 @@ export default function RootLayout({
         >
           <Header
             initialTheme={
-              theme?.value ? (theme.value as "light" | "dark") : "light"
+              theme?.value ? (theme.value as "light" | "dark") : "dark"
             }
           />
           <main className="relative flex-1">{children}</main>

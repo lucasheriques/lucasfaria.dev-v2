@@ -8,10 +8,41 @@ import {
   SandpackProvider,
   UnstyledOpenInCodeSandboxButton,
   useSandpack,
+  useSandpackConsole,
 } from "@codesandbox/sandpack-react";
 import { nightOwl } from "@codesandbox/sandpack-themes";
-import { useAnimate } from "framer-motion";
-import { Delete, ExternalLink, RefreshCw } from "lucide-react";
+import { useAnimate, useSpring } from "framer-motion";
+import { useAtom, useAtomValue } from "jotai";
+import {
+  AlertCircle,
+  AlertTriangle,
+  Delete,
+  ExternalLink,
+  Info,
+  RefreshCw,
+} from "lucide-react";
+
+import { sandboxActiveView } from "@/helpers/atoms";
+import { cn } from "@/helpers/functions";
+
+type SandpackMessageConsoleMethods =
+  | "log"
+  | "debug"
+  | "info"
+  | "warn"
+  | "error"
+  | "table"
+  | "clear"
+  | "time"
+  | "timeEnd"
+  | "count"
+  | "assert";
+
+type LogProps = {
+  data: Array<string | Record<string, any>> | undefined;
+  id: string;
+  method: SandpackMessageConsoleMethods;
+};
 
 function TitleBar({ title = "Code Playground" }) {
   const { sandpack } = useSandpack();
@@ -32,9 +63,11 @@ function TitleBar({ title = "Code Playground" }) {
   );
 }
 
-function Console() {
+function Actions() {
   const { sandpack, dispatch } = useSandpack();
+  const [activeView, setActiveView] = useAtom(sandboxActiveView); // 'preview' or 'console'
   const [scope, animate] = useAnimate();
+  const spring = useSpring(180);
 
   const handleRefresh = () => {
     dispatch({ type: "refresh" });
@@ -42,7 +75,8 @@ function Console() {
       scope.current,
       { rotate: 180 },
       {
-        duration: 0.5,
+        duration: 2,
+        type: "spring",
         onComplete() {
           animate(scope.current, { rotate: 0 }, { duration: 0 });
         },
@@ -50,14 +84,34 @@ function Console() {
     );
   };
 
+  const toggleView = (view: typeof activeView) => {
+    setActiveView(view);
+  };
+
   return (
     <div className="flex justify-between border border-zinc-700 bg-zinc-900 p-3">
       <div>
-        <button>Preview</button>
-        <button className="ml-2">Console</button>
+        <button
+          className={cn(
+            "p-2",
+            activeView === "preview" && "border-b border-amber-500",
+          )}
+          onClick={() => toggleView("preview")}
+        >
+          Preview
+        </button>
+        <button
+          className={cn(
+            "p-2",
+            activeView === "console" && "border-b border-amber-500",
+          )}
+          onClick={() => toggleView("console")}
+        >
+          Console
+        </button>
       </div>
-      <div>
-        <button ref={scope} onClick={handleRefresh}>
+      <div className="flex items-center">
+        <button onClick={handleRefresh} ref={scope}>
           <RefreshCw className="h-5 w-5 text-zinc-300" />
         </button>
       </div>
@@ -65,17 +119,117 @@ function Console() {
   );
 }
 
+type LogItemProps = {
+  method: SandpackMessageConsoleMethods;
+  data: Array<
+    | string
+    | { "@t": string; data: { name?: string; message?: string; stack?: any } }
+    | undefined
+  >;
+};
+
+function LogItem({ method, data }: LogItemProps) {
+  const getColorForMethod = (): string => {
+    switch (method) {
+      case "warn":
+        return "text-yellow-300"; // Bright yellow for warnings
+      case "error":
+        return "text-red-400"; // Bright red for errors
+      default:
+        return "text-gray-300"; // Light gray for other logs, ensuring readability
+    }
+  };
+
+  const getIcon = () => {
+    switch (method) {
+      case "error":
+        return <AlertCircle className="h-4 w-4 min-w-4" />;
+      case "warn":
+        return <AlertTriangle className="h-4 w-4 min-w-4" />;
+      default:
+        return <Info className="h-4 w-4 min-w-4" />;
+    }
+  };
+
+  const renderData = () => {
+    return data
+      .map((item, index) => {
+        if (typeof item === "string") {
+          return <span key={index}>{item}</span>;
+        } else if (
+          item &&
+          typeof item === "object" &&
+          item.data &&
+          item.data.message
+        ) {
+          return <span key={index}>{item.data.message}</span>;
+        }
+        return null;
+      })
+      .filter(Boolean);
+  };
+
+  if (!data) {
+    return null;
+  }
+
+  console.log({ data });
+  return (
+    <div className={cn(getColorForMethod(), "my-2")}>
+      <span className={cn("flex items-center gap-2", getColorForMethod())}>
+        {getIcon()}
+        {renderData()}
+      </span>
+    </div>
+  );
+}
+
+function Console() {
+  const { logs, reset } = useSandpackConsole({
+    resetOnPreviewRestart: true,
+  });
+
+  const activeView = useAtomValue(sandboxActiveView);
+
+  console.log({ logs });
+
+  return (
+    <div
+      className={cn(
+        "not-prose h-72 overflow-auto bg-slate-900",
+        activeView !== "console" && "hidden",
+      )}
+    >
+      <ol className="flex flex-col gap-1 text-base">
+        {logs.map((log, i) => (
+          <li key={log.id}>
+            <LogItem key={log.id} {...log} />
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 function Preview() {
+  const activeView = useAtomValue(sandboxActiveView);
+
   return (
     <>
-      <div className="rounded-b-lg bg-slate-800 p-4">
-        <div className="overflow-hidden rounded bg-white p-1">
+      <div className="rounded-b-lg bg-slate-900 p-4">
+        <div
+          className={cn(
+            "overflow-hidden rounded bg-white p-1",
+            activeView === "preview" ? "block" : "hidden",
+          )}
+        >
           <SandpackPreview
             showOpenInCodeSandbox={false}
             showRefreshButton={false}
-            className="h-72"
+            className={cn("h-72")}
           />
         </div>
+        <Console />
       </div>
     </>
   );
@@ -123,7 +277,7 @@ export default function SandpackWrapper({
         <SandpackLayout className="!-mx-4 !block !rounded-none sm:!mx-0 sm:!rounded-lg">
           <TitleBar />
           <SandpackCodeEditor showTabs />
-          <Console />
+          <Actions />
           <Preview />
         </SandpackLayout>
       </SandpackProvider>

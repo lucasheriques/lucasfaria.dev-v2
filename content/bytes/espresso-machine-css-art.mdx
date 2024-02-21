@@ -16,8 +16,8 @@ I'm really happy with the result.
 
 Check out what happens when you click the coffee button! That last part was built with React, but Vanilla JS would do the trick as well.
 
-<Sandpack template="react" files={{
-        "/App.module.css": `.espressoMachine {
+<Sandpack files={{
+        "/Espresso.module.css": `.espressoMachine {
   position: relative;
   width: 200px;
   height: 220px;
@@ -79,7 +79,6 @@ Check out what happens when you click the coffee button! That last part was buil
   transform: translateX(-50%);
   width: 2px;
   height: 0; /* Ensure this starts as not extended */
-  animation: pourCoffee 6s;
   z-index: 4;
 }
 
@@ -104,7 +103,6 @@ Check out what happens when you click the coffee button! That last part was buil
     100% - 4px
   ); /* Reduce width to account for left and right "padding" */
   height: 0; /* Start with an empty cup */
-  animation: fillCup 6s;
   border-radius: 0 0 15px 15px; /* Smooth bottom edges like the cup, matching your update */
 }
 
@@ -131,6 +129,14 @@ Check out what happens when you click the coffee button! That last part was buil
 
 .smokeLine:nth-child(3) {
   animation-delay: 0.1s; /* 0.5 seconds after the second */
+}
+
+.animatePourCoffee {
+  animation: pourCoffee 6s;
+}
+
+.animateFillCup {
+  animation: fillCup 6s;
 }
 
 .animateShowSmoke {
@@ -189,7 +195,7 @@ Check out what happens when you click the coffee button! That last part was buil
   }
 }
 `,
-        "/App.js": `import styles from './App.module.css';
+        "/App.tsx": `import styles from './Espresso.module.css';
 import clsx from "clsx";
 import { Coffee, Heart } from "lucide-react";
 import React from "react";
@@ -252,7 +258,7 @@ export default function EspressoMachine() {
         className={clsx(
           styles.coffee,
           "bg-amber-600",
-          isLoading ? "animate-pour-coffee" : "animate-none",
+          isLoading ? styles.animatePourCoffee : "animate-none",
         )}
       ></div>
       <div className={styles.cup}>
@@ -260,7 +266,7 @@ export default function EspressoMachine() {
           className={clsx(
             styles.coffeeInside,
             "bg-amber-600",
-            isLoading ? "animate-fill-cup" : "animate-none",
+            isLoading ? styles.animateFillCup : "animate-none",
           )}
         ></div>
         <div

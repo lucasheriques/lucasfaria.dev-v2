@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -47,7 +48,16 @@ const HeaderNavigation = () => {
               prefetch={true}
               onMouseEnter={() => setHoveredNavItem(item.href)}
             >
-              {item.label}
+              {item.href === "/" ? (
+                <Image
+                  src="/house-nobg.png"
+                  alt="Home"
+                  width={48}
+                  height={48}
+                />
+              ) : (
+                item.label
+              )}
             </Link>
           </div>
         );

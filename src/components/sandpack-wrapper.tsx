@@ -187,8 +187,6 @@ function LogItem({ method, data }: LogItemProps) {
       })
       .filter(Boolean); // Filter out any null values
   };
-
-  console.log({ data });
   return (
     <div className={cn(getColorForMethod(), "my-2")}>
       <span className={cn("flex items-center gap-2", getColorForMethod())}>
@@ -205,8 +203,6 @@ function Console() {
   });
 
   const activeView = useAtomValue(sandboxActiveView);
-
-  console.log({ logs });
 
   return (
     <div

@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Lora, Spline_Sans_Mono, Work_Sans } from "next/font/google";
+import { cookies } from "next/headers";
 
 import "./globals.css";
 
@@ -42,6 +43,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const theme = cookies().get("theme");
+
   return (
     <RespectMotionPreferences>
       <html
@@ -50,6 +53,7 @@ export default function RootLayout({
           "bg-amber-100 bg-gradient-to-b from-amber-100 to-emerald-100",
           "dark:bg-gray-900 dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900 dark:text-gray-300",
         )}
+        data-theme={theme?.value ?? "dark"}
       >
         <body
           className={cn(
@@ -59,7 +63,11 @@ export default function RootLayout({
             "flex min-h-dvh flex-col font-sans text-lg",
           )}
         >
-          <Header />
+          <Header
+            initialTheme={
+              theme?.value ? (theme.value as "light" | "dark") : "light"
+            }
+          />
           <main className="relative flex-1">{children}</main>
           <Footer />
           <TailwindIndicator />

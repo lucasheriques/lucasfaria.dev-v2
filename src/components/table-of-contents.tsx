@@ -26,7 +26,7 @@ const marginsForHeadingLevels = {
   6: "ml-16",
 };
 
-const TableOfContents = ({ postLanguage, headings }: TableOfContentsProps) => {
+function Heading({ level, title, id }: TableOfContentsProps["headings"][0]) {
   const [activeHeading, setCurrentHeading] = useAtom(currentHeadingAtom);
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -43,6 +43,24 @@ const TableOfContents = ({ postLanguage, headings }: TableOfContentsProps) => {
     setCurrentHeading(id || "");
   };
 
+  return (
+    <a
+      href={`#${id}`}
+      className={cn(
+        "block scroll-smooth transition-colors duration-300 hover:text-amber-700 hover:dark:text-amber-400",
+        marginsForHeadingLevels[level],
+        id === activeHeading
+          ? "font-semibold text-amber-700 dark:text-amber-400"
+          : "text-gray-800 dark:text-gray-500",
+      )}
+      onClick={handleAnchorClick}
+    >
+      {title}
+    </a>
+  );
+}
+
+const TableOfContents = ({ postLanguage, headings }: TableOfContentsProps) => {
   if (headings.length === 0) {
     return <aside />;
   }
@@ -53,36 +71,13 @@ const TableOfContents = ({ postLanguage, headings }: TableOfContentsProps) => {
         Table of Contents
       </Title>
       <nav className="flex flex-col gap-1 py-4">
-        <a
-          href="#introduction"
-          className={cn(
-            "block scroll-smooth transition-colors duration-300 hover:text-amber-700 hover:dark:text-amber-400",
-            marginsForHeadingLevels[2],
-            "introduction" === activeHeading
-              ? "font-medium text-amber-700 dark:text-amber-400"
-              : "text-gray-700 dark:text-gray-500",
-          )}
-          onClick={handleAnchorClick}
-        >
-          {postLanguage === "pt-br" ? "Introdução" : "Introduction"}
-        </a>
+        <Heading
+          level={1}
+          title={postLanguage === "pt-br" ? "Introdução" : "Introduction"}
+          id="introduction"
+        />
         {headings.map((heading) => {
-          return (
-            <a
-              key={heading.id}
-              href={`#${heading.id}`}
-              className={cn(
-                "block scroll-smooth transition-colors duration-300 hover:text-amber-700 hover:dark:text-amber-400",
-                marginsForHeadingLevels[heading.level],
-                heading.id === activeHeading
-                  ? "font-medium text-amber-700 dark:text-amber-400"
-                  : "text-gray-700 dark:text-gray-500",
-              )}
-              onClick={handleAnchorClick}
-            >
-              {heading.title}
-            </a>
-          );
+          return <Heading key={heading.id} {...heading} />;
         })}
       </nav>
     </aside>

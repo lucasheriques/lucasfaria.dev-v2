@@ -94,8 +94,8 @@ export function HeaderNavigationMobile({
   initialTheme: "light" | "dark";
 }) {
   const [isOpen, setOpen] = React.useState(false);
-  const buttonRef = React.useRef<HTMLDivElement>(null); // Ref for the <button> element
-  const navRef = React.useRef<HTMLDivElement>(null); // Ref for the <nav> element
+  const buttonRef = React.useRef<HTMLButtonElement>(null); // Ref for the <button> element
+  const navRef = React.useRef<HTMLElement>(null); // Ref for the <nav> element
 
   const handleClickOutside = () => {
     setOpen(false);
@@ -109,9 +109,7 @@ export function HeaderNavigationMobile({
 
   return (
     <div className="block md:hidden">
-      <div ref={buttonRef}>
-        <MenuToggle isOpen={isOpen} toggle={toggleOpen} />
-      </div>
+      <MenuToggle isOpen={isOpen} toggle={toggleOpen} ref={buttonRef} />
 
       <Modal
         isDismissable

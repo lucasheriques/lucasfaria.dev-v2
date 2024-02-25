@@ -30,6 +30,11 @@ const navItemVariants = {
       duration: 0.4,
     },
   }),
+  exit: {
+    x: -50, // Slide to the left
+    opacity: 0,
+    transition: { duration: 0.3 }, // Make it a bit faster for a smooth exit
+  },
 };
 
 const MenuToggle = forwardRef(
@@ -56,27 +61,17 @@ const MenuToggle = forwardRef(
             strokeWidth="2"
             strokeLinecap="round"
             variants={{
-              closed: { d: "M 2 2.5 L 20 2.5" },
+              closed: { d: "M 2 6 L 20 6" }, // Adjusted Y coordinate for the first line
               open: { d: "M 3 16.5 L 17 2.5" },
             }}
           />
-          <motion.path
-            fill="transparent"
-            strokeWidth="2"
-            strokeLinecap="round"
-            d="M 2 9.423 L 20 9.423"
-            variants={{
-              closed: { opacity: 1 },
-              open: { opacity: 0 },
-            }}
-            transition={{ duration: 0.1 }}
-          />
+          {/* Removed the middle line */}
           <motion.path
             fill="transparent"
             strokeWidth="2"
             strokeLinecap="round"
             variants={{
-              closed: { d: "M 2 16.346 L 20 16.346" },
+              closed: { d: "M 2 12 L 20 12" }, // Adjusted Y coordinate for the second line
               open: { d: "M 3 2.5 L 17 16.346" },
             }}
           />
@@ -87,6 +82,24 @@ const MenuToggle = forwardRef(
 );
 
 MenuToggle.displayName = "MenuToggle";
+
+const modalBackgroundVariants = {
+  hidden: {
+    opacity: 0,
+    backdropFilter: "blur(0px)",
+  },
+  visible: {
+    opacity: 1,
+    backdropFilter: "blur(12px)",
+    transition: {
+      duration: 0.5, // Total duration for the fade-in and blur effect
+      ease: "easeInOut",
+      backdropFilter: {
+        delay: 0.3, // Start blurring after 0.3 seconds
+      },
+    },
+  },
+};
 
 export function HeaderNavigationMobile({
   initialTheme,
@@ -111,22 +124,25 @@ export function HeaderNavigationMobile({
     <div className="block md:hidden">
       <MenuToggle isOpen={isOpen} toggle={toggleOpen} ref={buttonRef} />
 
-      <Modal
-        isDismissable
-        isOpen={isOpen}
-        className={cn(
-          "fixed inset-0 z-40 bg-emerald-100/85 backdrop-blur-sm dark:bg-gray-950/90",
-          "animate-in fade-in",
-        )}
-      >
-        <Dialog aria-label="Navigation menu">
-          <nav
-            className="absolute top-1/4 flex w-3/4 flex-col text-xl capitalize"
-            ref={navRef}
+      <AnimatePresence>
+        {isOpen && (
+          <Modal
+            isDismissable
+            isOpen={isOpen}
+            className="fixed inset-0 z-40 overflow-hidden"
           >
-            <AnimatePresence>
-              {isOpen && (
-                <>
+            <motion.div
+              className="absolute h-full w-full bg-emerald-100/85 dark:bg-gray-950/90"
+              variants={modalBackgroundVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            >
+              <Dialog aria-label="Navigation menu">
+                <nav
+                  className="absolute top-1/4 flex w-3/4 flex-col text-xl capitalize"
+                  ref={navRef}
+                >
                   {navItems.map((item, i) => (
                     <Link
                       href={item.href}
@@ -139,22 +155,22 @@ export function HeaderNavigationMobile({
                         custom={i}
                         initial="hidden"
                         animate="visible"
-                        exit="hidden"
+                        exit="exit" // Use the exit variant when the modal is closing
                         variants={navItemVariants}
                       >
                         {item.label}
                       </motion.div>
                     </Link>
                   ))}
-                </>
-              )}
-            </AnimatePresence>
-            <div className="px-6 pt-16 duration-1000 animate-in fade-in">
-              <DarkLightToggle initialTheme={initialTheme} />
-            </div>
-          </nav>
-        </Dialog>
-      </Modal>
+                  <div className="px-6 pt-16 duration-1000 animate-in fade-in">
+                    <DarkLightToggle initialTheme={initialTheme} />
+                  </div>
+                </nav>
+              </Dialog>
+            </motion.div>
+          </Modal>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

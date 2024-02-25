@@ -149,7 +149,7 @@ export function HeaderNavigationMobile({
                       prefetch={true}
                       onClick={toggleOpen}
                       key={item.label}
-                      className="px-6 py-4"
+                      className="px-8 py-4"
                     >
                       <motion.div
                         custom={i}
@@ -162,7 +162,7 @@ export function HeaderNavigationMobile({
                       </motion.div>
                     </Link>
                   ))}
-                  <div className="px-6 pt-16 duration-1000 animate-in fade-in">
+                  <div className="px-8 pt-16 duration-1000 animate-in fade-in">
                     <DarkLightToggle initialTheme={initialTheme} />
                   </div>
                 </nav>

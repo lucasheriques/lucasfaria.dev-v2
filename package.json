@@ -28,7 +28,8 @@
     "react-dom": "^18",
     "server-only": "^0.0.1",
     "tailwind-merge": "^2.2.1",
-    "tailwindcss-react-aria-components": "^1.1.0"
+    "tailwindcss-react-aria-components": "^1.1.0",
+    "usehooks-ts": "^2.15.1"
   },
   "devDependencies": {
     "@swc-jotai/react-refresh": "^0.1.0",

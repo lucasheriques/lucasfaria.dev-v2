@@ -1,11 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { forwardRef } from "react";
 import { Dialog, Modal } from "react-aria-components";
+import { useOnClickOutside } from "usehooks-ts";
 
 import { HeaderBackdropAnimation } from "./header-backdrop-animation";
 
@@ -16,61 +17,76 @@ const navItems = [
   { label: "ideas", href: "/ideas" },
   { label: "bytes", href: "/bytes" },
   { label: "about", href: "/about" },
-  { label: "recommendations", href: "/recommendations" },
+  // { label: "recommendations", href: "/recommendations" },
 ];
 
-const MenuToggle = ({
-  isOpen,
-  toggle,
-}: {
-  isOpen: boolean;
-  toggle: () => void;
-}) => (
-  <motion.button
-    initial={false}
-    animate={isOpen ? "open" : "closed"}
-    onClick={() => {
-      console.log({ isOpen });
-      toggle();
-    }}
-    className="fixed right-3 top-3 z-50 p-3"
-  >
-    <svg width="23" height="23" viewBox="0 0 23 23">
-      <motion.path
-        fill="transparent"
-        strokeWidth="2"
-        stroke="hsl(0, 0%, 18%)"
-        strokeLinecap="round"
-        variants={{
-          closed: { d: "M 2 2.5 L 20 2.5" },
-          open: { d: "M 3 16.5 L 17 2.5" },
-        }}
-      />
-      <motion.path
-        fill="transparent"
-        strokeWidth="2"
-        stroke="hsl(0, 0%, 18%)"
-        strokeLinecap="round"
-        d="M 2 9.423 L 20 9.423"
-        variants={{
-          closed: { opacity: 1 },
-          open: { opacity: 0 },
-        }}
-        transition={{ duration: 0.1 }}
-      />
-      <motion.path
-        fill="transparent"
-        strokeWidth="2"
-        stroke="hsl(0, 0%, 18%)"
-        strokeLinecap="round"
-        variants={{
-          closed: { d: "M 2 16.346 L 20 16.346" },
-          open: { d: "M 3 2.5 L 17 16.346" },
-        }}
-      />
-    </svg>
-  </motion.button>
+const navItemVariants = {
+  hidden: { x: -50, opacity: 0 },
+  visible: (i: number) => ({
+    x: 0,
+    opacity: 1,
+    transition: {
+      delay: i * 0.1, // Increase delay for each item
+      duration: 0.4,
+    },
+  }),
+};
+
+const MenuToggle = forwardRef(
+  (
+    { isOpen, toggle }: { isOpen: boolean; toggle: () => void },
+    ref: React.Ref<HTMLButtonElement> | null,
+  ) => {
+    return (
+      <motion.button
+        ref={ref}
+        initial={false}
+        animate={isOpen ? "open" : "closed"}
+        onClick={toggle}
+        className="fixed right-4 top-4 z-50 p-2"
+      >
+        <svg
+          width="23"
+          height="23"
+          viewBox="0 0 23 23"
+          className="stroke-gray-900 dark:stroke-gray-300"
+        >
+          <motion.path
+            fill="transparent"
+            strokeWidth="2"
+            strokeLinecap="round"
+            variants={{
+              closed: { d: "M 2 2.5 L 20 2.5" },
+              open: { d: "M 3 16.5 L 17 2.5" },
+            }}
+          />
+          <motion.path
+            fill="transparent"
+            strokeWidth="2"
+            strokeLinecap="round"
+            d="M 2 9.423 L 20 9.423"
+            variants={{
+              closed: { opacity: 1 },
+              open: { opacity: 0 },
+            }}
+            transition={{ duration: 0.1 }}
+          />
+          <motion.path
+            fill="transparent"
+            strokeWidth="2"
+            strokeLinecap="round"
+            variants={{
+              closed: { d: "M 2 16.346 L 20 16.346" },
+              open: { d: "M 3 2.5 L 17 16.346" },
+            }}
+          />
+        </svg>
+      </motion.button>
+    );
+  },
 );
+
+MenuToggle.displayName = "MenuToggle";
 
 export function HeaderNavigationMobile({
   initialTheme,
@@ -78,36 +94,62 @@ export function HeaderNavigationMobile({
   initialTheme: "light" | "dark";
 }) {
   const [isOpen, setOpen] = React.useState(false);
+  const buttonRef = React.useRef<HTMLElement>(null); // Ref for the <button> element
+  const navRef = React.useRef<HTMLElement>(null); // Ref for the <nav> element
 
-  const toggleOpen = () => setOpen(!isOpen);
-  console.log({ isOpen });
+  const handleClickOutside = () => {
+    setOpen(false);
+  };
+
+  useOnClickOutside([navRef, buttonRef], handleClickOutside, "touchstart");
+
+  const toggleOpen = () => {
+    setOpen(!isOpen);
+  };
+
   return (
     <div className="block md:hidden">
-      <MenuToggle isOpen={isOpen} toggle={toggleOpen} />
+      <MenuToggle isOpen={isOpen} toggle={toggleOpen} ref={buttonRef} />
 
       <Modal
         isDismissable
         isOpen={isOpen}
         className={cn(
-          "fixed inset-0 z-40 bg-white bg-opacity-95",
+          "fixed inset-0 z-40 bg-emerald-100/85 backdrop-blur-sm dark:bg-gray-950/90",
           "animate-in fade-in",
         )}
       >
         <Dialog aria-label="Navigation menu">
-          <nav className="p-6k absolute top-24 flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              {navItems.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  prefetch={true}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-            <div>
+          <nav
+            className="absolute top-1/4 flex w-3/4 flex-col text-xl capitalize"
+            ref={navRef}
+          >
+            <AnimatePresence>
+              {isOpen && (
+                <>
+                  {navItems.map((item, i) => (
+                    <Link
+                      href={item.href}
+                      prefetch={true}
+                      onClick={toggleOpen}
+                      key={item.label}
+                      className="px-6 py-4"
+                    >
+                      <motion.div
+                        custom={i}
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                        variants={navItemVariants}
+                      >
+                        {item.label}
+                      </motion.div>
+                    </Link>
+                  ))}
+                </>
+              )}
+            </AnimatePresence>
+            <div className="px-6 pt-16 duration-1000 animate-in fade-in">
               <DarkLightToggle initialTheme={initialTheme} />
             </div>
           </nav>
@@ -137,11 +179,6 @@ export default function HeaderNavigation() {
       >
         {navItems.map((item) => {
           const isActive = pathname === item.href;
-
-          if (item.href === "/recommendations") {
-            return null;
-          }
-
           return (
             <div key={item.label} className="relative flex items-center">
               <HeaderBackdropAnimation

@@ -32,7 +32,7 @@ const Article = ({
   return (
     <div className="xl:article-grid mx-auto grid max-w-3xl grid-cols-1 px-6 sm:gap-y-12 xl:max-w-full">
       <aside className="hidden xl:flex"></aside>
-      <article className="prose max-w-full font-serif text-xl text-gray-950 dark:prose-invert xl:px-6 dark:text-gray-200">
+      <article className="prose max-w-full font-serif text-xl dark:prose-invert xl:px-6">
         {type === "ideas" && <IdeasProgressBar />}
         <h1>{title}</h1>
         {humanizedDate}

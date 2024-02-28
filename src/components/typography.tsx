@@ -14,7 +14,10 @@ const _Title = (
 ) => {
   return (
     <Tag
-      className={`text-2xl font-semibold text-emerald-600 dark:text-emerald-400 ${className}`}
+      className={cn(
+        "text-2xl font-semibold text-emerald-600 dark:text-emerald-400",
+        className,
+      )}
       {...props}
       ref={ref}
     >

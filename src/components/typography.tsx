@@ -41,7 +41,7 @@ const gradientDarkModeTextColors = {
   purple: "dark:from-purple-500 dark:to-purple-200",
   green: "dark:from-green-500 dark:to-green-200",
   blue: "dark:from-blue-500 dark:to-blue-200",
-  emerald: "dark:from-emerald-500 dark:to-emerald-200",
+  emerald: "dark:from-emeralddark:stroke-emerald-400-500 dark:to-emerald-200",
   violet: "dark:from-violet-500 dark:to-violet-200",
   rose: "dark:from-rose-500 dark:to-rose-200",
   sky: "dark:from-sky-500 dark:to-sky-200",

@@ -1,7 +1,7 @@
 "use client";
 
 import { Sparkle } from "lucide-react";
-import React, { useEffect } from "react";
+import React from "react";
 import colors from "tailwindcss/colors";
 
 import { random } from "@/helpers/functions";

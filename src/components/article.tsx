@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { ArrowLeft } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import Image from "next/image";
 import Link from "next/link";
 
 import ArticleHeading from "@/components/article-heading";
@@ -10,6 +11,7 @@ import ResetHeading from "@/components/reset-heading";
 import SandpackWrapper from "@/components/sandpack-wrapper";
 import TableOfContents from "@/components/table-of-contents";
 import IdeasProgressBar from "@/components/ui/ideas-progress-bar";
+import TextPopover from "@/components/ui/text-popover";
 import { type getPostInfoFromData } from "@/helpers/file-helpers";
 
 type ArticleProps = ReturnType<typeof getPostInfoFromData> & {
@@ -104,7 +106,10 @@ const Article = ({
               />
             ),
             EspressoMachine: () => <EspressoMachine />,
+            Image: (props) => <Image {...props} alt={props.alt} />,
             Sandpack: (props) => <SandpackWrapper {...props} />,
+            Link: (props) => <Link {...props} />,
+            TextPopover: (props) => <TextPopover {...props} />,
           }}
         />
         <Link

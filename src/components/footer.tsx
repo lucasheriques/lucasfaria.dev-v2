@@ -19,13 +19,13 @@ function Footer() {
         >
           LinkedIn
         </a>
-        <a
+        {/* <a
           href={socials.twitter}
           className="transition-colors hover:text-amber-700 dark:hover:text-amber-400"
           target="_blank"
         >
           Twitter (X)
-        </a>
+        </a> */}
       </div>
     </footer>
   );

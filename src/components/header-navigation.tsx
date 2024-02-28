@@ -139,9 +139,9 @@ export function HeaderNavigationMobile({
               animate="visible"
               exit="hidden"
             >
-              <Dialog aria-label="Navigation menu">
+              <Dialog aria-label="Navigation menu" className="outline-none">
                 <nav
-                  className="absolute top-1/4 flex w-3/4 flex-col text-xl capitalize"
+                  className="absolute top-1/4 flex w-3/4 flex-col text-xl capitalize outline-none"
                   ref={navRef}
                 >
                   {navItems.map((item, i) => (

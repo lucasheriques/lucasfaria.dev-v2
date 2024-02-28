@@ -8,6 +8,7 @@ import {
   OverlayArrow,
   Popover,
 } from "react-aria-components";
+import { useOnClickOutside } from "usehooks-ts";
 
 import { cn } from "@/helpers/functions";
 
@@ -40,16 +41,32 @@ export default function TextPopover({
   content,
   withAsterisk = true,
 }: TooltipProps) {
+  const [isOpen, setOpen] = React.useState(false);
+  const popoverRef = React.useRef(null);
+
+  const openPopover = () => {
+    setOpen(true);
+  };
+
+  useOnClickOutside(popoverRef, () => setOpen(false));
+
   return (
     <DialogTrigger>
-      <Button className={cn("inline-flex font-bold", tooltipTextColor.purple)}>
+      <Button
+        className={cn("inline-flex font-bold", tooltipTextColor.purple)}
+        onPress={openPopover}
+      >
         {children}
         {withAsterisk && <span className="text-xs">*</span>}
       </Button>
       <Popover
+        ref={popoverRef}
+        isOpen={isOpen}
+        onOpenChange={setOpen}
+        isNonModal
         className={({ isEntering, isExiting }) =>
           cn(
-            "group max-w-64 rounded-xl px-2 py-4 text-center text-sm text-gray-50",
+            "group absolute max-w-64 rounded-xl px-2 py-4 text-center text-sm text-gray-50",
             tooltipBgColor.purple,
             isEntering &&
               "duration-200 ease-out animate-in fade-in placement-top:slide-in-from-bottom-1 placement-bottom:slide-in-from-top-1",

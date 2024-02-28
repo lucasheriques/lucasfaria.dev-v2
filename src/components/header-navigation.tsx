@@ -49,6 +49,7 @@ const MenuToggle = forwardRef(
         animate={isOpen ? "open" : "closed"}
         onClick={toggle}
         className="fixed right-4 top-4 z-50 p-2"
+        aria-label="Open menu"
       >
         <svg
           width="23"

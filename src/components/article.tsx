@@ -20,8 +20,12 @@ type HeroProps = {
 const Hero = ({ title, humanizedDate, content, type }: HeroProps) => {
   // Calculate read time
   const wordsPerMinute = 200;
-  const numberOfWords = content.split(/\s/g).length;
-  const readTime = Math.ceil(numberOfWords / wordsPerMinute);
+  const cleanContent = content.replace(
+    /<[^>]*>|{[^}]*}|\!*\[[^\]]*\]\([^)]*\)|\#{1,6}\s|\*{1,2}|\_{1,2}|\~{2}|\`{1,3}|\>|\-|\+|\d+\./g,
+    "",
+  );
+  const numberOfWords = cleanContent.split(/\s+/).length;
+  const readTime = Math.floor(numberOfWords / wordsPerMinute);
 
   return (
     <div className="not-prose">

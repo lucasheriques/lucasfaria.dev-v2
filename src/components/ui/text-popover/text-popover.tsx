@@ -36,7 +36,7 @@ const tooltipSvgColor = {
     "fill-emerald-700 stroke-emerald-700 dark:fill-emerald-800 dark:stroke-emerald-800",
 };
 
-export default function TextPopover({
+export default function _TextPopover({
   children,
   content,
   withAsterisk = true,

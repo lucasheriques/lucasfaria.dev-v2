@@ -1,14 +1,12 @@
 import { format } from "date-fns";
 import { ArrowLeft } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import Image from "next/image";
 import Link from "next/link";
 
 import ArticleHeading from "@/components/article-heading";
+import CodePlayground from "@/components/code-playground";
 import CodeSnippet from "@/components/code-snippet";
-import EspressoMachine from "@/components/espresso-machine";
 import ResetHeading from "@/components/reset-heading";
-import SandpackWrapper from "@/components/sandpack-wrapper";
 import TableOfContents from "@/components/table-of-contents";
 import { Title } from "@/components/typography";
 import ArticleImage from "@/components/ui/article-image";
@@ -136,9 +134,7 @@ const Article = ({
                 {...props}
               />
             ),
-            EspressoMachine: () => <EspressoMachine />,
-            Image: (props) => <Image {...props} alt={props.alt} />,
-            Sandpack: (props) => <SandpackWrapper {...props} />,
+            CodePlayground: (props) => <CodePlayground {...props} />,
             Link: (props) => <Link {...props} />,
             TextPopover: (props) => <TextPopover {...props} />,
             ArticleImage: (props) => <ArticleImage {...props} />,

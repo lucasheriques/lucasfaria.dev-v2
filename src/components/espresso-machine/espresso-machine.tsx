@@ -3,12 +3,12 @@
 import { Coffee, Heart } from "lucide-react";
 import React from "react";
 
-import CloudIcon from "./cloud-icon";
+import CloudIcon from "../cloud-icon";
 import styles from "./espresso-machine.module.css";
 
 import { cn } from "@/helpers/functions";
 
-function EspressoMachine() {
+export default function _EspressoMachine() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [isCoffeeReady, setIsCoffeeReady] = React.useState(false);
 
@@ -92,5 +92,3 @@ function EspressoMachine() {
     </div>
   );
 }
-
-export default EspressoMachine;

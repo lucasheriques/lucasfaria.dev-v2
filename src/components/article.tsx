@@ -3,16 +3,12 @@ import { ArrowLeft } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 
-import ArticleHeading from "@/components/article-heading";
-import CodePlayground from "@/components/code-playground";
-import CodeSnippet from "@/components/code-snippet";
 import ResetHeading from "@/components/reset-heading";
 import TableOfContents from "@/components/table-of-contents";
 import { Title } from "@/components/typography";
-import ArticleImage from "@/components/ui/article-image";
 import IdeasProgressBar from "@/components/ui/ideas-progress-bar";
-import TextPopover from "@/components/ui/text-popover";
 import { type getPostInfoFromData } from "@/helpers/file-helpers";
+import COMPONENT_MAP from "@/helpers/mdx-components";
 
 type HeroProps = {
   title: string;
@@ -67,79 +63,7 @@ const Article = ({
           humanizedDate={humanizedDate}
           content={content}
         />
-        <MDXRemote
-          source={content}
-          components={{
-            pre: (props) => <CodeSnippet {...props} />,
-            a: (props) => <a {...props} target="_blank" />,
-            h1: (props) => {
-              return (
-                <ArticleHeading
-                  title={props.children as string}
-                  as="h1"
-                  {...props}
-                />
-              );
-            },
-            h2: (props) => {
-              return (
-                <ArticleHeading
-                  title={props.children as string}
-                  as="h2"
-                  {...props}
-                />
-              );
-            },
-            h3: (props) => {
-              return (
-                <ArticleHeading
-                  title={props.children as string}
-                  as="h3"
-                  {...props}
-                />
-              );
-            },
-            h4: (props) => {
-              return (
-                <ArticleHeading
-                  title={props.children as string}
-                  as="h4"
-                  {...props}
-                />
-              );
-            },
-            h5: (props) => {
-              return (
-                <ArticleHeading
-                  title={props.children as string}
-                  as="h5"
-                  {...props}
-                />
-              );
-            },
-            h6: (props) => {
-              return (
-                <ArticleHeading
-                  title={props.children as string}
-                  as="h6"
-                  {...props}
-                />
-              );
-            },
-            IntroAnchor: (props) => (
-              <ArticleHeading
-                className="-mb-4 h-[1px]"
-                title="introduction"
-                as="h2"
-                {...props}
-              />
-            ),
-            CodePlayground: (props) => <CodePlayground {...props} />,
-            Link: (props) => <Link {...props} />,
-            TextPopover: (props) => <TextPopover {...props} />,
-            ArticleImage: (props) => <ArticleImage {...props} />,
-          }}
-        />
+        <MDXRemote source={content} components={COMPONENT_MAP} />
         <Link
           href={`
           /${type === "bytes" ? "bytes" : "ideas"}`}

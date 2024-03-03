@@ -77,8 +77,8 @@ const Article = ({
           <ArrowLeft size={16} /> Back to {type === "bytes" ? "bytes" : "ideas"}
         </Link>
       </article>
-      <TableOfContents postLanguage={language} headings={headings} />
-      <ResetHeading />
+      {type === "ideas" && <TableOfContents postLanguage={language} headings={headings} />}
+      {type === "ideas" && <ResetHeading />}
     </div>
   );
 };

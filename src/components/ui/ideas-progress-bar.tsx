@@ -15,7 +15,7 @@ export default function IdeasProgressBar() {
   return (
     <motion.div
       className={cn(
-        "bottom fixed left-0 right-0 top-0 h-1 origin-left bg-gradient-to-r",
+        "bottom fixed left-0 right-0 top-0 z-10 h-1 origin-left bg-gradient-to-r",
         "from-amber-100 to-amber-500",
         "dark:from-emerald-400 dark:to-emerald-800",
       )}

@@ -48,7 +48,7 @@ const COMPONENT_MAP = {
     />
   ),
   CodePlayground: CodePlayground,
-  Link: Link,
+  Link: (props: any) => <Link target="_blank" {...props} />,
   TextPopover: TextPopover,
   ArticleImage: ArticleImage,
 };

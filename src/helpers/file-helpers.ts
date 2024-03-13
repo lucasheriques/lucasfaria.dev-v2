@@ -9,10 +9,15 @@ type PossibleHeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 // extract table of contents based on headings
 // ignore everything that is betweeen ```
 export function extractTableOfContents(content: string) {
-  const headings = content.match(/(?<=^|\n)#{1,6} .*(?=\n|$)/g);
+  const blocks = content.split("```");
+  const headings = blocks
+    .filter((_, index) => index % 2 === 0) // only consider blocks outside of code blocks
+    .flatMap((block) => block.match(/(?<=^|\n)#{1,6} .*(?=\n|$)/g) || []); // match headings in each block
+
   if (!headings) {
     return [];
   }
+
   return headings.map((heading) => {
     const headingLevel = heading.match(/#/g)?.length;
     const title = heading.replace(/#/g, "").trim();

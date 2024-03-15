@@ -1,0 +1,229 @@
+---
+title: "Kubernetes 101: Building a REST API with Go [Part 1]"
+abstract: "TODO"
+createdAt: 2024-03-04
+---
+
+<IntroAnchor/>
+
+I'm starting this new series with a brief thought on the state of the web deployments today. Feel free to skip to the <a href="#project-requirements">next section</a> if you want to get into the development.
+
+Over the years, I’ve been working with ~~JavaScript~~ TypeScript technologies. React, Nextjs, Node, and many others.
+
+And, in the past few years, there’s a big trend in serverless deployments. Where, instead of having a <TextPopover content="Think of it like a computer running your service 24/7">stateful server</TextPopover>, you execute the code when it’s needed.
+
+I think serverless architectures make sense for a lot of things. They’re easy to work with. You don’t need to set up your own local infra, since everything is provided by your cloud provider.
+
+The tools I'm most productive these days are a combination of the <TextPopover content="tRPC, Tailwind, TypeScript, Next’s, Drizzle/Prisma">T3 stack technologies</TextPopover>. It’s a famous stack popularized by [Theo](https://www.youtube.com/c/theobrowne1017). It's easy to use and set up. You can start a new repo using their CLI and deploy to Vercel/Netlify.
+
+But, it does abstract a lot of things for the developer. You don't have to go through the pain of setting up the database connection. No need to worry about how to deploy your frontend. Or your API. We connect the GitHub repo to the PaaS and we're good to.
+
+<ArticleImage src="/serverless-vs-vpn.excalidraw.svg" caption="Serverless deployments abstract a lot of concerns for the engineer. The trade-offs between each strategy are different."/>
+
+Yet, when I first learned about programming, serverless was not yet a thing. I remember setting up my basic environment. Running everything locally. Calling the database by using a raw connection url and SQL. Spending a lot of time battling the OS internals (and learning a lot along the way).
+
+But, over the years, I've been using more and more serverless lately. Which means I missed a lot of the evolutions we had in traditional deployments. I haven't built any microservices architecture from scratch. Never used Kubernetes. Didn't touch much of DevOps besides what's needed for serverless. Which I think is a lot simpler.
+
+And I have a growing interest in distributed systems. Understanding how companies like Meta and Google serve billions of users with an insanely low down time considering their scale.
+
+I have an okay knowledge about serverless. I know its use cases, its drawbacks, things to watch out for. Yet, I'm oblivious when it comes to designing a service architecture using Kubernetes.
+
+It’s been a while since I did similar like this. Learn a new tool. Build a new application that solves some pain for me and for others, using a new architecture. And I'm curious as well if we can make a simple enough Kubernetes application that feels as much productive as serverless.
+
+In this <TextPopover content="ZIRP means Zero Interest Rate Period. It's the economic state we're currently at. Money is more expensive, so we need to do more with less resources.">post-ZIRP</TextPopover> scenario, efficiency matters. A lot. <a href="https://newsletter.pragmaticengineer.com/i/142104676/pragmatic-simpler-architecture">Which means using a software architectures that allows you to move fast</a>. To solve problems you currently have instead of have to planning for the future.
+
+I am productive when using full stack frameworks like Nextjs. I know I can build an application quickly. Hence, I want to see if I can do something at a similar velocity without relying on serverless. And that it can accommodate for changes quickly as I add more requirements.
+
+But, more importantly: I'm curious. I like computers. And I want to have a deeper understanding of how they work. Serverless is abstracting too many things for me right now. So I'll step outside my comfort zone to regain the feeling I used to have when first learning about programming.
+
+I know plenty of companies are using <TextPopover content="Also called K8s.">Kubernetes</TextPopover> to manage their services these days. I'm figuring out the why. I know it's a container orchestration tool. And that it's able to spin up containers, and replace them as they die. But I don't know anything else. 😅
+
+By the end of this series, I want to get a better understanding of the whole k8s ecosystem.
+
+As for Go, I've been using it more and more lately. Yet I only used it for simple coding projects. Now I want to push my limits even more. By creating a REST API that I plan to use in many projects in the future.
+
+A disclaimer: I already started coding this project. Yet, before proceeding even more, I want to write my thought process. This accomplishes two things:
+
+1. It helps me take a step back and see where I'm currently at, and my next steps. This exercise will help me understand all the requirements. And to plan for them accordingly.
+2. It helps cement the knowledge I'm building with this project. By trying to teach someone, it pushes me to make sure I'm understanding everything. I think teaching is the ultimate learning tool for software engineers.
+
+As of writing this post, I'm able to call the REST API with a HTML body in the request body. The API processes the HTML, converts it to a PDF, and then returns it. Currently, the only client is the CLI tool I'm building to generate fake invoices.
+
+Why fake invoices you ask? I need them all the time on my job. I work on the Bill Pay team, where we scan invoices to pay them. And because of that I need different invoices. Number of line items, payment method, amount, etc.
+
+I could create them manually. I know. But I want to over-engineer my way into automation. That's a typical fun weekend for me. Yeah I'm probably not normal. Okay, that's enough of an intro. Let's start.
+
+## Project requirements
+
+Functional requirements:
+
+1. I'm able to convert various files into PDFs. For now, I'll start with HTMLs, since then I can build the invoice with HTML/CSS.
+2. I'm able to create invoices for multiple use cases. Like many  line items, different payment methods, among others. We'll use HTML to create the invoice. Because it's simple to parse and change. Then we can convert the HTML to PDF with the other service.
+2. In the future, I want to also use this API for my own analytics service. I plan to use it for my website. It'll store my most popular content, and also likes on each article. Heavily inspired by [Josh Comeau's website](https://www.joshwcomeau.com/).
+
+
+Non-functional requirements:
+
+1. The API should be created with Go. For now, no frameworks are required. Since Go standard library is good enough.
+2. To manage the deployment, we'll use Kubernetes. No idea  how we're going to deploy it. DigitalOcean, AWS, Google Cloud. No idea. I'll learn about them when the time comes (probably part 2 of this piece).
+3. Authentication. Something simple. To ensure only authorized clients can make calls to my personal API. API keys are probably enough here.
+4. Caching the invoice generation. The endpoint will receive the invoice parameters. If we have a similar invoice created, we can return it and avoid the conversion process.
+5. To implement the conversion service, we'll use [Gotenberg](https://gotenberg.dev/). It's a well maintained Go library to for PDF files. It provides a developer friendly API to interact with tools like Chromium and LibreOffice. It should be enough for all kinds of conversions.
+6. The Gotenberg service should not be accessible outside the K8s cluster. Our clients will interact with the REST API exclusively.
+
+There may be more details missing from this here. But I think this is a good enough list for now. We can now progress to the system design phase.
+
+## System design
+
+Our goal here is to understand how our services will interact with each other. How the clients will call our API.
+
+Given that I'm not familiar with K8s, my design will probably look weird. 😅
+
+But let me try my best.
+
+<ArticleImage src="/invoice-gen-design.excalidraw.svg" caption="System design of our invoice generation service. Contains the flow of how our clients will interact with out application." />
+
+As far as designs go, this is on the simple side. Since I'm not familiar with the tech, there might a few steps I missed here and there.
+
+But the goal, and how each component interacts with each other sounds clear enough.
+
+Now, before moving on, one last thing. Defining our endpoints and how we'll handle the request and response payload.
+
+### API Endpoints
+
+1. POST `/api/fake-invoice`. Will receive the desired invoice data. If empty, return a randomized invoice. The request payload may contain the options to generate an invoice with specific values.
+2. POST `/api/convert/html-to-pdf`. Will receive the HTML file in its payload. And will return `Content-Type: application/pdf`. The PDF generated by converting the HTML. Currently, will not be used by anything as the invoice conversion is handled by `/fake-invoice`.
+
+For documenting the endpoints, we should use something like OpenAPI. It has been a long time since I implemented one of those specs. We'll do that eventually. We need to make sure our API customers are happy, and that everything they need to know is there.
+
+## Implementation
+
+I haven't implemented any Go project bigger than one file up until now. So, no idea on the best practices. For this first version, I'll put files on where they make sense for me.
+
+Here's the file structure I'm using:
+
+TODO
+
+You can access the full content in [this GitHub repo](https://github.com/lucasheriques/tools-api).
+
+For the PDF conversion, my plan is to use [Gotenberg](https://gotenberg.dev/). It provides a friendly API to interact with tools for converting documents.
+
+It's available as a Docker image in the registry. My plan is to build two services in my K8s cluster: one for the REST API, and another one for Gotenberg. Then, using Kubernetes DNS we can make HTTP calls from the API to the Gotenberg service in our local network.
+
+## Development workflow
+
+When I first started this project, I ran it like this:
+
+```zsh
+go run main.go
+```
+
+The usual way to run a Go project.
+
+Yet, I want to learn K8s. So I knew I'd have to look on how to setup a k8s project. To do that, I relied on ChatGPT to guide me through the initial setup. Which you can see the full results regarding files on the previous section.
+
+The first step for me was to <TextPopover content="Packaging my app into a Docker container. It helps to ensure app consistency and simplify deployment across environments.">Dockerize</TextPopover> my Go application.
+
+
+```Dockerfile
+# Start from the official Golang base image
+FROM golang:1.22 as builder
+
+# Set the Current Working Directory inside the container
+WORKDIR /app
+
+# Copy go mod and sum files
+COPY ./go.mod ./go.sum ./
+
+# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
+RUN go mod download
+
+# Copy the source from the current directory to the Working Directory inside the container
+COPY .. .
+
+# Build the Go app
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+
+# Start a new stage from scratch
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates
+
+WORKDIR /root/
+
+# Copy the Pre-built binary file from the previous stage
+COPY --from=builder /app/main .
+
+# Also copy invoice.tmpl to the final image
+COPY --from=builder /app/invoice.tmpl /root/invoice.tmpl
+
+# Command to run the executable
+CMD ["./main"]
+```
+
+This is my current Dockerfile configuration. Most commands are commented. But the summary is to go through the build steps and get the server up and running.
+
+Now that I have my Dockerfile, I can build the container image. Which we'll use to start our K8s service.
+
+```zsh
+docker build -t tools-api:latest --file ./deployments/Dockerfile .
+```
+
+This command builds the Docker image and stores the image in my local registry. When I run `docker images`, I get this:
+
+```zsh
+❯ docker images
+REPOSITORY                                TAG                                                                          IMAGE ID       CREATED         SIZE
+tools-api                                 latest                                                                       e3b86b2da51a   3 minutes ago   18.9MB
+```
+
+We have our image up and running on our local registry. Now, the next step is to setup our local Kubernetes cluster.
+
+### Setting up my local Kubernetes cluster
+
+There's a few options here. It'll vary depending on what system are you on. I'm using a MacBook Pro, then consider this if you're following along. For Ubuntu users, [MicroK8S](https://microk8s.io/) appears to be a good choice. There's also [Rancher Desktop](https://rancherdesktop.io/), which is cross-platform and also has a local
+
+
+The most straightforward one is Docker for Mac. You can install it and enable Kubernetes using the settings. This is how I first got stated. It's the easiest one to setup.
+
+However, I didn't know that 😅 so I went with `minikube` instead. I used `brew install minikube` to install it. Then `minikube start` to run the cluster.
+
+When I first started, I was using the `kubeclt` commands to add my deployments to my cluster. So, this was my very first inefficient development workflow:
+
+```zsh
+# Make sure minikube has access to my local registry
+eval $(minikube -p minikube docker-env)
+
+# Build the docker image
+docker build -t tools-api:latest --file ./deployments/Dockerfile .
+
+# Applied the K8s deployments
+kubectl apply -f deployments/gotenberg.yaml
+kubectl apply -f deployments/tools-api.yaml
+
+# Then, the services
+kubectl apply -f gotenberg-deployment.yaml
+kubectl apply -f gotenberg-service.yaml
+```
+
+After this, I had my <TextPopover content="Smallest deployable units containing one or more containers in Kubernetes">pods</TextPopover> up and running.
+
+```zsh
+❯ k get pods
+NAME                         READY   STATUS    RESTARTS   AGE
+gotenberg-7544545b8-9dxzp    1/1     Running   0          7m34s
+tools-api-57f78694df-rpvlf   1/1     Running   0          3m15s
+```
+
+However, when I tried to access localhost:8080, my API URL, nothing happened. Which is great! Why, do you ask?
+
+With Kubernetes, services and apps are running inside pods, isolated from the host operational system. This is to ensure security and resource encapsulation. That means that, even if our app is running locally, we can't just `localhost` to it. We'd have to explicitly expose the Kubernetes network to ours.
+
+And, to make a pod accessible to the outside world, that's when the service comes in. Which is why we applied them in the very first place!
+
+What you need to understand about Kubernetes is that pods are temporary. They can come and go. Maybe due to scaling, updates, or failures. No matter why, Kubernetes manages that life cycle for us. Ensuring they're rescheduled and maintained according to the desired state.
+
+Eventually, we can even introduce load balancers to manage traffic distribution across them.
+
+Services are more permanent. They provide an abstraction layer to the set of pods. In our case, we have just one, as that's the replica number we used in the deployment YAML. With a service, Kubernetes assigns it a stable IP address and DNS name. This way, we can enable internal and external access to reach the pods. Even when they get created, destroyed or updated.
+
+<KubernetesVisualizer/>

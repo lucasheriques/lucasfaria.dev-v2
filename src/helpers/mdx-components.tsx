@@ -3,7 +3,9 @@ import Link from "next/link";
 import ArticleHeading from "@/components/article-heading";
 import CodePlayground from "@/components/code-playground";
 import CodeSnippet from "@/components/code-snippet";
+import KubernetesVisualizer from "@/components/kubernetes-visualizer";
 import ArticleImage from "@/components/ui/article-image";
+import Button from "@/components/ui/button";
 import TextPopover from "@/components/ui/text-popover";
 
 const COMPONENT_MAP = {
@@ -51,6 +53,8 @@ const COMPONENT_MAP = {
   Link: (props: any) => <Link target="_blank" {...props} />,
   TextPopover: TextPopover,
   ArticleImage: ArticleImage,
+  KubernetesVisualizer: KubernetesVisualizer,
+  Button: Button,
 };
 
 export default COMPONENT_MAP;

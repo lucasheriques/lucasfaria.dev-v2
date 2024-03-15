@@ -68,16 +68,22 @@ const Article = ({
           content={content}
         />
         <MDXRemote source={content} components={COMPONENT_MAP} />
-        <Link
-          href={`
+
+        <div className="pt-32">
+          <Link
+            href={`
           /${type === "bytes" ? "bytes" : "ideas"}`}
-          className="flex items-center gap-2 pt-12 md:pt-24"
-          prefetch={true}
-        >
-          <ArrowLeft size={16} /> Back to {type === "bytes" ? "bytes" : "ideas"}
-        </Link>
+            className="flex items-center gap-2"
+            prefetch={true}
+          >
+            <ArrowLeft size={16} /> Back to{" "}
+            {type === "bytes" ? "bytes" : "ideas"}
+          </Link>
+        </div>
       </article>
-      {type === "ideas" && <TableOfContents postLanguage={language} headings={headings} />}
+      {type === "ideas" && (
+        <TableOfContents postLanguage={language} headings={headings} />
+      )}
       {type === "ideas" && <ResetHeading />}
     </div>
   );

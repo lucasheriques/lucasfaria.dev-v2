@@ -67,7 +67,11 @@ const ServiceComponent = ({
     const podsDifference = value - service.pods.length;
 
     const getMaximumIdFromPods = () => {
-      return Math.max(...(service.pods.map((pod) => pod.id) ?? 1));
+      if (service.pods.length > 0) {
+        return Math.max(...service.pods.map((pod) => pod.id));
+      }
+
+      return 1;
     };
 
     if (podsDifference === 0) {
@@ -76,7 +80,7 @@ const ServiceComponent = ({
 
     if (podsDifference > 0) {
       const newPods = Array.from({ length: podsDifference }, (_, idx) => ({
-        id: getMaximumIdFromPods() + idx + 1,
+        id: getMaximumIdFromPods() + idx,
         createdAt: new Date(),
         status: "Pending" as const,
       }));
@@ -159,10 +163,9 @@ const ServiceComponent = ({
           <tbody>
             {service.pods.map((pod, index) => (
               <motion.tr key={index} layout>
-                <td>{pod.id}</td>
+                <td>pod-{pod.id}</td>
                 <td className="min-16">{pod.status}</td>
-                <td className="min-w-12">{formatAge(pod.createdAt)}</td>{" "}
-                {/* Example value */}
+                <td className="min-w-12">{formatAge(pod.createdAt)}</td>
               </motion.tr>
             ))}
           </tbody>
@@ -170,7 +173,7 @@ const ServiceComponent = ({
         <div className="flex gap-2">
           {service.pods.map((pod, index) => (
             <motion.div key={index} layout>
-              <PodIcon title={`pod-${index + 1}`} className="h-12 w-12" />
+              <PodIcon title={`pod-${pod.id}`} className="h-12 w-12" />
             </motion.div>
           ))}
         </div>

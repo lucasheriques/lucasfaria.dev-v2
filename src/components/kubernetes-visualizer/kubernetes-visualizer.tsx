@@ -62,9 +62,10 @@ const ServiceComponent = ({
   serviceIndex,
   services,
 }: ServiceComponentProps) => {
-  const [podCount, setPodCount] = useState(service.pods.length);
   const updatePodCount = (value: number) => {
     const podsDifference = value - service.pods.length;
+
+    console.log("actually update");
 
     const getMaximumIdFromPods = () => {
       if (service.pods.length > 0) {
@@ -97,12 +98,7 @@ const ServiceComponent = ({
     killPod(Math.abs(podsDifference));
   };
 
-  const debouncedUpdatePodCount = useDebounceCallback(updatePodCount, 1000);
-
-  const handleSliderUpdate = (value: number) => {
-    setPodCount(value);
-    debouncedUpdatePodCount(value);
-  };
+  const debouncedUpdatePodCount = useDebounceCallback(updatePodCount, 500);
 
   const killPodById = (id: number) => {
     const updatedPods = service.pods.map((pod) => ({
@@ -181,8 +177,7 @@ const ServiceComponent = ({
 
       <div className="flex flex-col gap-2">
         <Slider
-          value={podCount}
-          onChange={handleSliderUpdate}
+          onChange={debouncedUpdatePodCount}
           label="Num of replicas (pods)"
           defaultValue={service.pods.length}
           minValue={1}

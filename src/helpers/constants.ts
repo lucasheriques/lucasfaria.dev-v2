@@ -8,3 +8,21 @@ export const socials = {
   linkedin: "https://www.linkedin.com/in/lucas-faria/",
   twitter: "https://twitter.com/lucasfariadev",
 };
+
+export const FANTASY_NAME_SERVICES = [
+  "spell-casting-api",
+  "potion-inventory-db",
+  "magic-item-catalog",
+  "dragon-flight-tracker",
+  "wizard-profile-service",
+  "enchanted-forest-map",
+  "goblin-treasury-management",
+  "phoenix-mail-dispatcher",
+  "aura-detection-sensor",
+  "crystal-ball-analytics",
+  "scroll-archive-service",
+  "dungeon-booking-system",
+  "celestial-event-scheduler",
+  "familiar-management",
+  "artifact-repair-workshop",
+];

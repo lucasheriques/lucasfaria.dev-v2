@@ -36,3 +36,13 @@ export function getNewService(currentServices: string[]) {
   const randomIndex = Math.floor(Math.random() * availableServices.length);
   return availableServices[randomIndex];
 }
+
+export function randomNumberBetween({
+  min,
+  max,
+}: {
+  min: number;
+  max: number;
+}) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}

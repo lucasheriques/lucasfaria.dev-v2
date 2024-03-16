@@ -60,7 +60,6 @@ const _PodIcon = ({
         strokeMiterlimit: 4,
         strokeDasharray: "none",
         marker: "none",
-        enableBackground: "accumulate",
       }}
       transform="matrix(1.01489 0 0 1.01489 15.91 -3.873)"
     />

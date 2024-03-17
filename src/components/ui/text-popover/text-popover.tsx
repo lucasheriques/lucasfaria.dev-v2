@@ -15,6 +15,7 @@ import { cn } from "@/helpers/functions";
 type TooltipProps = {
   children: React.ReactNode;
   content: React.ReactNode;
+  source?: string;
   withAsterisk?: boolean;
   delay?: number;
 };
@@ -39,6 +40,7 @@ const tooltipSvgColor = {
 export default function _TextPopover({
   children,
   content,
+  source,
   withAsterisk = true,
 }: TooltipProps) {
   const [isOpen, setOpen] = React.useState(false);
@@ -89,7 +91,14 @@ export default function _TextPopover({
             <path d="M0 0 L4 4 L8 0" />
           </svg>
         </OverlayArrow>
-        <Dialog className="outline-none">{content}</Dialog>
+        <Dialog className="outline-none">
+          {content}{" "}
+          {source ? (
+            <a href={source} target="_blank">
+              [Source]
+            </a>
+          ) : null}
+        </Dialog>
       </Popover>
     </DialogTrigger>
   );

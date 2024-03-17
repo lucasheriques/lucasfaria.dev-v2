@@ -10,7 +10,7 @@ import ServiceIcon from "./icons/ServiceIcon.svg";
 import PodIcon from "@/components/kubernetes-visualizer/icons/PodIcon";
 import Button from "@/components/ui/button";
 import Slider from "@/components/ui/slider";
-import { cn, getNewService, randomNumberBetween } from "@/helpers/functions";
+import { cn, getNewService } from "@/helpers/functions";
 
 type Pod = {
   id: number;
@@ -21,7 +21,7 @@ type Pod = {
 type Service = {
   id: number;
   name: string;
-  pods: Pod[];
+  pods: { [podId: number]: Pod };
   createdAt: Date;
 };
 
@@ -34,8 +34,8 @@ type ServiceComponentProps = {
 };
 
 const getMaximumIdFromPods = (service: Service) => {
-  if (service.pods.length > 0) {
-    return Math.max(...service.pods.map((pod) => pod.id));
+  if (Object.values(service.pods).length > 0) {
+    return Math.max(...Object.values(service.pods).map((pod) => pod.id));
   }
 
   return 1;
@@ -63,6 +63,12 @@ function formatAge(createdAt: Date): string {
   return formattedAge;
 }
 
+const addPodsToService = (service: Service, pods: Pod[]) => {
+  const updatedService = { ...service };
+  updatedService.pods = { ...service.pods, ...pods };
+  return updatedService;
+};
+
 const ServiceComponent = ({
   service,
   setServices,
@@ -70,77 +76,84 @@ const ServiceComponent = ({
   serviceIndex,
   services,
 }: ServiceComponentProps) => {
-  const updatePodCount = (value: number) => {
-    const podsDifference = value - service.pods.length;
+  // const killPodById = (id: number) => {
+  //   const updatedPods = service.pods.map((pod) => ({
+  //     ...pod,
+  //     status: pod.id === id ? "Terminating" : pod.status,
+  //   }));
+  //   const updatedService = { ...service, pods: updatedPods };
+  //   updateServiceById(service.id, updatedService);
 
-    console.log({ podsDifference });
+  //   setTimeout(
+  //     () => {
+  //       const newPods = service.pods.filter((pod) => pod.id !== id);
+  //       const updatedService = { ...service, pods: newPods };
+  //       updateServiceById(service.id, updatedService);
+  //     },
+  //     randomNumberBetween({ min: 1000, max: 3500 }),
+  //   );
+  // };
+
+  const updatePodCount = (value: number) => {
+    const podsDifference = value - Object.keys(service.pods).length;
 
     if (podsDifference === 0) {
       return;
     }
 
     if (podsDifference < 0) {
-      killPods(Math.abs(podsDifference));
-      return;
+      return killPods(Math.abs(podsDifference));
     }
 
-    const newPods = Array.from({ length: podsDifference }, (_, idx) => ({
-      id: getMaximumIdFromPods(service) + idx + 1,
-      createdAt: new Date(),
-      status: "Pending" as const,
-    }));
-    const updatedService = {
-      ...service,
-      pods: [...service.pods, ...newPods],
-    };
-    updateServiceById(service.id, updatedService);
-
-    // after 1.5 seconds, update the new pods status from "Pending" to "Running"
-    // need to check to only updates THE NEW PODS, and dont touch the others
-    setTimeout(
-      () => {
-        const updatedPods = updatedService.pods.map((pod) => {
-          if (newPods.some((newPod) => newPod.id === pod.id)) {
-            return { ...pod, status: "Running" as const };
-          }
-          return pod;
-        });
-        updateServiceById(service.id, { ...service, pods: updatedPods });
-      },
-      randomNumberBetween({ min: 1000, max: 4000 }),
-    );
-
-    return;
+    return addPods(podsDifference);
   };
 
   const debouncedUpdatePodCount = useDebounceCallback(updatePodCount, 500);
 
-  const killPodById = (id: number) => {
-    const updatedPods = service.pods.map((pod) => ({
-      ...pod,
-      status: pod.id === id ? "Terminating" : pod.status,
+  const addPods = (numOfPodsToAdd: number) => {
+    const newPods = Array.from({ length: numOfPodsToAdd }, (_, idx) => ({
+      id: getMaximumIdFromPods(service) + idx + 1,
+      createdAt: new Date(),
+      status: "Pending" as const,
     }));
-    const updatedService = { ...service, pods: updatedPods };
-    updateServiceById(service.id, updatedService);
 
-    setTimeout(
-      () => {
-        const newPods = service.pods.filter((pod) => pod.id !== id);
-        const updatedService = { ...service, pods: newPods };
-        updateServiceById(service.id, updatedService);
-      },
-      randomNumberBetween({ min: 1000, max: 3500 }),
-    );
+    const idsToUpdate = newPods.map((pod) => pod.id);
+
+    setServices((prevServices) => {
+      const updatedService = addPodsToService(service, newPods);
+
+      const updatedServices = prevServices.map((svc, idx) => {
+        if (svc.id === service.id) {
+          return updatedService;
+        }
+        return svc;
+      });
+      return updatedServices;
+    });
+
+    // after 1.5 seconds, update the new pods status from "Pending" to "Running"
+    // need to check to only updates THE NEW PODS, and dont touch the others
+    // setTimeout(
+    //   () => {
+    //     const updatedPods = updatedService.pods.map((pod) => {
+    //       if (newPods.some((newPod) => newPod.id === pod.id)) {
+    //         return { ...pod, status: "Running" as const };
+    //       }
+    //       return pod;
+    //     });
+    //     updateServiceById(service.id, { ...service, pods: updatedPods });
+    //   },
+    //   randomNumberBetween({ min: 1000, max: 4000 }),
+    // );
   };
 
   const killPods = (numOfPodsToKill: number = 1) => {
     // get random pods to kill based on the number of pods to kill
     const randomPodsToKill = service.pods
+      .filter((pod) => pod.status === "Running" || "Pending")
       .map((pod) => pod.id)
       .sort(() => 0.5 - Math.random())
       .slice(0, numOfPodsToKill);
-
-    console.log({ randomPodsToKill });
 
     const updatedPods = service.pods.map((pod) => ({
       ...pod,
@@ -177,7 +190,7 @@ const ServiceComponent = ({
             </tr>
           </thead>
           <tbody>
-            {service.pods.map((pod, index) => (
+            {Object.values(service.pods).map((pod, index) => (
               <motion.tr key={index} layout>
                 <td>pod-{pod.id}</td>
                 <td className="min-16">{pod.status}</td>
@@ -187,7 +200,7 @@ const ServiceComponent = ({
           </tbody>
         </table>
         <div className="flex gap-2">
-          {service.pods.map((pod, index) => (
+          {Object.values(service.pods).map((pod, index) => (
             <motion.div key={index} layout>
               <PodIcon title={`pod-${pod.id}`} className="h-12 w-12" />
             </motion.div>
@@ -199,7 +212,7 @@ const ServiceComponent = ({
         <Slider
           onChange={debouncedUpdatePodCount}
           label="Num of replicas (pods)"
-          defaultValue={service.pods.length}
+          defaultValue={Object.keys(service.pods).length}
           minValue={1}
           maxValue={5}
         />
@@ -218,7 +231,7 @@ export default function KubernetesVisualizer() {
   const [services, setServices] = useState<Service[]>(() => [
     {
       id: Math.random(),
-      name: getNewService([]),
+      name: "blacksmith-forge",
       pods: [{ id: 1, createdAt: new Date(), status: "Pending" }],
       createdAt: new Date(),
     },
@@ -291,7 +304,7 @@ export default function KubernetesVisualizer() {
             {services.map((service) => (
               <tr key={service.id}>
                 <td className="py-1">{`${service.name}`}</td>
-                <td className="py-1">{service.pods.length}</td>
+                <td className="py-1">{Object.keys(service.pods).length}</td>
                 <td className="min-w-16 py-1">
                   {formatAge(service.createdAt)}
                 </td>{" "}

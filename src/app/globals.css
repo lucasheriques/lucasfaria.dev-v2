@@ -75,6 +75,7 @@
     --trimmed-content-width: calc(
       var(--content-width) - var(--viewport-padding) * 2
     );
+    --k8s-blue: #326ce5;
   }
 }
 

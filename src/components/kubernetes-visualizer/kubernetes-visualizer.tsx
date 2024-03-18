@@ -1,5 +1,5 @@
 import { intervalToDuration } from "date-fns";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { produce } from "immer";
 import { Skull, Trash } from "lucide-react";
 import Image from "next/image";
@@ -82,7 +82,9 @@ const getRandomIdFromDeployment = (
   deployment: Deployment,
   numOfIds: number = 1,
 ) => {
-  const podIds = Object.keys(deployment);
+  const podIds = Object.values(deployment)
+    .filter((pod) => pod.status === "Running")
+    .map((pod) => pod.id);
   const randomIds = new Set<string>();
 
   while (randomIds.size < numOfIds) {
@@ -147,6 +149,27 @@ const removePodsFromService = (service: Service, podIds: string[]) => {
   return updatedService;
 };
 
+const statusToColor = {
+  Running: "var(--k8s-blue)",
+  Terminating: "var(--red-500)",
+  Pending: "var(--yellow-500)",
+  Failed: "var(--rose-500)",
+  CrashLoopBackOff: "var(--rose-500)",
+};
+
+const podVariants = {
+  initial: { scale: 1, opacity: 1 },
+  animate: { scale: 1, opacity: 1 },
+  exit: {
+    scale: [1, 1.5, 0],
+    opacity: [1, 0.5, 0],
+    transition: { duration: 0.5 },
+    rotate: [0, 10, -10, 0],
+    x: [0, 20, -20, 0],
+    y: [0, 30],
+  },
+};
+
 const DeploymentComponent = ({ serviceName }: DeploymentComponentProps) => {
   const [state, dispatch] = useReducer(podReducer, {
     "pod-1": {
@@ -160,7 +183,7 @@ const DeploymentComponent = ({ serviceName }: DeploymentComponentProps) => {
     const newPods: Pod[] = Array.from({ length: numOfPodsToAdd }, () => ({
       id: getAvailableIdForPod(state),
       createdAt: new Date(),
-      status: "Pending",
+      status: "Running",
     }));
 
     newPods.forEach((pod) => {
@@ -172,8 +195,17 @@ const DeploymentComponent = ({ serviceName }: DeploymentComponentProps) => {
     const podIds = getRandomIdFromDeployment(state, numOfPodsToKill);
 
     podIds.forEach((podId) => {
-      dispatch({ type: "REMOVE_POD", payload: { id: podId } });
+      dispatch({
+        type: "UPDATE_POD",
+        payload: { id: podId, status: "Terminating" },
+      });
     });
+
+    setTimeout(() => {
+      podIds.forEach((podId) => {
+        dispatch({ type: "REMOVE_POD", payload: { id: podId } });
+      });
+    }, 2000);
   };
 
   const updatePodCount = (newCount: number) => {
@@ -218,14 +250,24 @@ const DeploymentComponent = ({ serviceName }: DeploymentComponentProps) => {
           </tbody>
         </table>
         <div className="flex gap-2">
-          {Object.values(state).map((pod, index) => (
-            <motion.div key={index} layout>
-              <PodIcon
-                title={pod.id.match(/\d+/g)?.join("") || ""}
-                className="h-12 w-12"
-              />
-            </motion.div>
-          ))}
+          <AnimatePresence>
+            {Object.values(state).map((pod, index) => (
+              <motion.div
+                key={pod.id}
+                layout
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={podVariants}
+              >
+                <PodIcon
+                  title={pod.id.match(/\d+/g)?.join("") || ""}
+                  className="h-12 w-12"
+                  fillColor={statusToColor[pod.status]}
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       </div>
 

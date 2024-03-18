@@ -8,6 +8,7 @@ import { useEffect, useReducer, useState } from "react";
 import ServiceIcon from "./icons/ServiceIcon.svg";
 
 import PodIcon from "@/components/kubernetes-visualizer/icons/PodIcon";
+import ControllerManagerIcon from "@/components/kubernetes-visualizer/icons/controller-manager-icon";
 import Button from "@/components/ui/button";
 import Slider from "@/components/ui/slider";
 import { cn, getNewService, randomNumberBetween } from "@/helpers/functions";
@@ -380,8 +381,23 @@ export default function KubernetesVisualizer() {
           </tbody>
         </table>
       </div>
+
       <div className="grid min-w-full grid-cols-1 justify-center gap-4 sm:grid-cols-2">
-        {services.map((service) => (
+        {services.slice(0, 2).map((service) => (
+          <DeploymentComponent key={service.id} serviceName={service.name} />
+        ))}
+      </div>
+
+      <div className="grid min-w-full grid-cols-1 items-center justify-center gap-4 sm:grid-cols-[1fr_64px_1fr]">
+        <div>Everything is fine!</div>
+        <div>
+          <ControllerManagerIcon />
+        </div>
+        <div>Everything is fine!</div>
+      </div>
+
+      <div className="grid min-w-full grid-cols-1 justify-center gap-4 sm:grid-cols-2">
+        {services.slice(2).map((service) => (
           <DeploymentComponent key={service.id} serviceName={service.name} />
         ))}
       </div>

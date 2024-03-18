@@ -17,6 +17,7 @@ type SliderProps = {
   minValue?: number;
   maxValue?: number;
   onChange?: (value: number) => void;
+  onChangeEnd?: (value: number) => void;
 };
 
 export default function Slider({
@@ -27,12 +28,14 @@ export default function Slider({
   minValue = 1,
   maxValue = 10,
   onChange,
+  onChangeEnd,
 }: SliderProps) {
   return (
     <AriaSlider
       defaultValue={defaultValue}
       value={value}
       onChange={onChange}
+      onChangeEnd={onChangeEnd}
       minValue={minValue}
       maxValue={maxValue}
       className={cn(

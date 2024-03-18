@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Slider as AriaSlider,
+  type SliderProps as AriaSliderProps,
   Label,
   SliderOutput,
   SliderThumb,
@@ -9,18 +10,14 @@ import {
 
 import { cn } from "@/helpers/functions";
 
-type SliderProps = {
+type SliderProps<T extends number | number[]> = {
   label?: React.ReactNode;
   layout?: "horizontal" | "vertical";
-  defaultValue?: number;
-  value?: number;
-  minValue?: number;
-  maxValue?: number;
-  onChange?: (value: number) => void;
-  onChangeEnd?: (value: number) => void;
-};
+  defaultValue?: T;
+  value?: T;
+} & AriaSliderProps<T>;
 
-export default function Slider({
+export default function Slider<T extends number | number[]>({
   label,
   layout = "vertical",
   defaultValue,
@@ -29,19 +26,23 @@ export default function Slider({
   maxValue = 10,
   onChange,
   onChangeEnd,
-}: SliderProps) {
+  isDisabled,
+  ...rest
+}: SliderProps<T>) {
   return (
-    <AriaSlider
+    <AriaSlider<T>
       defaultValue={defaultValue}
       value={value}
       onChange={onChange}
       onChangeEnd={onChangeEnd}
       minValue={minValue}
       maxValue={maxValue}
+      isDisabled={isDisabled}
       className={cn(
         "flex w-60 font-sans text-sm",
         layout === "horizontal" ? "flex-row items-center gap-4" : "flex-col",
       )}
+      {...rest}
     >
       <div className="flex">
         {label ? <Label className="flex-1">{label}</Label> : null}

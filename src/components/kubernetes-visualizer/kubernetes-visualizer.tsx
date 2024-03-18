@@ -1,68 +1,29 @@
 import { intervalToDuration } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
-import { produce } from "immer";
 import { Skull, Trash } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import ServiceIcon from "./icons/ServiceIcon.svg";
 
 import PodIcon from "@/components/kubernetes-visualizer/icons/PodIcon";
 import ControllerManagerIcon from "@/components/kubernetes-visualizer/icons/controller-manager-icon";
+import {
+  Pod,
+  addPod,
+  addService,
+  removePod,
+  removeService,
+  updatePod,
+} from "@/components/kubernetes-visualizer/kubernetes-slice";
 import Button from "@/components/ui/button";
 import Slider from "@/components/ui/slider";
 import { cn, getNewService, randomNumberBetween } from "@/helpers/functions";
-
-type Pod = {
-  id: string;
-  createdAt: Date;
-  status: "Running" | "Terminating" | "Pending" | "Failed" | "CrashLoopBackOff";
-};
-
-type Service = {
-  id: number;
-  name: string;
-  pods: { [podId: string]: Pod };
-  createdAt: Date;
-};
-
-type DeploymentComponentProps = {
-  serviceName: string;
-};
+import { useAppSelector } from "@/helpers/store-hooks";
 
 type Deployment = {
   [podId: string]: Pod;
-};
-
-type ActionType =
-  | { type: "ADD_POD"; payload: Pod }
-  | { type: "UPDATE_POD"; payload: { id: string; status: Pod["status"] } }
-  | { type: "COMMIT_POD"; payload: Pod }
-  | { type: "REMOVE_POD"; payload: { id: string } };
-
-const podReducer = (state: Deployment, action: ActionType) => {
-  switch (action.type) {
-    case "ADD_POD":
-      return produce(state, (draft) => {
-        draft[action.payload.id] = action.payload;
-      });
-    case "UPDATE_POD":
-      return produce(state, (draft) => {
-        if (draft[action.payload.id]) {
-          draft[action.payload.id].status = action.payload.status;
-        }
-      });
-    case "COMMIT_POD":
-      return produce(state, (draft) => {
-        draft[action.payload.id] = action.payload;
-      });
-    case "REMOVE_POD":
-      return produce(state, (draft) => {
-        delete draft[action.payload.id];
-      });
-    default:
-      throw new Error(`Unhandled action type`);
-  }
 };
 
 const getAvailableIdForPod = (deployment: Deployment) => {
@@ -77,6 +38,16 @@ const getAvailableIdForPod = (deployment: Deployment) => {
   }
 
   return `pod-1`;
+};
+
+const getIdsForNewPods = (deployment: Deployment, numOfPods: number = 1) => {
+  const ids = new Set<string>();
+
+  while (ids.size < numOfPods) {
+    ids.add(`pod-${randomNumberBetween({ min: 1, max: 9999 })}`);
+  }
+
+  return Array.from(ids);
 };
 
 const getRandomIdFromDeployment = (
@@ -95,7 +66,7 @@ const getRandomIdFromDeployment = (
   return Array.from(randomIds);
 };
 
-function formatAge(createdAt: Date): string {
+function formatAge(createdAt: string): string {
   const now = new Date();
   const duration = intervalToDuration({ start: createdAt, end: now });
 
@@ -117,43 +88,10 @@ function formatAge(createdAt: Date): string {
   return formattedAge;
 }
 
-const addPodsToService = (service: Service, pods: Pod[]) => {
-  const updatedService = produce(service, (draft) => {
-    pods.forEach((pod) => {
-      draft.pods[pod.id] = pod;
-    });
-  });
-
-  return updatedService;
-};
-
-const updatePodsToStatus = (
-  service: Service,
-  podIds: string[],
-  status: Pod["status"],
-) => {
-  console.log({ service, podIds, status });
-  const updatedService = produce(service, (draft) => {
-    podIds.forEach((podId) => {
-      draft.pods[podId].status = status;
-    });
-  });
-  return updatedService;
-};
-
-const removePodsFromService = (service: Service, podIds: string[]) => {
-  const updatedService = produce(service, (draft) => {
-    podIds.forEach((podId) => {
-      delete draft.pods[podId];
-    });
-  });
-  return updatedService;
-};
-
 const statusToColor = {
   Running: "var(--k8s-blue)",
   Terminating: "var(--red-500)",
-  Pending: "var(--yellow-500)",
+  Pending: "var(--amber-600)",
   Failed: "var(--rose-500)",
   CrashLoopBackOff: "var(--rose-500)",
 };
@@ -171,46 +109,58 @@ const podVariants = {
   },
 };
 
-const DeploymentComponent = ({ serviceName }: DeploymentComponentProps) => {
-  const [state, dispatch] = useReducer(podReducer, {
-    "pod-1": {
-      id: "pod-1",
-      createdAt: new Date(),
-      status: "Running",
-    },
-  });
+type DeploymentComponentProps = {
+  serviceId: number;
+};
+
+const DeploymentComponent = ({ serviceId }: DeploymentComponentProps) => {
+  const serviceState = useAppSelector(
+    (state) => state.kubernetes.services[serviceId],
+  );
+  const dispatch = useDispatch();
+
+  const serviceName = serviceState.name;
+  const pods = serviceState.pods;
+
+  const isThereAPodWithPendingOrTerminatingStatus = Object.values(pods).some(
+    (pod) => pod.status === "Pending" || pod.status === "Terminating",
+  );
 
   const addPods = (numOfPodsToAdd: number = 1) => {
-    const newPods: Pod[] = Array.from({ length: numOfPodsToAdd }, () => ({
-      id: getAvailableIdForPod(state),
-      createdAt: new Date(),
-      status: "Running",
+    const ids = getIdsForNewPods(pods, numOfPodsToAdd);
+    const newPods: Pod[] = ids.map((id) => ({
+      id,
+      createdAt: new Date().toISOString(),
+      status: "Pending",
     }));
 
     newPods.forEach((pod) => {
-      dispatch({ type: "ADD_POD", payload: pod });
+      dispatch(addPod({ serviceId, podId: pod.id }));
     });
+
+    setTimeout(() => {
+      newPods.forEach((pod) => {
+        dispatch(updatePod({ serviceId, podId: pod.id, status: "Running" }));
+      });
+    }, 1500);
   };
 
   const killPods = (numOfPodsToKill: number = 1) => {
-    const podIds = getRandomIdFromDeployment(state, numOfPodsToKill);
+    const podIds = getRandomIdFromDeployment(pods, numOfPodsToKill);
 
     podIds.forEach((podId) => {
-      dispatch({
-        type: "UPDATE_POD",
-        payload: { id: podId, status: "Terminating" },
-      });
+      dispatch(updatePod({ serviceId, podId, status: "Terminating" }));
     });
 
     setTimeout(() => {
       podIds.forEach((podId) => {
-        dispatch({ type: "REMOVE_POD", payload: { id: podId } });
+        dispatch(removePod({ serviceId, podId }));
       });
     }, 2000);
   };
 
   const updatePodCount = (newCount: number) => {
-    const podsDifference = newCount - Object.keys(state).length;
+    const podsDifference = newCount - Object.keys(pods).length;
 
     if (podsDifference === 0) {
       return;
@@ -241,7 +191,7 @@ const DeploymentComponent = ({ serviceName }: DeploymentComponentProps) => {
             </tr>
           </thead>
           <tbody>
-            {Object.values(state).map((pod, index) => (
+            {Object.values(pods).map((pod, index) => (
               <motion.tr key={index} layout>
                 <td>{pod.id}</td>
                 <td className="min-16">{pod.status}</td>
@@ -252,7 +202,7 @@ const DeploymentComponent = ({ serviceName }: DeploymentComponentProps) => {
         </table>
         <div className="flex gap-2">
           <AnimatePresence>
-            {Object.values(state).map((pod, index) => (
+            {Object.values(pods).map((pod, index) => (
               <motion.div
                 key={pod.id}
                 layout
@@ -273,12 +223,13 @@ const DeploymentComponent = ({ serviceName }: DeploymentComponentProps) => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Slider
+        <Slider<number>
           onChangeEnd={updatePodCount}
           label="Num of replicas (pods)"
-          defaultValue={Object.keys(state).length}
+          defaultValue={Object.keys(pods).length}
           minValue={1}
           maxValue={5}
+          isDisabled={isThereAPodWithPendingOrTerminatingStatus}
         />
 
         <Button size="small" variant="destructive" onPress={() => killPods()}>
@@ -291,29 +242,19 @@ const DeploymentComponent = ({ serviceName }: DeploymentComponentProps) => {
 };
 
 export default function KubernetesVisualizer() {
+  const servicesMap = useAppSelector((state) => state.kubernetes.services);
+  const dispatch = useDispatch();
+
   const [_, setCurrentTime] = useState(new Date());
-  const [services, setServices] = useState<Omit<Service, "pods">[]>(() => [
-    {
-      id: Math.random(),
-      name: "blacksmith-forge",
-      createdAt: new Date(),
-    },
-  ]);
+
+  const services = Object.values(servicesMap);
 
   const addNewService = () => {
-    setServices([
-      ...services,
-      {
-        id: Math.random(),
-        name: getNewService(services.map((svc) => svc.name)),
-        createdAt: new Date(),
-      },
-    ]);
+    dispatch(addService(getNewService(services.map((svc) => svc.name))));
   };
 
   const deleteService = (id: number) => {
-    const newServices = services.filter((service) => service.id !== id);
-    setServices(newServices);
+    dispatch(removeService(id));
   };
 
   const isAddServiceDisabled = services.length >= 4;
@@ -384,7 +325,7 @@ export default function KubernetesVisualizer() {
 
       <div className="grid min-w-full grid-cols-1 justify-center gap-4 sm:grid-cols-2">
         {services.slice(0, 2).map((service) => (
-          <DeploymentComponent key={service.id} serviceName={service.name} />
+          <DeploymentComponent key={service.id} serviceId={service.id} />
         ))}
       </div>
 
@@ -398,7 +339,7 @@ export default function KubernetesVisualizer() {
 
       <div className="grid min-w-full grid-cols-1 justify-center gap-4 sm:grid-cols-2">
         {services.slice(2).map((service) => (
-          <DeploymentComponent key={service.id} serviceName={service.name} />
+          <DeploymentComponent key={service.id} serviceId={service.id} />
         ))}
       </div>
     </div>

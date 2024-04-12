@@ -216,14 +216,28 @@ tools-api-57f78694df-rpvlf   1/1     Running   0          3m15s
 
 However, when I tried to access localhost:8080, my API URL, nothing happened. Which is great! Why, do you ask?
 
-With Kubernetes, services and apps are running inside pods, isolated from the host operational system. This is to ensure security and resource encapsulation. That means that, even if our app is running locally, we can't just `localhost` to it. We'd have to explicitly expose the Kubernetes network to ours.
+With Kubernetes, our deployments are isolated from the host operational system. This is to ensure security and resource encapsulation. That means that, even if our app is running locally, we can't just `localhost` to it. We'd have to explicitly expose the Kubernetes network to ours.
 
 And, to make a pod accessible to the outside world, that's when the service comes in. Which is why we applied them in the very first place!
 
-What you need to understand about Kubernetes is that pods are temporary. They can come and go. Maybe due to scaling, updates, or failures. No matter why, Kubernetes manages that life cycle for us. Ensuring they're rescheduled and maintained according to the desired state.
+<ExpandableContent title="📚 Pods, Deployments, Services">
+Deployments, Pods and Services are among the first concepts I learned while trying out Kubernetes.
 
-Eventually, we can even introduce load balancers to manage traffic distribution across them.
+Think of deployments as a blueprint for managing pods. It describes an ideal state for it. Like which container image you want to add, how many replicas of the pods we need to run. Kubernetes job is to keep this ideal state for as long as possible.
 
-Services are more permanent. They provide an abstraction layer to the set of pods. In our case, we have just one, as that's the replica number we used in the deployment YAML. With a service, Kubernetes assigns it a stable IP address and DNS name. This way, we can enable internal and external access to reach the pods. Even when they get created, destroyed or updated.
+If we choose three replicas, that means Kubernetes is going to create three Pods. When it crashes, Kubernetes replaces it to maintain the ideal state.
+
+The Pod itself is the smallest deployable unit in Kubernetes. It's a group of one or more containers with shared storage and network. And a spec on how to run those containers.
+
+Pods are temporary. They can come and go. Maybe due to scaling, updates, or failures. No matter why, Kubernetes manages that life cycle for us. Ensuring they're rescheduled and maintained according to the desired state.
+
+Services are different. They provide a network abstraction to the Pods. Because Pods are ephemeral, it's necessary to have a persistent interface to interact with them. Even if the Pods die or their state changes. And they can also help with load balancing traffic between pods.
+
+They provide a stable IP address and DNS name by which we can access Pods. A good metaphor is a friend's phone number: even if they change their devices, the phone number stays the same.
+
+<ArticleImage src="/k8s-pods-services-deployments.excalidraw.svg" caption="Diagram demonstrating the relationship between Deployments, Pods and Services." />
+</ExpandableContent>
+
+I built this Kubernetes Visualizer component to help visualize K8s self healing capabilities. It showcases how, even after a Pod is killed, K8s can create new ones. And we can see that the service name stays the same, and its age doesn't change, even when all pods are down.
 
 <KubernetesVisualizer/>

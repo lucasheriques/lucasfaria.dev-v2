@@ -6,6 +6,7 @@ import CodeSnippet from "@/components/code-snippet";
 import KubernetesVisualizer from "@/components/kubernetes-visualizer";
 import ArticleImage from "@/components/ui/article-image";
 import Button from "@/components/ui/button";
+import ExpandableContent from "@/components/ui/expandable-content";
 import TextPopover from "@/components/ui/text-popover";
 
 const COMPONENT_MAP = {
@@ -55,6 +56,7 @@ const COMPONENT_MAP = {
   ArticleImage: ArticleImage,
   KubernetesVisualizer: KubernetesVisualizer,
   Button: Button,
+  ExpandableContent: ExpandableContent,
 };
 
 export default COMPONENT_MAP;

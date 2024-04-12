@@ -77,6 +77,10 @@
     );
     --k8s-blue: #326ce5;
   }
+
+  .code-block pre {
+    border-radius: 0px;
+  }
 }
 
 @layer components {

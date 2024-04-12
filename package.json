@@ -11,6 +11,7 @@
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.12.1",
     "@codesandbox/sandpack-themes": "^2.0.21",
+    "@radix-ui/react-accordion": "^1.1.2",
     "@reduxjs/toolkit": "^2.2.1",
     "@uidotdev/usehooks": "^2.4.1",
     "@vercel/analytics": "^1.1.3",

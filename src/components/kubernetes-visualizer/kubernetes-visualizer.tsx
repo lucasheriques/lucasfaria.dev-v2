@@ -354,18 +354,20 @@ export default function KubernetesVisualizer() {
         />
         Kubernetes Visualizer
       </h2>
-      <p className="text-base">
-        Note: this is a very simplified K8s visualization where some concepts
-        blended together.
-      </p>
-      <p className="text-base">
-        {"There's"} some overlap between Services and Deployments here that does
-        not reflect how it works in a real K8s cluster.
-      </p>
-      <p className="text-base">
-        The goal of this is to demonstrate K8s self-healing capabilities to
-        re-spin pods when {"they're"} down.
-      </p>
+      <div className="space-y-2 text-base">
+        <p>
+          Note: this is a very simplified K8s visualization where some concepts
+          blended together.
+        </p>
+        <p>
+          {"There's"} some overlap between Services and Deployments here that
+          does not reflect how it works in a real K8s cluster.
+        </p>
+        <p>
+          The goal of this is to demonstrate K8s self-healing capabilities to
+          re-spin pods when {"they're"} down.
+        </p>
+      </div>
       <Button onPress={addNewService} isDisabled={isAddServiceDisabled}>
         {isAddServiceDisabled ? "Max Services Reached" : "Add Service"}
       </Button>

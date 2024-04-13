@@ -28,6 +28,7 @@ const _PodIcon = ({
         strokeDasharray: "none",
         strokeOpacity: 1,
       }}
+      className="transition-all duration-300 ease-in-out"
       transform="matrix(1.01489 0 0 1.01489 15.91 -3.873)"
     />
     <path

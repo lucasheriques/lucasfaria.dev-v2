@@ -7,8 +7,8 @@ import { useDispatch } from "react-redux";
 
 import ServiceIcon from "./icons/ServiceIcon.svg";
 
-import PodIcon from "@/components/kubernetes-visualizer/icons/PodIcon";
-import ControllerManagerIcon from "@/components/kubernetes-visualizer/icons/controller-manager-icon";
+import KubeletIcon from "@/components/kubernetes-visualizer/icons/kubelet-icon";
+import PodIcon from "@/components/kubernetes-visualizer/icons/pod-icon";
 import {
   Pod,
   addPod,
@@ -224,15 +224,18 @@ const DeploymentComponent = ({ serviceId }: DeploymentComponentProps) => {
     addPods(podsDifference);
   };
 
+  const isAtLeastOnePodRunning = Object.values(pods).some(
+    (pod) => pod.status === "Running",
+  );
+
   if (
     serviceState.idealNumOfPods > Object.keys(pods).length &&
     serviceState.status === "Ready"
   ) {
-    dispatch(updateService({ serviceId, status: "RecreatingPods" }));
+    dispatch(updateService({ serviceId, status: "CreatingPods" }));
     setTimeout(() => {
       updatePodCount(serviceState.idealNumOfPods);
       dispatch(updateService({ serviceId, status: "Ready" }));
-      creatingPodsRef.current = null;
     }, 1500);
   }
 
@@ -247,7 +250,8 @@ const DeploymentComponent = ({ serviceId }: DeploymentComponentProps) => {
           Ideal number of pods: {serviceState.idealNumOfPods}
         </span>
         <span className="text-xs">
-          Deployment status: {serviceState.status}
+          Deployment status:{" "}
+          {isAtLeastOnePodRunning ? serviceState.status : "CreatingPods"}
         </span>
       </motion.div>
       <div className="flex min-h-48 min-w-full flex-col items-center justify-between">
@@ -311,7 +315,21 @@ export default function KubernetesVisualizer() {
     dispatch(removeService(id));
   };
 
-  const isAddServiceDisabled = services.length >= 4;
+  const allPods = services.reduce<Pod[]>((acc, service) => {
+    return [...acc, ...Object.values(service.pods)];
+  }, []);
+
+  const isAnyPodNotRunningOrTerminating = allPods.some(
+    (pod) => pod.status !== "Running" && pod.status !== "Terminating",
+  );
+  const doesAnyServiceNotHaveIdealNumberOfPods = services.some(
+    (service) => service.idealNumOfPods !== Object.keys(service.pods).length,
+  );
+
+  const isKubeletBusy =
+    isAnyPodNotRunningOrTerminating || doesAnyServiceNotHaveIdealNumberOfPods;
+
+  const isAddServiceDisabled = services.length >= 2;
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -336,6 +354,18 @@ export default function KubernetesVisualizer() {
         />
         Kubernetes Visualizer
       </h2>
+      <p className="text-base">
+        Note: this is a very simplified K8s visualization where some concepts
+        blended together.
+      </p>
+      <p className="text-base">
+        {"There's"} some overlap between Services and Deployments here that does
+        not reflect how it works in a real K8s cluster.
+      </p>
+      <p className="text-base">
+        The goal of this is to demonstrate K8s self-healing capabilities to
+        re-spin pods when {"they're"} down.
+      </p>
       <Button onPress={addNewService} isDisabled={isAddServiceDisabled}>
         {isAddServiceDisabled ? "Max Services Reached" : "Add Service"}
       </Button>
@@ -382,12 +412,18 @@ export default function KubernetesVisualizer() {
         ))}
       </div>
 
-      <div className="grid min-w-full grid-cols-1 items-center justify-center gap-4 text-center sm:grid-cols-[1fr_64px_1fr]">
-        <div>Everything is fine!</div>
+      <div className="grid min-w-full grid-cols-1 items-center justify-center gap-4 text-center text-base sm:grid-cols-[1fr_64px_1fr]">
         <div>
-          <ControllerManagerIcon />
+          {isKubeletBusy && `Some Pods are down. Kubelet is creating them.`}
         </div>
-        <div>Everything is fine!</div>
+        <div>
+          <KubeletIcon
+            fillColor={
+              isKubeletBusy ? statusToColor.Failed : statusToColor.Running
+            }
+          />
+        </div>
+        <div>{!isKubeletBusy && `All pods are ready.`}</div>
       </div>
 
       <div className="grid min-w-full grid-cols-1 justify-center gap-4 sm:grid-cols-2">

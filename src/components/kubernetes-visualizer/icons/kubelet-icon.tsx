@@ -31,14 +31,10 @@ export default function KubeletIcon({
             d="M-6.852 3.818a1.181 1.172 0 00-.452.115l-6.18 2.951a1.181 1.172 0 00-.638.795l-1.524 6.63a1.181 1.172 0 00.16.9 1.181 1.172 0 00.067.093l4.276 5.317a1.181 1.172 0 00.924.44h6.858a1.181 1.172 0 00.923-.44L1.837 15.3a1.181 1.172 0 00.228-.99L.54 7.677a1.181 1.172 0 00-.64-.795l-6.178-2.95a1.181 1.172 0 00-.573-.115zm.003.455a1.12 1.11 0 01.542.108l5.853 2.795a1.12 1.11 0 01.606.753l1.446 6.281a1.12 1.11 0 01-.216.94l-4.05 5.037a1.12 1.11 0 01-.875.417l-6.496.001a1.12 1.11 0 01-.875-.417l-4.05-5.037a1.12 1.11 0 01-.064-.088 1.12 1.11 0 01-.152-.851l1.444-6.281a1.12 1.11 0 01.605-.753l5.853-2.797a1.12 1.11 0 01.429-.108z"
             style={{
               lineHeight: "normal",
-              InkscapeFontSpecification: "Sans",
-              WebkitTextIndent: "0",
               textIndent: "0",
-              WebkitTextAlign: "start",
               textAlign: "start",
               WebkitTextDecorationLine: "none",
               textDecorationLine: "none",
-              WebkitTextTransform: "none",
               textTransform: "none",
               marker: "none",
             }}
@@ -84,8 +80,6 @@ export default function KubeletIcon({
         >
           <tspan
             style={{
-              InkscapeFontSpecification: "'Arial, Normal'",
-              WebkitTextAlign: "center",
               textAlign: "center",
             }}
             x="9.926"

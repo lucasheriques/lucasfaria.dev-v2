@@ -2,7 +2,7 @@ import { intervalToDuration } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
 import { Skull, Trash } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import ServiceIcon from "./icons/ServiceIcon.svg";
@@ -16,6 +16,7 @@ import {
   removePod,
   removeService,
   updatePod,
+  updateService,
 } from "@/components/kubernetes-visualizer/kubernetes-slice";
 import Button from "@/components/ui/button";
 import Slider from "@/components/ui/slider";
@@ -97,8 +98,20 @@ const statusToColor = {
 };
 
 const podVariants = {
-  initial: { scale: 1, opacity: 1 },
-  animate: { scale: 1, opacity: 1 },
+  initial: {
+    scale: 0,
+    opacity: 0,
+    x: 0,
+    y: 0,
+    rotate: 0,
+  },
+  animate: {
+    scale: 1,
+    opacity: 1,
+    transition: { duration: 0.5 },
+    rotate: [0, -10, 10, 0],
+    x: [0, -20, 20, 0],
+  },
   exit: {
     scale: [1, 1.5, 0],
     opacity: [1, 0.5, 0],
@@ -107,6 +120,41 @@ const podVariants = {
     x: [0, 20, -20, 0],
     y: [0, 30],
   },
+};
+
+const PodTableLine = ({ pod }: { pod: Pod }) => {
+  const animations = {
+    initial: { scale: 0, opacity: 0 },
+    animate: { scale: 1, opacity: 1 },
+    exit: { scale: 0, opacity: 0 },
+    transition: { type: "spring", stiffness: 900, damping: 40 },
+  };
+
+  return (
+    <motion.tr {...animations} layout>
+      <td>{pod.id}</td>
+      <td className="min-16">{pod.status}</td>
+      <td className="min-w-12">{formatAge(pod.createdAt)}</td>
+    </motion.tr>
+  );
+};
+
+const PodComponent = ({ pod }: { pod: Pod }) => {
+  return (
+    <motion.div
+      layout
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={podVariants}
+    >
+      <PodIcon
+        title={pod.id.match(/\d+/g)?.join("") || ""}
+        className="h-12 w-12"
+        fillColor={statusToColor[pod.status]}
+      />
+    </motion.div>
+  );
 };
 
 type DeploymentComponentProps = {
@@ -118,6 +166,7 @@ const DeploymentComponent = ({ serviceId }: DeploymentComponentProps) => {
     (state) => state.kubernetes.services[serviceId],
   );
   const dispatch = useDispatch();
+  const creatingPodsRef = useRef<NodeJS.Timeout | null>(null);
 
   const serviceName = serviceState.name;
   const pods = serviceState.pods;
@@ -166,6 +215,8 @@ const DeploymentComponent = ({ serviceId }: DeploymentComponentProps) => {
       return;
     }
 
+    dispatch(updateService({ serviceId, idealNumOfPods: newCount }));
+
     if (podsDifference < 0) {
       return killPods(Math.abs(podsDifference));
     }
@@ -173,13 +224,31 @@ const DeploymentComponent = ({ serviceId }: DeploymentComponentProps) => {
     addPods(podsDifference);
   };
 
+  if (
+    serviceState.idealNumOfPods > Object.keys(pods).length &&
+    serviceState.status === "Ready"
+  ) {
+    dispatch(updateService({ serviceId, status: "RecreatingPods" }));
+    setTimeout(() => {
+      updatePodCount(serviceState.idealNumOfPods);
+      dispatch(updateService({ serviceId, status: "Ready" }));
+      creatingPodsRef.current = null;
+    }, 1500);
+  }
+
   return (
     <div className="flex flex-col items-center gap-8 rounded-lg bg-gray-800 px-2 py-4 text-gray-200 shadow-lg shadow-gray-700/50 dark:bg-gray-900">
-      <motion.div className="flex items-center justify-center rounded-full">
-        <h3 className="flex min-w-full  items-center gap-4 text-lg font-semibold">
+      <motion.div className="flex flex-col items-center justify-center rounded-full">
+        <span className="flex min-w-full  items-center gap-4 pb-4 text-lg font-semibold">
           <ServiceIcon className="h-12 w-12" />
           {serviceName}
-        </h3>
+        </span>
+        <span className="text-sm">
+          Ideal number of pods: {serviceState.idealNumOfPods}
+        </span>
+        <span className="text-xs">
+          Deployment status: {serviceState.status}
+        </span>
       </motion.div>
       <div className="flex min-h-48 min-w-full flex-col items-center justify-between">
         <table className="min-w-full divide-y divide-gray-200 text-left text-sm">
@@ -191,32 +260,17 @@ const DeploymentComponent = ({ serviceId }: DeploymentComponentProps) => {
             </tr>
           </thead>
           <tbody>
-            {Object.values(pods).map((pod, index) => (
-              <motion.tr key={index} layout>
-                <td>{pod.id}</td>
-                <td className="min-16">{pod.status}</td>
-                <td className="min-w-12">{formatAge(pod.createdAt)}</td>
-              </motion.tr>
-            ))}
+            <AnimatePresence>
+              {Object.values(pods).map((pod, index) => (
+                <PodTableLine key={pod.id} pod={pod} />
+              ))}
+            </AnimatePresence>
           </tbody>
         </table>
         <div className="flex gap-2">
           <AnimatePresence>
             {Object.values(pods).map((pod, index) => (
-              <motion.div
-                key={pod.id}
-                layout
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                variants={podVariants}
-              >
-                <PodIcon
-                  title={pod.id.match(/\d+/g)?.join("") || ""}
-                  className="h-12 w-12"
-                  fillColor={statusToColor[pod.status]}
-                />
-              </motion.div>
+              <PodComponent key={pod.id} pod={pod} />
             ))}
           </AnimatePresence>
         </div>
@@ -306,7 +360,6 @@ export default function KubernetesVisualizer() {
                 <td className="min-w-16 py-1">
                   {formatAge(service.createdAt)}
                 </td>{" "}
-                {/* Example value */}
                 <td className="py-1 text-right">
                   <Button
                     variant="destructive"

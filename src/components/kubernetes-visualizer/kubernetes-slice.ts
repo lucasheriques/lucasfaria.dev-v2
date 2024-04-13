@@ -9,7 +9,9 @@ export type Pod = {
 type Service = {
   id: number;
   name: string;
+  idealNumOfPods: number;
   pods: { [podId: string]: Pod };
+  status: "Ready" | "CreatingPods" | "RecreatingPods";
   createdAt: string;
 };
 
@@ -23,6 +25,8 @@ const initialState: Namespace = {
       id: 1,
       name: "blacksmith-forge",
       createdAt: new Date().toISOString(),
+      idealNumOfPods: 1,
+      status: "Ready",
       pods: {
         "1": {
           id: "1",
@@ -44,7 +48,15 @@ export const kubernetesSlice = createSlice({
         id: newServiceId,
         name: action.payload,
         createdAt: new Date().toISOString(),
-        pods: {},
+        idealNumOfPods: 1,
+        status: "Ready",
+        pods: {
+          "1": {
+            id: "1",
+            createdAt: new Date().toISOString(),
+            status: "Running",
+          },
+        },
       };
     },
     removeService: (state, action: PayloadAction<number>) => {
@@ -52,6 +64,25 @@ export const kubernetesSlice = createSlice({
         return;
       }
       delete state.services[action.payload];
+    },
+    updateService: (
+      state,
+      action: PayloadAction<{
+        serviceId: number;
+        idealNumOfPods?: number;
+        status?: "Ready" | "CreatingPods" | "RecreatingPods";
+      }>,
+    ) => {
+      if (!state.services[action.payload.serviceId]) {
+        return;
+      }
+      if (action.payload.status) {
+        state.services[action.payload.serviceId].status = action.payload.status;
+      }
+      if (action.payload.idealNumOfPods) {
+        state.services[action.payload.serviceId].idealNumOfPods =
+          action.payload.idealNumOfPods;
+      }
     },
     addPod: (
       state,
@@ -99,7 +130,13 @@ export const kubernetesSlice = createSlice({
   },
 });
 
-export const { addService, removeService, addPod, updatePod, removePod } =
-  kubernetesSlice.actions;
+export const {
+  addService,
+  removeService,
+  updateService,
+  addPod,
+  updatePod,
+  removePod,
+} = kubernetesSlice.actions;
 
 export default kubernetesSlice.reducer;

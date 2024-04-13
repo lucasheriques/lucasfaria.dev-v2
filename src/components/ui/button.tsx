@@ -14,7 +14,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-emerald-400 dark:bg-emerald-500 text-gray-950",
+        default: "bg-emerald-500 dark:bg-emerald-500 text-gray-100",
         destructive: "bg-rose-500 dark:bg-rose-700 text-white",
       },
       size: {

@@ -174,7 +174,7 @@ const DeploymentComponent = ({ serviceId }: DeploymentComponentProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-8 rounded-lg border-2 border-dashed bg-gray-800 bg-opacity-50 px-2 py-4 shadow-lg shadow-gray-700/50">
+    <div className="flex flex-col items-center gap-8 rounded-lg bg-gray-800 px-2 py-4 text-gray-200 shadow-lg shadow-gray-700/50 dark:bg-gray-900">
       <motion.div className="flex items-center justify-center rounded-full">
         <h3 className="flex min-w-full  items-center gap-4 text-lg font-semibold">
           <ServiceIcon className="h-12 w-12" />
@@ -269,7 +269,7 @@ export default function KubernetesVisualizer() {
     <div
       className={cn(
         "not-prose flex flex-col items-center gap-4 rounded-lg p-4 font-sans shadow-xl",
-        "bg-blue-400 shadow-gray-400/50",
+        "bg-blue-300 shadow-gray-400/50",
         "dark:bg-gray-800 dark:bg-opacity-75 dark:shadow-gray-700/50",
       )}
     >
@@ -329,7 +329,7 @@ export default function KubernetesVisualizer() {
         ))}
       </div>
 
-      <div className="grid min-w-full grid-cols-1 items-center justify-center gap-4 sm:grid-cols-[1fr_64px_1fr]">
+      <div className="grid min-w-full grid-cols-1 items-center justify-center gap-4 text-center sm:grid-cols-[1fr_64px_1fr]">
         <div>Everything is fine!</div>
         <div>
           <ControllerManagerIcon />

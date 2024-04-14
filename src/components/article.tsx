@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 
+import Comments from "@/components/comments";
 import ResetHeading from "@/components/reset-heading";
 import StoreProvider from "@/components/store-provider";
 import TableOfContents from "@/components/table-of-contents";
@@ -51,6 +52,7 @@ const Article = ({
   type,
   headings,
   language,
+  slug,
 }: ArticleProps) => {
   const humanizedDate = format(new Date(createdAt), "MMMM do, yyyy");
 
@@ -70,6 +72,8 @@ const Article = ({
             content={content}
           />
           <MDXRemote source={content} components={COMPONENT_MAP} />
+
+          <Comments slug={slug} />
 
           <div className="pt-32">
             <Link

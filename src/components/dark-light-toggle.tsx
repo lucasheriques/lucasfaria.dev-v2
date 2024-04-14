@@ -16,6 +16,12 @@ export default function DarkLightToggle({
 }: DarkLightToggleProps) {
   const [theme, setTheme] = React.useState<"light" | "dark">(initialTheme);
 
+  const comments = document.querySelector("hyvor-talk-comments");
+
+  React.useEffect(() => {
+    comments?.setAttribute("colors", theme);
+  }, [comments, setTheme, theme]);
+
   async function handleClick() {
     const nextTheme = theme === "light" ? "dark" : "light";
 
@@ -24,6 +30,7 @@ export default function DarkLightToggle({
 
     const root = document.documentElement;
     root.setAttribute("data-theme", nextTheme);
+    comments?.setAttribute("colors", nextTheme);
   }
 
   return (

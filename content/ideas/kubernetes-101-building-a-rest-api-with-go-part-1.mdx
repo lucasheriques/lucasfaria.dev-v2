@@ -220,7 +220,8 @@ With Kubernetes, our deployments are isolated from the host operational system. 
 
 And, to make a pod accessible to the outside world, that's when the service comes in. Which is why we applied them in the very first place!
 
-<ExpandableContent title="📚 Pods, Deployments, Services">
+### Pods, Deployments, Services definitions
+
 Deployments, Pods and Services are among the first concepts I learned while trying out Kubernetes.
 
 Think of deployments as a blueprint for managing pods. It describes an ideal state for it. Like which container image you want to add, how many replicas of the pods we need to run. Kubernetes job is to keep this ideal state for as long as possible.
@@ -237,13 +238,11 @@ They provide a stable IP address and DNS name by which we can access Pods. A goo
 
 <ArticleImage src="/k8s-pods-services-deployments.excalidraw.svg" caption="Diagram demonstrating the relationship between Deployments, Pods and Services." />
 
-</ExpandableContent>
-
-Another one of Kubernetes advantages are its self-healing capabilities.
+Another one of Kubernetes advantages are its self-healing capabilities regarding its Pods.
 
 Kubernetes self-healing is a key feature because it keeps applications running smoothly. If something goes wrong, like a server crash, Kubernetes automatically fixes it by restarting failed parts. This means less downtime and fewer problems for users.
 
-I built this Kubernetes Visualizer component to help visualize K8s self healing capabilities regarding Pods. It showcases how, even after a Pod is killed, K8s can create new ones. And we can see that the service name stays the same, and its age doesn't change, even when all pods are down.
+I built this Kubernetes Visualizer component to help visualize K8s self-healing.It showcases how, even after a Pod is killed, K8s can create new ones. And we can see that the service name stays the same, and its age doesn't change, even when all pods are down.
 
 <KubernetesVisualizer/>
 

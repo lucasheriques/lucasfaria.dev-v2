@@ -8,6 +8,7 @@ import ArticleImage from "@/components/ui/article-image";
 import Button from "@/components/ui/button";
 import ExpandableContent from "@/components/ui/expandable-content";
 import TextPopover from "@/components/ui/text-popover";
+import YoutubeEmbed from "@/components/youtube-embed";
 
 const COMPONENT_MAP = {
   pre: CodeSnippet,
@@ -57,6 +58,7 @@ const COMPONENT_MAP = {
   KubernetesVisualizer: KubernetesVisualizer,
   Button: Button,
   ExpandableContent: ExpandableContent,
+  YoutubeEmbed: YoutubeEmbed,
 };
 
 export default COMPONENT_MAP;

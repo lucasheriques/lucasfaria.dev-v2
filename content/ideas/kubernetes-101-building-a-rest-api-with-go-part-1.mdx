@@ -24,11 +24,11 @@ Yet, when I first learned about programming, serverless was not yet a thing. I r
 
 But, over the years, I've been using more and more serverless lately. Which means I missed a lot of the evolutions we had in traditional deployments. I haven't built any microservices architecture from scratch. Never used Kubernetes. Didn't touch much of DevOps besides what's needed for serverless. Which I think is a lot simpler.
 
-And I have a growing interest in distributed systems. Understanding how companies like Meta and Google serve billions of users with an insanely low down time considering their scale.
+And I have a growing interest in distributed systems. Understand how companies like Meta and Google serve billions of users with 99.99% uptime.
 
 I have an okay knowledge about serverless. I know its use cases, its drawbacks, things to watch out for. Yet, I'm oblivious when it comes to designing a service architecture using Kubernetes.
 
-It’s been a while since I did similar like this. Learn a new tool. Build a new application that solves some pain for me and for others, using a new architecture. And I'm curious as well if we can make a simple enough Kubernetes application that feels as much productive as serverless.
+It’s been a while since I did similar like this. Learn a new tool. Build a new application that solves a pain for me and for others, using a new architecture. And I'm curious if we can make a simple enough Kubernetes application that feels as productive as serverless.
 
 In this <TextPopover content="ZIRP means Zero Interest Rate Period. It's the economic state we're currently at. Money is more expensive, so we need to do more with less resources.">post-ZIRP</TextPopover> scenario, efficiency matters. A lot. <a href="https://newsletter.pragmaticengineer.com/i/142104676/pragmatic-simpler-architecture">Which means using a software architectures that allows you to move fast</a>. To solve problems you currently have instead of have to planning for the future.
 
@@ -180,7 +180,7 @@ We have our image up and running on our local registry. Now, the next step is to
 
 ### Setting up my local Kubernetes cluster
 
-There's a few options here. It'll vary depending on what system are you on. I'm using a MacBook Pro, then consider this if you're following along. For Ubuntu users, [MicroK8S](https://microk8s.io/) appears to be a good choice. There's also [Rancher Desktop](https://rancherdesktop.io/), which is cross-platform and also has a local
+There's a few options here. It'll vary depending on what system are you on. I'm using a MacBook Pro, then consider this if you're following along. For Ubuntu users, [MicroK8S](https://microk8s.io/) appears to be a good choice. There's also [Rancher Desktop](https://rancherdesktop.io/), which is cross-platform.
 
 
 The most straightforward one is Docker for Mac. You can install it and enable Kubernetes using the settings. This is how I first got stated. It's the easiest one to setup.
@@ -201,8 +201,8 @@ kubectl apply -f deployments/gotenberg.yaml
 kubectl apply -f deployments/tools-api.yaml
 
 # Then, the services
-kubectl apply -f gotenberg-deployment.yaml
-kubectl apply -f gotenberg-service.yaml
+kubectl apply -f services/gotenberg.yaml
+kubectl apply -f services/tools-api.yaml
 ```
 
 After this, I had my <TextPopover content="Smallest deployable units containing one or more containers in Kubernetes">pods</TextPopover> up and running.
@@ -229,15 +229,99 @@ If we choose three replicas, that means Kubernetes is going to create three Pods
 
 The Pod itself is the smallest deployable unit in Kubernetes. It's a group of one or more containers with shared storage and network. And a spec on how to run those containers.
 
-Pods are temporary. They can come and go. Maybe due to scaling, updates, or failures. No matter why, Kubernetes manages that life cycle for us. Ensuring they're rescheduled and maintained according to the desired state.
+Pods are temporary. They can come and go. Reasons could be scaling, updates, or failures. No matter why, Kubernetes manages that life cycle for us. Ensuring they're rescheduled and maintained according to the desired state. State which is defined in the `deployment.yaml` file.
 
 Services are different. They provide a network abstraction to the Pods. Because Pods are ephemeral, it's necessary to have a persistent interface to interact with them. Even if the Pods die or their state changes. And they can also help with load balancing traffic between pods.
 
 They provide a stable IP address and DNS name by which we can access Pods. A good metaphor is a friend's phone number: even if they change their devices, the phone number stays the same.
 
 <ArticleImage src="/k8s-pods-services-deployments.excalidraw.svg" caption="Diagram demonstrating the relationship between Deployments, Pods and Services." />
+
 </ExpandableContent>
 
-I built this Kubernetes Visualizer component to help visualize K8s self healing capabilities. It showcases how, even after a Pod is killed, K8s can create new ones. And we can see that the service name stays the same, and its age doesn't change, even when all pods are down.
+One of the biggest advantages of Kubernetes are its self-healing capabilities.
+
+Kubernetes self-healing is a key feature because it keeps applications running smoothly. If something goes wrong, like a server crash, Kubernetes automatically fixes it by restarting failed parts. This means less downtime and fewer problems for users. It makes managing applications easier and more reliable, which is why many businesses choose Kubernetes.
+
+I built this Kubernetes Visualizer component to help visualize K8s self healing capabilities regarding Pods. It showcases how, even after a Pod is killed, K8s can create new ones. And we can see that the service name stays the same, and its age doesn't change, even when all pods are down.
 
 <KubernetesVisualizer/>
+
+
+Now that we have the service ready, we need to access it in our machine. This way we can execute the program. To find out the URL we need to access, we run this command:
+
+```zsh
+minik service tools-api --url
+```
+
+It's going to return the URL we can access. With this URL, I can now interact again with my API.
+
+<YoutubeEmbed videoId="8hsRna8Igqg" title="Accessing a Minikube service in my local machine" />
+
+Now that we can access our application, let's go back to the development workflow.
+
+When I make changes to my code, I need to see the results. That's programming 101, you probably all know that.
+
+Before, I coul restart my Golang server and we're good. Now, because we're working with a K8s application, it's a tiny bit more work.
+
+On my initial workflow, I did these steps:
+
+```zsh
+docker build -t tools-api:latest --file ./deployments/Dockerfile . # Rebuild my Docker image
+eval $(minikube -p minikube docker-env) # Make sure minikube has access to my local registty
+kubectl delete pods -l app=tools-api # Delete the pod so Kubernetes rebuilds it with the updated image
+kubectl get pods # get the full pod ID name
+kubectl logs -f tools-api-57f78694df-k5cjt # show logs for the server. Id changes between each deletion
+```
+
+After finishing all these commands, everything was updated.
+
+As you can see, those are a lot of commands. Maybe I wasn't doing everything in the ideal way, deleting pods. It doesn't matter. What mattered to me is that I didn't have a great, hot reload-enabled workflow. So I had to find out a better way. That could bring my productivity to the same levels as doing NextJS/Node work.
+
+After doing some research, I found a great answer: [Tilt](https://tilt.dev/).
+
+### Improving local development velocity: Tilt
+
+> A toolkit for fixing the pains of microservice development — Tilt definition on its website.
+
+Tilt fixed everything regarding my slow development speed.
+
+It gave me automatic code compilation whenever I made changes.
+
+It gave me a great dashboard to check the logs and the status on each service.
+
+I went from running all of those commands to executing only one.
+
+Check this quick demo here:
+
+<YoutubeEmbed videoId="sG1S0XEeoV4" title="Local K8s development workflow with Tilt"/>
+
+You can see that i works with localhost as well. This is all set up on the Tiltfile. Which we'll talk about next in the setup.
+
+For setting up Tilt, I decided to go ahead and install Docker for Mac. This way I used the Kubernetes inside Docker, since it was way easier to setup.
+
+To install it, run one of these commands based on your OS:
+
+```zsh
+curl -fsSL https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.sh | bash # MacOS / Linux
+iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.ps1')) # Windows
+```
+
+Execution is as simple as it gets. Everything lives in a `Tiltfile`, which controls how we're gonna build the application.
+
+Here's a image from the [Tilt docs](https://docs.tilt.dev/tutorial/2-tilt-up) that explains the initial concepts that we'll use:
+
+<ArticleImage src="/tiltfile.png" caption="The commands present in the Tiltfile."/>
+
+Here's mine Tiltfile for this project:
+
+```
+docker_build('tools-api', '.',
+    dockerfile='./deployments/Dockerfile')
+k8s_yaml(['./deployments/tools-api.yaml', './deployments/gotenberg.yaml', './services/gotenberg.yaml'])
+k8s_resource('tools-api', port_forwards=8080)
+```
+
+Now, as you can see on the demo video, local development is much  faster.
+
+## Wrapping up Part 1

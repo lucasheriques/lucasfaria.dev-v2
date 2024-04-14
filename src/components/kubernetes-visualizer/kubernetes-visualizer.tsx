@@ -225,7 +225,7 @@ const DeploymentComponent = ({ serviceId }: DeploymentComponentProps) => {
   };
 
   const isAtLeastOnePodRunning = Object.values(pods).some(
-    (pod) => pod.status === "Running",
+    (pod) => pod.status === "Running" || pod.status === "Terminating",
   );
 
   if (

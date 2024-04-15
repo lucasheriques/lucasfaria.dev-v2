@@ -1,3 +1,5 @@
+"use client";
+
 import { intervalToDuration } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
 import { Skull, Trash } from "lucide-react";

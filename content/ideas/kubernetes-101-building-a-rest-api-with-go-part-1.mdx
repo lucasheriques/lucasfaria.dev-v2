@@ -182,7 +182,6 @@ We have our image up and running on our local registry. Now, the next step is to
 
 There's a few options here. It'll vary depending on what system are you on. I'm using a MacBook Pro, then consider this if you're following along. For Ubuntu users, [MicroK8S](https://microk8s.io/) appears to be a good choice. There's also [Rancher Desktop](https://rancherdesktop.io/), which is cross-platform.
 
-
 The most straightforward one is Docker for Mac. You can install it and enable Kubernetes using the settings. This is how I first got stated. It's the easiest one to setup.
 
 However, I didn't know that 😅 so I went with `minikube` instead. I used `brew install minikube` to install it. Then `minikube start` to run the cluster.
@@ -220,7 +219,7 @@ With Kubernetes, our deployments are isolated from the host operational system. 
 
 And, to make a pod accessible to the outside world, that's when the service comes in. Which is why we applied them in the very first place!
 
-### Pods, Deployments, Services definitions
+<ExpandableContent title="📚 Pods, Deployments, Services">
 
 Deployments, Pods and Services are among the first concepts I learned while trying out Kubernetes.
 
@@ -246,8 +245,9 @@ I built this Kubernetes Visualizer component to help visualize K8s self-healing.
 
 <KubernetesVisualizer/>
 
+</ExpandableContent>
 
-Now that we have the service ready, we need to access it in our machine. This way we can execute the program. To find out the URL we need to access, we run this command:
+Now that the service ready, we need to access it in our machine. This way we can execute the program. To find out the URL we need to access, we run this command:
 
 ```zsh
 minik service tools-api --url

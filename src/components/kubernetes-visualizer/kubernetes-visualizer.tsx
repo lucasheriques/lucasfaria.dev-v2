@@ -340,9 +340,9 @@ export default function KubernetesVisualizer() {
   return (
     <div
       className={cn(
-        "not-prose flex flex-col items-center gap-4 rounded-lg p-4 font-sans shadow-xl",
+        "not-prose flex flex-col items-center gap-4 rounded-lg p-4 font-sans shadow",
         "bg-blue-300 shadow-gray-400/50",
-        "dark:bg-gray-800 dark:bg-opacity-75 dark:shadow-gray-700/50",
+        "dark:bg-gray-950 dark:bg-opacity-75 dark:shadow-gray-700/50",
       )}
     >
       <h2 className="flex items-center gap-2 font-bold">

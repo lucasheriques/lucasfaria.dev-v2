@@ -9,7 +9,7 @@ type CommentsProps = {
 export default function Comments({ slug }: CommentsProps) {
   return (
     <div className="pt-12">
-      <CommentsProvider website-id={10942} page-id={slug} colors={"os"} />
+      <CommentsProvider website-id={10942} page-id={slug} color="dark" />
     </div>
   );
 }

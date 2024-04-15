@@ -124,8 +124,9 @@ Yet, I want to learn K8s. So I knew I'd have to look on how to setup a k8s proje
 
 The first step for me was to <TextPopover content="Packaging my app into a Docker container. It helps to ensure app consistency and simplify deployment across environments.">Dockerize</TextPopover> my Go application.
 
+To do that, we need to create a Dockerfile. It'll define the instructions to build the container image. Here's it:
 
-```Dockerfile
+```
 # Start from the official Golang base image
 FROM golang:1.22 as builder
 
@@ -160,7 +161,7 @@ COPY --from=builder /app/invoice.tmpl /root/invoice.tmpl
 CMD ["./main"]
 ```
 
-This is my current Dockerfile configuration. Most commands are commented. But the summary is to go through the build steps and get the server up and running.
+Most commands are commented. But the summary is to go through the build steps and get the server up and running.
 
 Now that I have my Dockerfile, I can build the container image. Which we'll use to start our K8s service.
 

@@ -39,7 +39,7 @@ export default function Slider<T extends number | number[]>({
       maxValue={maxValue}
       isDisabled={isDisabled}
       className={cn(
-        "flex w-60 font-sans text-sm",
+        "flex w-60 font-sans text-sm disabled:cursor-not-allowed",
         layout === "horizontal" ? "flex-row items-center gap-4" : "flex-col",
       )}
       {...rest}
@@ -55,7 +55,10 @@ export default function Slider<T extends number | number[]>({
             <div className="absolute top-[50%] h-1.5 w-full translate-y-[-50%] rounded-full bg-gray-300" />
             {/* fill */}
             <div
-              className="absolute top-[50%] h-1.5 translate-y-[-50%] rounded-full bg-emerald-400"
+              className={cn(
+                "absolute top-[50%] h-1.5 translate-y-[-50%] rounded-full bg-emerald-400",
+                isDisabled && "bg-gray-500",
+              )}
               style={{ width: state.getThumbPercent(0) * 100 + "%" }}
             />
             <SliderThumb className="top-[50%] h-5 w-5 rounded-full border border-solid border-emerald-800/75 bg-white outline-none ring-black transition focus-visible:ring-2 dragging:bg-emerald-100" />

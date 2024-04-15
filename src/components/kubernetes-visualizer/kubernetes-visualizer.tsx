@@ -2,7 +2,7 @@ import { intervalToDuration } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
 import { Skull, Trash } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import ServiceIcon from "./icons/ServiceIcon.svg";
@@ -166,14 +166,14 @@ const DeploymentComponent = ({ serviceId }: DeploymentComponentProps) => {
     (state) => state.kubernetes.services[serviceId],
   );
   const dispatch = useDispatch();
-  const creatingPodsRef = useRef<NodeJS.Timeout | null>(null);
 
   const serviceName = serviceState.name;
   const pods = serviceState.pods;
 
-  const isThereAPodWithPendingOrTerminatingStatus = Object.values(pods).some(
-    (pod) => pod.status === "Pending" || pod.status === "Terminating",
-  );
+  const isThereAPodWithPendingOrTerminatingStatus =
+    Object.values(pods).some(
+      (pod) => pod.status === "Pending" || pod.status === "Terminating",
+    ) || serviceState.status === "CreatingPods";
 
   const addPods = (numOfPodsToAdd: number = 1) => {
     const ids = getIdsForNewPods(pods, numOfPodsToAdd);
@@ -224,7 +224,7 @@ const DeploymentComponent = ({ serviceId }: DeploymentComponentProps) => {
     addPods(podsDifference);
   };
 
-  const isAtLeastOnePodRunning = Object.values(pods).some(
+  const areAllPodsRunning = Object.values(pods).every(
     (pod) => pod.status === "Running" || pod.status === "Terminating",
   );
 
@@ -250,8 +250,7 @@ const DeploymentComponent = ({ serviceId }: DeploymentComponentProps) => {
           Ideal number of pods: {serviceState.idealNumOfPods}
         </span>
         <span className="text-xs">
-          Deployment status:{" "}
-          {isAtLeastOnePodRunning ? serviceState.status : "CreatingPods"}
+          Deployment status: {serviceState.status}
         </span>
       </motion.div>
       <div className="flex min-h-48 min-w-full flex-col items-center justify-between">

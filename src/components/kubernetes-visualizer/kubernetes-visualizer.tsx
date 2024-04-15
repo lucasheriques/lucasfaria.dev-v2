@@ -392,7 +392,7 @@ export default function KubernetesVisualizer() {
                 <td className="py-1">0</td>
                 <td className="min-w-16 py-1">
                   {formatAge(service.createdAt)}
-                </td>{" "}
+                </td>
                 <td className="py-1 text-right">
                   <Button
                     variant="destructive"

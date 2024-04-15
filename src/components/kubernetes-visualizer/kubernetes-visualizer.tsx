@@ -357,15 +357,15 @@ export default function KubernetesVisualizer() {
       <div className="space-y-2 text-base">
         <p>
           Note: this is a very simplified K8s visualization where some concepts
-          blended together.
+          are blended together.
         </p>
         <p>
-          {"There's"} some overlap between Services and Deployments here that
+          {"There's"} some overlap between Services and Deployments here. It
           does not reflect how it works in a real K8s cluster.
         </p>
         <p>
-          The goal of this is to demonstrate K8s self-healing capabilities to
-          re-spin pods when {"they're"} down.
+          The goal of this is to show K8s self-healing capabilities to re-spin
+          pods when {"they're"} down.
         </p>
       </div>
       <Button onPress={addNewService} isDisabled={isAddServiceDisabled}>

@@ -127,7 +127,7 @@ The first step for me was to <TextPopover content="Packaging my app into a Docke
 To do that, we need to create a Dockerfile. It'll define the instructions to build the container image. Here's it:
 
 ```
-# Start from the official Golang base image
+# Start from the official Go base image
 FROM golang:1.22 as builder
 
 # Set the Current Working Directory inside the container
@@ -262,7 +262,7 @@ Now that we can access our application, let's go back to the development workflo
 
 When I make changes to my code, I need to see the results. That's programming 101, you probably all know that.
 
-Before I could restart my Golang server and we were good. Now, because we're working with a K8s application, it's a tiny bit more work.
+Before I could restart my Go server and we were good. Now, because we're working with a K8s application, it's a tiny bit more work.
 
 In my initial workflow, I did these steps:
 

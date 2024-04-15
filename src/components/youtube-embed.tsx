@@ -16,6 +16,7 @@ export default function YoutubeEmbed({ videoId, title }: YouTubeEmbedProps) {
       allowFullScreen
       title={title} // Set the title for accessibility purposes
       className="mx-auto block"
+      loading="lazy"
     />
   );
 }

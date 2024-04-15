@@ -417,16 +417,38 @@ export default function KubernetesVisualizer() {
 
       <div className="grid min-w-full grid-cols-1 items-center justify-center gap-4 text-center text-base sm:grid-cols-[1fr_64px_1fr]">
         <div>
-          {isKubeletBusy && `Some Pods are down. Kubelet is creating them.`}
+          <AnimatePresence>
+            {isKubeletBusy && (
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                Some Pods are down. Kubelet is creating them.
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
-        <div>
+        <motion.div className="mx-auto">
           <KubeletIcon
             fillColor={
               isKubeletBusy ? statusToColor.Failed : statusToColor.Running
             }
           />
-        </div>
-        <div>{!isKubeletBusy && `All pods are ready.`}</div>
+        </motion.div>
+        <motion.div>
+          <AnimatePresence>
+            {!isKubeletBusy && (
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                All pods are ready.
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </div>
 
       <div className="grid min-w-full grid-cols-1 justify-center gap-4 sm:grid-cols-2">

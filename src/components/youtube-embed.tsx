@@ -15,7 +15,7 @@ export default function YoutubeEmbed({ videoId, title }: YouTubeEmbedProps) {
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowFullScreen
       title={title} // Set the title for accessibility purposes
-      className="mx-auto block"
+      className="mx-auto block max-w-full"
       loading="lazy"
     />
   );

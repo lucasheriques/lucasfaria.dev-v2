@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 
-import { LittleHomeButton } from "@/components/little-home-button";
+import LittleHomeButton from "@/components/little-home-button";
 import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
 import { GradientText, Title } from "@/components/typography";

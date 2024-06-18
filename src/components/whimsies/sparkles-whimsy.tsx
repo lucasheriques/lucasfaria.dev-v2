@@ -65,7 +65,7 @@ const SparkleInstance = ({ color, style, size }: SparkleType) => (
   </span>
 );
 
-export const SparklesWhimsy = ({ rainbow, children }: Props) => {
+const SparklesWhimsy = ({ rainbow, children }: Props) => {
   const [enabled, setEnabled] = React.useState(true);
   const [sparkles, setSparkles] = React.useState<SparkleType[]>(() =>
     Array.from({ length: 3 }).map(() =>
@@ -123,3 +123,5 @@ export const SparklesWhimsy = ({ rainbow, children }: Props) => {
     </button>
   );
 };
+
+export default SparklesWhimsy;

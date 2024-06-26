@@ -41,8 +41,7 @@ export default async function Home() {
         </p>
         <p>
           When not coding, {"I'll"} probably be spending time with my fiancée
-          and our <span className="line-through">children</span> pets, cooking,
-          reading, or enjoying some time in nature. 🍂
+          and our pets, cooking, reading, or enjoying some time in nature. 🍂
         </p>
         <p>
           In this page, {"you'll"} find some of my thoughts and projects. I

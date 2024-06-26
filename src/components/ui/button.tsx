@@ -14,11 +14,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-emerald-600 dark:bg-emerald-500 text-gray-100",
+        default: "bg-emerald-600 dark:bg-emerald-700 text-slate-100",
         secondary:
-          "bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100",
-        purple: "bg-purple-600 dark:bg-purple-700 text-gray-100",
+          "bg-slate-200 dark:bg-slate-600 text-black dark:text-slate-100",
+        purple: "bg-purple-600 dark:bg-purple-700 text-slate-100",
         destructive: "bg-rose-500 dark:bg-rose-700 text-white",
+        outline:
+          "bg-white dark:bg-slate-800 border border-slate-400 dark:border-slate-500 text-slate-900 dark:text-slate-100",
       },
       size: {
         default: "px-4 py-2 min-w-24",

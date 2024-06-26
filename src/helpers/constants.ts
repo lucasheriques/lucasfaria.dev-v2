@@ -6,7 +6,12 @@ export const SITE_DESCRIPTION =
 export const socials = {
   github: "https://github.com/lucasheriques/",
   linkedin: "https://www.linkedin.com/in/lucas-faria/",
-  twitter: "https://twitter.com/lucasfariadev",
+  twitter: "https://twitter.com/1lucasfaria",
+  instagram: "https://www.instagram.com/lucasfaria.dev/",
+  tiktok: "https://tiktok.com/@lucasfaria.dev",
+  brNewsletter: "https://devnagringa.substack.com/",
+  devTo: "https://dev.to/lucasheriques",
+  tabNews: "https://www.tabnews.com.br/lucasfaria",
 };
 
 export const FANTASY_NAME_SERVICES = [

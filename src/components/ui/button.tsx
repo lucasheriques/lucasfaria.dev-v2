@@ -15,6 +15,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-emerald-600 dark:bg-emerald-500 text-gray-100",
+        secondary:
+          "bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100",
+        purple: "bg-purple-600 dark:bg-purple-700 text-gray-100",
         destructive: "bg-rose-500 dark:bg-rose-700 text-white",
       },
       size: {
@@ -42,8 +45,8 @@ function Button({ variant, size, className, children, ...rest }: Props) {
   return (
     <MotionButton
       className={cn(buttonVariants({ variant, size, className }))}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
       {...rest}
     >
       {children}

@@ -5,6 +5,7 @@ import { LittleHomeButton } from "@/components/little-home-button";
 import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
 import { GradientText, Title } from "@/components/typography";
+import Card from "@/components/ui/card";
 import { SparklesWhimsy } from "@/components/whimsies";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/helpers/constants";
 import { getLastXBlogPosts, getLastXBytePosts } from "@/helpers/file-helpers";
@@ -22,7 +23,7 @@ export default async function Home() {
 
   return (
     <PageWrapper>
-      <section className="flex flex-col gap-4">
+      <section className="flex flex-col gap-4 text-lg">
         <Title as="h1">
           welcome to my{" "}
           <LittleHomeButton
@@ -58,6 +59,51 @@ export default async function Home() {
       <section className="grid gap-4">
         <Title as="h2">latest bytes ⚡</Title>
         <PostList posts={bytes} />
+      </section>
+
+      <section className="grid gap-4">
+        <Title as="h2">projects 👨‍💻</Title>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <Card
+            title="📰 Dev na Gringa"
+            link="https://devnagringa.substack.com?utm_source=lucasfaria.dev"
+          >
+            A newsletter for brazilian engineers who wants to grow their careers
+            and work for international companies.
+          </Card>
+          <Card
+            title="👾 emojinx"
+            link="https://emojinx.lucasfaria.dev"
+            expandable
+            expandedContent={
+              <p>Made with React, TypeScript and Convex (WebSockets).</p>
+            }
+          >
+            A multiplayer memory matching game. Features real-time gameplay and
+            timed turns.
+          </Card>
+          <Card
+            title="🧾 mockinvoice"
+            link="https://tools.lucasfaria.dev/v1/invoices/fake"
+            expandable
+            expandedContent={
+              <div className="space-y-2">
+                <p>
+                  REST API to easily mock real
+                  <span className="italic">ish</span> invoices.
+                </p>
+                <p>
+                  Supports these query parameters: paymentMethods, vendorName,
+                  accountNumber, numberOfItems, invoiceDate, dueDate, currency.
+                </p>
+                <p>Made with Go, Gotenberg and Docker.</p>
+              </div>
+            }
+          >
+            I work daily with invoices, and was tired to create a fake invoice
+            every now and then.
+          </Card>
+        </div>
       </section>
     </PageWrapper>
   );

@@ -18,7 +18,7 @@ type HeroProps = {
   humanizedDate: string;
   content: string; // Assuming this is the full article content for read time calculation
   type: "ideas" | "bytes";
-  tags: string;
+  tags?: string;
 };
 
 const Hero = ({ title, humanizedDate, content, type, tags }: HeroProps) => {

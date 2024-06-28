@@ -34,7 +34,6 @@ export default function PostList({
             prefetch={true}
           >
             {post.language && <Badge>{post.language}</Badge>}
-            {post.tags && <Badge>{post.tags}</Badge>}
             <Tag className="">{post.title}</Tag>
             <motion.div
               aria-hidden

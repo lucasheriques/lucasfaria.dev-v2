@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 
+import Badge from "@/components/badge";
 import Comments from "@/components/comments";
 import ResetHeading from "@/components/reset-heading";
 import StoreProvider from "@/components/store-provider";
@@ -17,9 +18,10 @@ type HeroProps = {
   humanizedDate: string;
   content: string; // Assuming this is the full article content for read time calculation
   type: "ideas" | "bytes";
+  tags: string;
 };
 
-const Hero = ({ title, humanizedDate, content, type }: HeroProps) => {
+const Hero = ({ title, humanizedDate, content, type, tags }: HeroProps) => {
   // Calculate read time
   const wordsPerMinute = 200;
   const cleanContent = content.replace(
@@ -30,13 +32,14 @@ const Hero = ({ title, humanizedDate, content, type }: HeroProps) => {
   const readTime = Math.floor(numberOfWords / wordsPerMinute);
 
   return (
-    <div className="not-prose">
+    <div className="not-prose space-y-2">
       <Title as="h1" className="text-4xl font-bold">
         {title}
       </Title>
-      <p className="mt-2 text-base dark:text-gray-50">
+      <p className="text-base dark:text-gray-50">
         {humanizedDate} {type === "ideas" && `· ${readTime} min read`}
       </p>
+      {tags && <Badge>{tags}</Badge>}
     </div>
   );
 };
@@ -53,6 +56,7 @@ const Article = ({
   headings,
   language,
   slug,
+  tags,
 }: ArticleProps) => {
   const humanizedDate = format(new Date(createdAt), "MMMM do, yyyy");
 
@@ -70,6 +74,7 @@ const Article = ({
             title={title}
             humanizedDate={humanizedDate}
             content={content}
+            tags={tags}
           />
           <MDXRemote source={content} components={COMPONENT_MAP} />
 

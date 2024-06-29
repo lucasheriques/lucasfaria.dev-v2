@@ -1,5 +1,6 @@
 "use client";
 
+import GenericError from "@/components/errors/generic-error";
 import NotFound from "@/components/errors/not-found";
 import PageWrapper from "@/components/page-wrapper";
 
@@ -10,7 +11,7 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  if (error.message.includes("ENOENT")) {
+  if (error.message.includes("ENOENT") || error.message.includes("404")) {
     return (
       <PageWrapper>
         <NotFound />
@@ -19,17 +20,8 @@ export default function Error({
   }
 
   return (
-    <div>
-      <h2>Something went wrong!</h2>
-      {error.message}
-      <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-      >
-        Try again
-      </button>
-    </div>
+    <PageWrapper>
+      <GenericError />
+    </PageWrapper>
   );
 }

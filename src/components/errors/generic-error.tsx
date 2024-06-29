@@ -6,11 +6,7 @@ import Link from "next/link";
 
 import { GradientText, Title } from "@/components/typography";
 
-interface Props {
-  type: "ideas" | "bytes";
-}
-
-const NotFound = () => {
+const GenericError = () => {
   return (
     <div className="center flex min-w-full flex-1 flex-col items-center gap-8">
       <motion.div
@@ -18,7 +14,7 @@ const NotFound = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Title as="h1">Not Found</Title>
+        <Title as="h1">Internal Server Error</Title>
       </motion.div>
       <motion.div
         initial={{ opacity: 0 }}
@@ -26,20 +22,26 @@ const NotFound = () => {
         transition={{ duration: 1, delay: 0.3 }}
       >
         <Image
-          width={450}
-          height={400}
-          src="/images/404.svg"
-          alt="Cat throwing a plant - 404 error"
+          width={350}
+          height={350}
+          src="/images/dragon-error.svg"
+          alt="Dragon spitting fire in a town - server error"
         />
       </motion.div>
-      <motion.p
-        className="text-lg"
+      <motion.div
+        className="text-center text-lg"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.6 }}
       >
-        Sorry, nothing to see here. 🙈
-      </motion.p>
+        <p className="text-center text-lg">
+          Sorry, a dragon has caused an internal server error! 🐉
+        </p>
+        <p className="text-center text-lg">
+          {"We're"} gathering a party to fix this issue. Please check back
+          later. 🧙🏼‍♂️
+        </p>
+      </motion.div>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -55,4 +57,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default GenericError;

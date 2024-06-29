@@ -50,7 +50,7 @@ export function getPostInfoFromData(
     tags: frontmatter.tags as string | undefined,
     type,
     headings: extractTableOfContents(fileContents),
-    ...(needContent && { content }),
+    content: needContent ? content : undefined,
   };
 }
 

@@ -26,9 +26,9 @@ const NotFound = () => {
         transition={{ duration: 1, delay: 0.3 }}
       >
         <Image
-          src="/images/404.png"
-          width={600}
-          height={600}
+          width={720}
+          height={400}
+          src="/images/404.svg"
           alt="Cat throwing a plant - 404 error"
         />
       </motion.div>

@@ -57,12 +57,14 @@ type GradientTextProps = {
   children: React.ReactNode;
   lightModeColor?: keyof typeof gradientTextColors;
   darkModeColor?: keyof typeof gradientDarkModeTextColors;
+  className?: string;
 };
 
 export const GradientText = ({
   children,
   lightModeColor = "purple",
   darkModeColor = "purple",
+  className,
 }: GradientTextProps) => {
   return (
     <span
@@ -71,6 +73,7 @@ export const GradientText = ({
         gradientDarkModeTextColors[darkModeColor],
         "bg-gradient-to-r from-purple-800 to-blue-500",
         "bg-transparent bg-clip-text text-transparent",
+        className,
       )}
     >
       {children}

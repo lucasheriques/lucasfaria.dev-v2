@@ -12,7 +12,7 @@ export default function PageWrapper({
   return (
     <div
       className={cn(
-        "mx-auto flex max-w-3xl flex-col gap-y-8 px-6 sm:gap-y-12",
+        "mx-auto flex w-full max-w-3xl flex-1 flex-col gap-y-8 px-6 sm:gap-y-12",
         className,
       )}
     >

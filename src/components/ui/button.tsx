@@ -21,6 +21,7 @@ const buttonVariants = cva(
         destructive: "bg-rose-500 dark:bg-rose-700 text-white",
         outline:
           "bg-white dark:bg-slate-800 border border-slate-400 dark:border-slate-500 text-slate-900 dark:text-slate-100",
+        link: "bg-transparent",
       },
       size: {
         default: "px-4 py-2 min-w-24",

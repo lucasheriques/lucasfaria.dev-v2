@@ -1,5 +1,8 @@
 "use client";
 
+import NotFound from "@/components/errors/not-found";
+import PageWrapper from "@/components/page-wrapper";
+
 export default function Error({
   error,
   reset,
@@ -7,14 +10,18 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  // useEffect(() => {
-  //   // Log the error to an error reporting service
-  //   console.error(error);
-  // }, [error]);
+  if (error.message.includes("ENOENT")) {
+    return (
+      <PageWrapper>
+        <NotFound />
+      </PageWrapper>
+    );
+  }
 
   return (
     <div>
       <h2>Something went wrong!</h2>
+      {error.message}
       <button
         onClick={
           // Attempt to recover by trying to re-render the segment

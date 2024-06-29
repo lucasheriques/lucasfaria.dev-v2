@@ -68,7 +68,7 @@ export default function RootLayout({
               theme?.value ? (theme.value as "light" | "dark") : "dark"
             }
           />
-          <main className="relative flex-1">{children}</main>
+          <main className="relative flex flex-1 flex-col">{children}</main>
           <Footer />
           <TailwindIndicator />
           <SpeedInsights />

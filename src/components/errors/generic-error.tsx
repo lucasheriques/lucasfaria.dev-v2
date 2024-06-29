@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
-import { GradientText, Title } from "@/components/typography";
+import { Title } from "@/components/ui/typography";
+import { GradientText } from "@/components/ui/typography/gradient-text";
 
 const GenericError = () => {
   return (

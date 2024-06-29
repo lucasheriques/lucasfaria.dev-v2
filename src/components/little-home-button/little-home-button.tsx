@@ -5,7 +5,7 @@ import { Button } from "react-aria-components";
 
 import { TooltipContent } from "@/components/little-home-button/tooltip-content";
 import Sheet from "@/components/sheet";
-import { GradientText } from "@/components/typography";
+import { GradientText } from "@/components/ui/typography/gradient-text";
 import { setLittleHomeDisplayAnimation } from "@/helpers/server-actions";
 
 const MotionButton = motion(Button);

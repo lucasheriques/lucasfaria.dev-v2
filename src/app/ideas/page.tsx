@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
-import { Title } from "@/components/typography";
+import { Title } from "@/components/ui/typography";
 import { SITE_TITLE } from "@/helpers/constants";
 import { getBlogPostList } from "@/helpers/file-helpers";
 

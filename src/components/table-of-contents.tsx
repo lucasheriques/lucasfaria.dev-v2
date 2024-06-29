@@ -3,7 +3,7 @@
 import { useAtom } from "jotai";
 import React from "react";
 
-import { Title } from "./typography";
+import { Title } from "./ui/typography";
 
 import { currentHeadingAtom } from "@/helpers/atoms";
 import { cn } from "@/helpers/functions";

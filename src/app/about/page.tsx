@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import PageWrapper from "@/components/page-wrapper";
-import { Title } from "@/components/typography";
+import { Title } from "@/components/ui/typography";
 import { SITE_TITLE } from "@/helpers/constants";
 import { getAboutMe } from "@/helpers/file-helpers";
 

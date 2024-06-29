@@ -8,8 +8,8 @@ import Comments from "@/components/comments";
 import ResetHeading from "@/components/reset-heading";
 import StoreProvider from "@/components/store-provider";
 import TableOfContents from "@/components/table-of-contents";
-import { Title } from "@/components/typography";
 import IdeasProgressBar from "@/components/ui/ideas-progress-bar";
+import { Title } from "@/components/ui/typography";
 import { type getPostInfoFromData } from "@/helpers/file-helpers";
 import COMPONENT_MAP from "@/helpers/mdx-components";
 

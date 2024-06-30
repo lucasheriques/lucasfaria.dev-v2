@@ -2,6 +2,11 @@ import PageWrapper from "@/components/page-wrapper";
 import Button from "@/components/ui/button";
 import { socials } from "@/helpers/constants";
 
+export const metadata = {
+  title: "Social Links — Lucas Faria",
+  description: "A list of links to my social media and other platforms.",
+};
+
 export default function Links() {
   return (
     <PageWrapper className="grid flex-grow-0 gap-4 sm:grid-cols-2 sm:gap-4">

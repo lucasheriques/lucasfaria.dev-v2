@@ -4,7 +4,7 @@ import { socials } from "@/helpers/constants";
 
 export default function Links() {
   return (
-    <PageWrapper className="grid max-w-80 gap-y-4 sm:gap-y-4">
+    <PageWrapper className="grid flex-grow-0 gap-4 sm:grid-cols-2 sm:gap-4">
       <a href={socials.brNewsletter} target="_blank">
         <Button className="w-full" variant="purple">
           🇧🇷 newsletter (Dev na Gringa)
@@ -15,11 +15,6 @@ export default function Links() {
           LinkedIn
         </Button>
       </a>
-      <a href={socials.github} target="_blank">
-        <Button className="w-full" variant="outline">
-          GitHub
-        </Button>
-      </a>
       <a href={socials.twitter} target="_blank">
         <Button className="w-full" variant="outline">
           Twitter (X)
@@ -28,6 +23,16 @@ export default function Links() {
       <a href={socials.instagram} target="_blank">
         <Button className="w-full" variant="outline">
           Instagram
+        </Button>
+      </a>
+      <a href={socials.tiktok} target="_blank">
+        <Button className="w-full" variant="outline">
+          TikTok
+        </Button>
+      </a>
+      <a href={socials.github} target="_blank">
+        <Button className="w-full" variant="outline">
+          GitHub
         </Button>
       </a>
       <a href={socials.tabNews} target="_blank">

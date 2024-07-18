@@ -1,0 +1,49 @@
+---
+title: Notes on the Linear Sync Engine
+---
+
+Some notes after watching Tuomas [Scaling the Linear Sync Engine](https://www.youtube.com/watch?v=Wo2m3jaJixU) and the local-first conf.
+
+GPT-4o summary:
+
+ChatGPT
+Here's a summary of the video "Scaling the Linear Sync Engine" by Linear:
+
+Foundation Focus: Early on, Linear prioritized building a solid sync engine foundation to enhance user experience with real-time updates, offline capabilities, and performance improvements by minimizing network requests.
+Sync Engine Benefits: Initially aimed at user benefits, the sync engine unexpectedly boosted engineering productivity by simplifying network handling, error scenarios, and data persistence.
+Server Load Reduction: Clients locally store most application states, drastically reducing server load, allowing Linear to operate with fewer servers compared to traditional applications.
+Initial Sync Process: New users request all data from the GraphQL API, store it locally, and then maintain sync with real-time updates via WebSocket connections.
+Delta Sync Introduction: To address data lag during initial syncs, Delta Sync was introduced, allowing clients to request only changes since the last update, reducing server load and improving efficiency.
+Handling Large Organizations: Linear implemented lazy loading and partial bootstraps to manage large data sets, loading only essential data initially and deferring less critical data.
+Streaming REST API: Transitioned from GraphQL to a streaming REST API for better memory management and faster data transfer, avoiding memory overload issues.
+Read Replicas and Caching: To alleviate database stress, Linear utilized read replicas and eventually added a MongoDB cache, storing serialized data for faster retrieval during full bootstrap requests.
+Batch Loader Mechanism: Implemented a batch loader to handle network requests more efficiently, grouping and deduplicating requests to minimize network load and optimize data fetching.
+Lazy Loading and Suspense Boundaries: Enhanced UI performance by implementing lazy-loaded collections and suspense boundaries, ensuring smooth data loading and rendering without major code changes for engineers.
+
+
+
+
+
+
+
+
+Patterns for scaling it:
+
+- When doing data updates, the client might be out of sync. So we need to get the delta sync before we do that. Because the delta sync may take a while,
+and we don't want to override any data, queue the updates and apply them after the delta sync is done.
+- Lazily load data: instead of loading everything you need, only get the collections the user is most likely to see in the first load.
+Then, load the rest of the data as needed. Make a pattern of loading data in the background. Use React's Suspense to not cause a lot of flashes.
+- Same thing for the initial load: when the initial data is too big to fit in the first boostrap, do a main bootstrap with the primary data, then load it
+as needed. For Linear, that would be the projects, teams, users, issues, etc.
+- GraphQL is great to get a lot of data, effectively. However, when you're loading too much data, it doesn't fit anymore. The problem is that it needs to
+construct the whole JSON blob in memory. So, if you're loading 200mb of data for a user, and then there's 10 users, you'll simply need 2gb of memory to
+do it. Which is not enough. So we switch to a Streaming REST API. Since GraphQL can't do streaming, but REST can.
+
+
+Now, the bottleneck became the database (PostgreSQL).
+
+- First idea, createa READ replica. The issue, however, is that the replica can be as much as 10 min behind the master.
+- Instead of doing that, we moved data to MongoDB instead. We periodically dump all the PostgreSQL data, serialize them, and stream
+the boostrap fron MongoDB instead.
+
+Next problem: delayed bootstrap again.

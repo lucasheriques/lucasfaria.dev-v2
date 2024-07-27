@@ -6,7 +6,7 @@ import { type AnimationProps, motion } from "framer-motion";
 import { cn } from "@/helpers/functions";
 
 const sizeVariants = cva(
-  "relative rounded-lg font-medium backdrop-blur-xl transition-[box-shadow] duration-300 ease-in-out hover:shadow dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--shiny-button)/10%)_0%,transparent_60%)] dark:hover:shadow-[0_0_20px_hsl(var(--shiny-button)/10%)]",
+  "relative rounded-lg font-medium backdrop-blur-xl transition-[box-shadow] duration-300 ease-in-out hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-2px_rgba(0,0,0,0.05)] bg-gradient-to-r from-sky-200 to-fuchsia-200 dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--shiny-button)/10%)_0%,transparent_60%)] dark:hover:shadow-[0_0_20px_hsl(var(--shiny-button)/10%)]",
   {
     variants: {
       size: {
@@ -59,7 +59,7 @@ const ShinyButton = ({
       className={cn(sizeVariants({ size }), className)}
     >
       <span
-        className="relative block h-full w-full text-lg tracking-wide text-[rgb(0,0,0,65%)] dark:text-[rgb(255,255,255,90%)]"
+        className="relative block h-full w-full text-lg tracking-wide text-emerald-900 dark:text-[rgb(255,255,255,90%)]"
         style={{
           maskImage:
             "linear-gradient(-75deg,hsl(var(--shiny-button)) calc(var(--x) + 20%),transparent calc(var(--x) + 30%),hsl(var(--shiny-button)) calc(var(--x) + 100%))",
@@ -72,7 +72,7 @@ const ShinyButton = ({
           mask: "linear-gradient(rgb(0,0,0), rgb(0,0,0)) content-box,linear-gradient(rgb(0,0,0), rgb(0,0,0))",
           maskComposite: "exclude",
         }}
-        className="absolute inset-0 z-10 block rounded-[inherit] bg-[linear-gradient(-75deg,hsl(var(--shiny-button)/10%)_calc(var(--x)+20%),hsl(var(--shiny-button)/50%)_calc(var(--x)+25%),hsl(var(--shiny-button)/10%)_calc(var(--x)+100%))] p-px"
+        className="absolute inset-0 z-10 block rounded-[inherit] bg-[linear-gradient(-75deg,hsl(var(--shiny-button)/20%)_calc(var(--x)+20%),hsl(var(--shiny-button)/60%)_calc(var(--x)+25%),hsl(var(--shiny-button)/20%)_calc(var(--x)+100%))] p-px"
       ></span>
     </motion.button>
   );

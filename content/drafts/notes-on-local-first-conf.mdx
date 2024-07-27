@@ -1,0 +1,59 @@
+---
+title: Notes on Local-First Conf 2024
+abstract:
+createdAt: 2024-07-15
+tags: software engineering, conferences
+---
+
+https://www.youtube.com/watch?v=NMq0vncHJvU
+
+## History
+
+- Conflict-Free Replicated Data Type (CRDTs) is how the local-first movement kind of started. See the [original paper](https://hal.inria.fr/inria-00555588/document).
+- Local-first term was coined around 2019. [Original article here](https://www.inkandswitch.com/local-first/).
+- When thinking about the term, we wanted a different way to think that doesn't fit offline-first
+
+## Definition
+
+- **New definition for local-first: the availability of another computer should never prevent you from working**
+- Make local-first apps ["incredible-journey-proof"](https://www.tumblr.com/ourincrediblejourney). Even if the app developer decides to kill the app, you should still be able to use it.
+
+## Benefits for users
+
+- Fast, no spinners
+- Multi-device
+- Works offline
+- Seamless collaborations
+- Long-term preservation
+- Security & Privacy
+- User control
+
+[See more details here](https://www.inkandswitch.com/local-first/).
+
+- In an ideal world, we'd have a standardized protocol for creating local-first apps. This way, we could move accross different vendors and still have the same data.
+
+## Benefits for app developers
+
+- No backend engineering team
+- No 24/7 on-call rotation
+- No more network error handling code
+- No more paying through the nose for cloud
+
+## Changes on economics
+
+Opportunity: easier, faster and cheaper to build collaboration-heavy apps (niche apps become viable)
+
+Challenge: will SaaS still work? because the customers can just take their data somewhere else
+
+
+## Tech examples
+
+- Yjs: a CRDT library for building collaborative applications. [GitHub](https://github.com/yjs/yjs)
+- Automerge
+
+
+## Fundamentals
+
+Local-first is a set of principles & values
+
+It's a better way of building software and that is more important than any particualr technology/tool/product

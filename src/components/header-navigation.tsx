@@ -183,7 +183,7 @@ export default function HeaderNavigation() {
   const pathname = usePathname();
 
   return (
-    <div className="flex gap-4">
+    <div className="flex items-center gap-4">
       <div>
         <Link href={"/"} prefetch={true}>
           <Image src="/house-nobg.png" alt="Home" width={48} height={48} />

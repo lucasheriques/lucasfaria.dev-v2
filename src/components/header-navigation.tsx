@@ -14,8 +14,7 @@ import DarkLightToggle from "@/components/dark-light-toggle";
 import { cn } from "@/helpers/functions";
 
 const navItems = [
-  { label: "ideas", href: "/ideas" },
-  { label: "bytes", href: "/bytes" },
+  { label: "writing", href: "/writing" },
   { label: "about", href: "/about" },
   // { label: "recommendations", href: "/recommendations" },
 ];

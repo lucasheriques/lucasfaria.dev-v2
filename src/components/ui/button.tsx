@@ -52,7 +52,7 @@ function Button({ variant, size, className, children, ...rest }: Props) {
     <MotionButton
       className={cn(buttonVariants({ variant, size, className }))}
       whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileTap={{ scale: 0.97 }}
       {...rest}
     >
       {children}

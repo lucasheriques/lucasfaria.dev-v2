@@ -19,23 +19,19 @@ export default async function WritingPage() {
     <PageWrapper>
       <section>
         <Title as="h1">ideas 💡</Title>
-        <p>
+        <p className="pb-4">
           Longer reflections on software engineering, product management, and
           personal growth. A personal exploration of the subjects {"I'm"}{" "}
           passionate about.
         </p>
-      </section>
-      <section>
         <PostList posts={ideas} />
       </section>
       <section>
         <Title as="h1">bytes ⚡</Title>
-        <p>
+        <p className="pb-4">
           Brief notes on code, tools, and tips. Quick insights from my daily
           tech encounters.
         </p>
-      </section>
-      <section>
         <PostList posts={bytes} />
       </section>
     </PageWrapper>

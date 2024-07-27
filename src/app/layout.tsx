@@ -50,7 +50,7 @@ export default function RootLayout({
       <html
         lang="en"
         className={cn(
-          "bg-amber-100 bg-gradient-to-b from-amber-100 to-emerald-100 text-gray-900",
+          "bg-amber-50 bg-gradient-to-b from-amber-50 to-emerald-50 text-gray-900",
           "dark:bg-gray-900 dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900 dark:text-gray-200",
           theme?.value === undefined || theme.value === "dark"
             ? "dark"

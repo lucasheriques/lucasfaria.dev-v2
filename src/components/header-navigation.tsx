@@ -203,8 +203,8 @@ export default function HeaderNavigation() {
               <Link
                 href={item.href}
                 className={cn(
-                  "relative p-2 transition-colors duration-300 hover:text-amber-700 dark:hover:text-amber-400",
-                  isActive ? "text-amber-700 dark:text-amber-400" : "",
+                  "relative p-2 transition-colors duration-300 hover:text-amber-600 dark:hover:text-amber-400",
+                  isActive ? "text-amber-600 dark:text-amber-400" : "",
                 )}
                 prefetch={true}
                 onMouseEnter={() => setHoveredNavItem(item.href)}

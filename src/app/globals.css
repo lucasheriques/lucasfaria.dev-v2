@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --gradient-angle: 360deg;
-}
-
 @property --gradient-angle {
   syntax: "<angle>"; /* angle otherwise it doesnt work */
   initial-value: 360deg;
@@ -27,12 +23,27 @@
     margin: 0;
   }
 
+  :root {
+    --gradient-angle: 360deg;
+    --content-width: 55rem;
+    --outer-content-width: 80rem;
+    --viewport-padding: 16px;
+    --trimmed-content-width: calc(
+      var(--content-width) - var(--viewport-padding) * 2
+    );
+    --k8s-blue: #326ce5;
+    --gradient-angle: 360deg;
+
+    --shiny-button: 142 5.9% 10%;
+  }
+
   html[data-theme="light"] {
     scrollbar-color: var(--slate-500) var(--amber-100);
   }
 
   html[data-theme="dark"] {
     scrollbar-color: var(--gray-950) var(--gray-900);
+    --shiny-button: 0 0% 98%;
   }
 
   body {
@@ -64,18 +75,6 @@
   h5,
   h6 {
     overflow-wrap: break-word;
-  }
-}
-
-@layer base {
-  :root {
-    --content-width: 55rem;
-    --outer-content-width: 80rem;
-    --viewport-padding: 16px;
-    --trimmed-content-width: calc(
-      var(--content-width) - var(--viewport-padding) * 2
-    );
-    --k8s-blue: #326ce5;
   }
 
   .code-block pre {

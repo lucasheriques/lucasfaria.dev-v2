@@ -20,7 +20,7 @@ import {
   updatePod,
   updateService,
 } from "@/components/kubernetes-visualizer/kubernetes-slice";
-import Button from "@/components/ui/button";
+import Button from "@/components/ui/buttons/button";
 import Slider from "@/components/ui/slider";
 import { cn, getNewService, randomNumberBetween } from "@/helpers/functions";
 import { useAppSelector } from "@/helpers/store-hooks";

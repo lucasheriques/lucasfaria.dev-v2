@@ -5,7 +5,7 @@ import CodePlayground from "@/components/code-playground";
 import CodeSnippet from "@/components/code-snippet";
 import KubernetesVisualizer from "@/components/kubernetes-visualizer";
 import ArticleImage from "@/components/ui/article-image";
-import Button from "@/components/ui/button";
+import Button from "@/components/ui/buttons/button";
 import ExpandableContent from "@/components/ui/expandable-content";
 import TextPopover from "@/components/ui/text-popover";
 import YoutubeEmbed from "@/components/youtube-embed";

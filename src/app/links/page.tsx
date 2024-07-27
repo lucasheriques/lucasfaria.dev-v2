@@ -1,5 +1,6 @@
 import PageWrapper from "@/components/page-wrapper";
-import Button from "@/components/ui/button";
+import Button from "@/components/ui/buttons/button";
+import ShinyButton from "@/components/ui/buttons/shiny-button";
 import { socials } from "@/helpers/constants";
 
 export const metadata = {
@@ -11,9 +12,11 @@ export default function Links() {
   return (
     <PageWrapper className="grid flex-grow-0 gap-4 sm:grid-cols-2 sm:gap-4">
       <a href={socials.brNewsletter} target="_blank">
-        <Button className="w-full" variant="linktree" size="linktree">
-          🇧🇷 newsletter (Dev na Gringa)
-        </Button>
+        <ShinyButton
+          text="🇧🇷 newsletter (Dev na Gringa)"
+          className="w-full"
+          size="linktree"
+        />
       </a>
       <a href={socials.linkedin} target="_blank">
         <Button className="w-full" variant="linktree" size="linktree">
@@ -41,7 +44,7 @@ export default function Links() {
         </Button>
       </a>
       <a href={socials.tabNews} target="_blank">
-        <Button className="w-full" variant="linktree" size="linktree">
+        <Button className="w-full" variant="outline" size="linktree">
           TabNews
         </Button>
       </a>

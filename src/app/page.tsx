@@ -61,7 +61,7 @@ export default async function Home() {
         <PostList posts={bytes} />
       </section>
 
-      <section className="grid gap-4">
+      <section className="grid gap-4" id="projects">
         <Title as="h2">projects 👨‍💻</Title>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Card

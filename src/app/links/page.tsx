@@ -1,6 +1,10 @@
+import Image from "next/image";
+import { FaLinkedin } from "react-icons/fa6";
+
 import PageWrapper from "@/components/page-wrapper";
 import Button from "@/components/ui/buttons/button";
 import ShinyButton from "@/components/ui/buttons/shiny-button";
+import { Tooltip } from "@/components/ui/tooltip/tooltip";
 import { socials } from "@/helpers/constants";
 
 export const metadata = {
@@ -10,7 +14,18 @@ export const metadata = {
 
 export default function Links() {
   return (
-    <PageWrapper className="grid flex-grow-0 gap-4 sm:grid-cols-2 sm:gap-4">
+    <PageWrapper className="grid flex-grow-0 gap-4 sm:gap-4">
+      <Image
+        src="/profile.jpg"
+        alt="Lucas Faria's profile picture"
+        width={128}
+        height={128}
+        className="mx-auto rounded-full"
+        priority
+      />
+      <Tooltip label="LinkedIn">
+        <FaLinkedin size={36} />
+      </Tooltip>
       <a href={socials.brNewsletter} target="_blank">
         <ShinyButton
           text="🇧🇷 newsletter (Dev na Gringa)"

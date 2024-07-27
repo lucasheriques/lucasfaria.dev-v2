@@ -43,10 +43,10 @@ const animationProps = {
   },
 } as AnimationProps;
 
-type ShinyButtonProps = {
+interface ShinyButtonProps extends VariantProps<typeof sizeVariants> {
   text: string;
   className?: string;
-} & VariantProps<typeof sizeVariants>;
+}
 
 const ShinyButton = ({
   text = "shiny-button",

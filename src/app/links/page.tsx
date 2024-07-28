@@ -10,6 +10,7 @@ import {
   FaYoutube,
 } from "react-icons/fa6";
 
+import { Dock, DockIcon } from "@/components/dock";
 import PageWrapper from "@/components/page-wrapper";
 import { TypingText } from "@/components/text-animations";
 import Button from "@/components/ui/buttons/button";
@@ -26,7 +27,7 @@ export default function Links() {
   const t = useTranslations("links");
   return (
     <PageWrapper className="grid flex-grow-0 gap-4 sm:gap-8">
-      <div className="sm flex items-center gap-4 justify-self-center rounded-lg p-2 dark:bg-zinc-900">
+      <div className="flex items-center gap-4 justify-self-center rounded-lg bg-amber-300/40 p-4 dark:bg-slate-800 dark:text-gray-100">
         <Image
           src="/profile.jpg"
           alt="Lucas Faria's profile picture"
@@ -35,35 +36,61 @@ export default function Links() {
           className="rounded-full"
           priority
         />
-        <TypingText
-          text={t("quickAbout")}
-          className="text-base font-semibold"
-          duration={20}
-        />
+        <div className="flex flex-col">
+          <div className="flex items-baseline gap-2">
+            <span className="text-sm font-semibold text-blue-700 dark:text-blue-400">
+              luke
+            </span>
+            <span className="text-xs text-gray-700 dark:text-gray-400">
+              {new Date().toLocaleString("en-US", {
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </span>
+          </div>
+          <TypingText
+            text={t("quickAbout")}
+            className="text-base"
+            duration={20}
+          />
+        </div>
       </div>
 
-      <div className="flex items-center justify-center gap-4">
-        <Tooltip label="LinkedIn">
-          <Link href={socials.linkedin}>
-            <FaLinkedin size={24} aria-label="LinkedIn" />
-          </Link>
-        </Tooltip>
-        <Tooltip label="Twitter/X">
-          <Link href={socials.twitter}>
-            <FaTwitter size={24} aria-label="Twitter/X" />
-          </Link>
-        </Tooltip>
-        <Tooltip label="GitHub">
-          <Link href={socials.github}>
-            <FaGithub size={24} aria-label="GitHub" />
-          </Link>
-        </Tooltip>
-        <Tooltip label="Instagram">
-          <Link href={socials.instagram}>
-            <FaInstagram size={24} aria-label="Instagram" />
-          </Link>
-        </Tooltip>
-      </div>
+      <Dock
+        className="mt-0 flex items-center justify-center gap-4"
+        direction="middle"
+      >
+        <DockIcon>
+          <Tooltip label="LinkedIn">
+            <Link href={socials.linkedin} target="_blank">
+              <FaLinkedin size={24} aria-label="LinkedIn" />
+            </Link>
+          </Tooltip>
+        </DockIcon>
+        <DockIcon>
+          <Tooltip label="Twitter/X">
+            <Link href={socials.twitter} target="_blank">
+              <FaTwitter size={24} aria-label="Twitter/X" />
+            </Link>
+          </Tooltip>
+        </DockIcon>
+        <DockIcon>
+          <Tooltip label="GitHub">
+            <Link href={socials.github} target="_blank">
+              <FaGithub size={24} aria-label="GitHub" />
+            </Link>
+          </Tooltip>
+        </DockIcon>
+        <DockIcon>
+          <Tooltip label="Instagram">
+            <Link href={socials.instagram} target="_blank">
+              <FaInstagram size={24} aria-label="Instagram" />
+            </Link>
+          </Tooltip>
+        </DockIcon>
+      </Dock>
 
       <div className="flex flex-col gap-4">
         <a href={socials.brNewsletter} target="_blank">

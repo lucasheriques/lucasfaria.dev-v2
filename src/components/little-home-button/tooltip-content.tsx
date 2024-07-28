@@ -2,7 +2,8 @@ import { Coffee } from "lucide-react";
 import Image from "next/image";
 
 import EspressoMachine from "../espresso-machine/espresso-machine";
-import GlowingButton from "../glowing-button";
+
+import GlowingButton from "@/components/ui/buttons/glowing-button";
 
 type TooltipContentProps = {
   close: () => void;

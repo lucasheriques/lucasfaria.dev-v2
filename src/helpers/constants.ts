@@ -13,6 +13,7 @@ export const socials = {
   devTo: "https://dev.to/lucasheriques",
   tabNews: "https://www.tabnews.com.br/lucasfaria",
   reddit: "https://reddit.com/u/fanzika",
+  youtube: "https://www.youtube.com/@LucasFariaDev",
 };
 
 export const FANTASY_NAME_SERVICES = [

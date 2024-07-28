@@ -31,7 +31,7 @@ const styles = tv({
 export function Tooltip({ children, label, ...props }: TooltipProps) {
   return (
     <TooltipTrigger>
-      <Button>{children}</Button>
+      <Button aria-label={label}>{children}</Button>
       <AriaTooltip
         {...props}
         offset={10}

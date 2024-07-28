@@ -45,22 +45,22 @@ export default function Links() {
       <div className="flex items-center justify-center gap-4">
         <Tooltip label="LinkedIn">
           <Link href={socials.linkedin}>
-            <FaLinkedin size={24} />
+            <FaLinkedin size={24} aria-label="LinkedIn" />
           </Link>
         </Tooltip>
         <Tooltip label="Twitter/X">
           <Link href={socials.twitter}>
-            <FaTwitter size={24} />
+            <FaTwitter size={24} aria-label="Twitter/X" />
           </Link>
         </Tooltip>
         <Tooltip label="GitHub">
           <Link href={socials.github}>
-            <FaGithub size={24} />
+            <FaGithub size={24} aria-label="GitHub" />
           </Link>
         </Tooltip>
         <Tooltip label="Instagram">
           <Link href={socials.instagram}>
-            <FaInstagram size={24} />
+            <FaInstagram size={24} aria-label="Instagram" />
           </Link>
         </Tooltip>
       </div>

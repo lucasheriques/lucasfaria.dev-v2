@@ -25,7 +25,8 @@ const sizeVariants = cva(
 const animationProps = {
   initial: { "--x": "100%", scale: 0.8 },
   animate: { "--x": "-100%", scale: 1 },
-  whileTap: { scale: 0.95 },
+  whileHover: { scale: 1.03 },
+  whileTap: { scale: 0.97 },
   transition: {
     repeat: Infinity,
     repeatType: "loop",

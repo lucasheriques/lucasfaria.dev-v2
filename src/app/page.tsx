@@ -4,10 +4,10 @@ import { cookies } from "next/headers";
 import { LittleHomeButton } from "@/components/little-home-button";
 import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
+import { SparklesText } from "@/components/text-animations";
 import Card from "@/components/ui/card";
 import { Title } from "@/components/ui/typography";
 import { GradientText } from "@/components/ui/typography/gradient-text";
-import { SparklesWhimsy } from "@/components/whimsies";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/helpers/constants";
 import { getLastXBlogPosts, getLastXBytePosts } from "@/helpers/file-helpers";
 
@@ -35,9 +35,9 @@ export default async function Home() {
         <p>
           {"I'm"} a software engineer with a passion for impactful technology
           and building{" "}
-          <SparklesWhimsy rainbow>
+          <SparklesText rainbow>
             <GradientText>magical</GradientText>
-          </SparklesWhimsy>{" "}
+          </SparklesText>{" "}
           experiences.
         </p>
         <p>

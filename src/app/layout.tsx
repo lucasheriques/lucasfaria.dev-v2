@@ -1,6 +1,8 @@
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 import { Lora, Spline_Sans_Mono, Work_Sans } from "next/font/google";
 import { cookies } from "next/headers";
 
@@ -38,17 +40,19 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const theme = cookies().get("theme");
+  const locale = await getLocale();
+  const messages = await getMessages();
 
   return (
     <RespectMotionPreferences>
       <html
-        lang="en"
+        lang={locale}
         className={cn(
           "bg-amber-50 bg-gradient-to-b from-amber-50 to-emerald-50 text-gray-900",
           "dark:bg-gray-900 dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900 dark:text-gray-200",
@@ -58,25 +62,27 @@ export default function RootLayout({
         )}
         data-theme={theme?.value ?? "dark"}
       >
-        <body
-          className={cn(
-            mainFont.variable,
-            monoFont.variable,
-            serifFont.variable,
-            "flex min-h-dvh flex-col font-sans text-lg",
-          )}
-        >
-          <Header
-            initialTheme={
-              theme?.value ? (theme.value as "light" | "dark") : "dark"
-            }
-          />
-          <main className="relative flex flex-1 flex-col">{children}</main>
-          <Footer />
-          <TailwindIndicator />
-          <SpeedInsights />
-          <Analytics />
-        </body>
+        <NextIntlClientProvider messages={messages}>
+          <body
+            className={cn(
+              mainFont.variable,
+              monoFont.variable,
+              serifFont.variable,
+              "flex min-h-dvh flex-col font-sans text-lg",
+            )}
+          >
+            <Header
+              initialTheme={
+                theme?.value ? (theme.value as "light" | "dark") : "dark"
+              }
+            />
+            <main className="relative flex flex-1 flex-col">{children}</main>
+            <Footer />
+            <TailwindIndicator />
+            <SpeedInsights />
+            <Analytics />
+          </body>
+        </NextIntlClientProvider>
       </html>
     </RespectMotionPreferences>
   );

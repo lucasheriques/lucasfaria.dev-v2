@@ -46,8 +46,8 @@ export default async function Home() {
         </p>
         <p>
           In this page, {"you'll"} find some of my thoughts and projects. I
-          divide my thoughts between two: ideas and bytes. Ideas are longer,
-          more thought-out pieces, while bytes are shorter and more frequent.
+          divide my writing into two: ideas and bytes. Ideas are longer, more
+          thought-out pieces, while bytes are shorter and more frequent.
         </p>
       </section>
 

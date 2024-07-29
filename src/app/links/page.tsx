@@ -7,6 +7,8 @@ import {
   FaGithub,
   FaInstagram,
   FaLinkedin,
+  FaReddit,
+  FaTiktok,
   FaTwitter,
   FaYoutube,
 } from "react-icons/fa6";
@@ -87,6 +89,16 @@ export default function Links() {
         <DockIcon>
           <Tooltip label="Instagram" href={socials.instagram}>
             <FaInstagram size={24} aria-label="Instagram" />
+          </Tooltip>
+        </DockIcon>
+        <DockIcon>
+          <Tooltip label="TikTok" href={socials.tiktok}>
+            <FaTiktok size={24} aria-label="TikTok" />
+          </Tooltip>
+        </DockIcon>
+        <DockIcon>
+          <Tooltip label="Reddit" href={socials.reddit}>
+            <FaReddit size={24} aria-label="Reddit" />
           </Tooltip>
         </DockIcon>
       </Dock>

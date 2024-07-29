@@ -62,44 +62,44 @@ export default function Links() {
       </div>
 
       <Dock
-        className="mt-0 flex items-center justify-center gap-4"
+        className="mt-0 flex items-center justify-center gap-1 sm:gap-4"
         distance={50}
         direction="middle"
       >
         <DockIcon>
           <Tooltip label="GitHub" href={socials.github}>
-            <FaGithub size={24} aria-label="GitHub" />
+            <FaGithub size={20} aria-label="GitHub" />
           </Tooltip>
         </DockIcon>
         <DockIcon>
           <Tooltip label="Dev.to" href={socials.devTo}>
-            <FaDev size={24} aria-label="Dev.to" />
+            <FaDev size={20} aria-label="Dev.to" />
           </Tooltip>
         </DockIcon>
         <Separator />
         <DockIcon>
           <Tooltip label="LinkedIn" href={socials.linkedin}>
-            <FaLinkedin size={24} aria-label="LinkedIn" />
+            <FaLinkedin size={20} aria-label="LinkedIn" />
           </Tooltip>
         </DockIcon>
         <DockIcon>
           <Tooltip label="Twitter/X" href={socials.twitter}>
-            <FaTwitter size={24} aria-label="Twitter/X" />
+            <FaTwitter size={20} aria-label="Twitter/X" />
           </Tooltip>
         </DockIcon>
         <DockIcon>
           <Tooltip label="Instagram" href={socials.instagram}>
-            <FaInstagram size={24} aria-label="Instagram" />
+            <FaInstagram size={20} aria-label="Instagram" />
           </Tooltip>
         </DockIcon>
-        <DockIcon className="hidden sm:flex">
+        <DockIcon>
           <Tooltip label="TikTok" href={socials.tiktok}>
-            <FaTiktok size={24} aria-label="TikTok" />
+            <FaTiktok size={20} aria-label="TikTok" />
           </Tooltip>
         </DockIcon>
-        <DockIcon className="hidden sm:flex">
+        <DockIcon>
           <Tooltip label="Reddit" href={socials.reddit}>
-            <FaReddit size={24} aria-label="Reddit" />
+            <FaReddit size={20} aria-label="Reddit" />
           </Tooltip>
         </DockIcon>
       </Dock>

@@ -63,6 +63,7 @@ export default function Links() {
 
       <Dock
         className="mt-0 flex items-center justify-center gap-4"
+        distance={50}
         direction="middle"
       >
         <DockIcon>

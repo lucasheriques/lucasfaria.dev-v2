@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  FaDev,
   FaGithub,
   FaInstagram,
   FaLinkedin,
@@ -10,7 +11,7 @@ import {
   FaYoutube,
 } from "react-icons/fa6";
 
-import { Dock, DockIcon } from "@/components/dock";
+import { Dock, DockIcon, Separator } from "@/components/dock";
 import PageWrapper from "@/components/page-wrapper";
 import { TypingText } from "@/components/text-animations";
 import Button from "@/components/ui/buttons/button";
@@ -63,31 +64,29 @@ export default function Links() {
         direction="middle"
       >
         <DockIcon>
-          <Tooltip label="LinkedIn">
-            <Link href={socials.linkedin} target="_blank">
-              <FaLinkedin size={24} aria-label="LinkedIn" />
-            </Link>
+          <Tooltip label="GitHub" href={socials.github}>
+            <FaGithub size={24} aria-label="GitHub" />
           </Tooltip>
         </DockIcon>
         <DockIcon>
-          <Tooltip label="Twitter/X">
-            <Link href={socials.twitter} target="_blank">
-              <FaTwitter size={24} aria-label="Twitter/X" />
-            </Link>
+          <Tooltip label="Dev.to" href={socials.devTo}>
+            <FaDev size={24} aria-label="Dev.to" />
+          </Tooltip>
+        </DockIcon>
+        <Separator />
+        <DockIcon>
+          <Tooltip label="LinkedIn" href={socials.linkedin}>
+            <FaLinkedin size={24} aria-label="LinkedIn" />
           </Tooltip>
         </DockIcon>
         <DockIcon>
-          <Tooltip label="GitHub">
-            <Link href={socials.github} target="_blank">
-              <FaGithub size={24} aria-label="GitHub" />
-            </Link>
+          <Tooltip label="Twitter/X" href={socials.twitter}>
+            <FaTwitter size={24} aria-label="Twitter/X" />
           </Tooltip>
         </DockIcon>
         <DockIcon>
-          <Tooltip label="Instagram">
-            <Link href={socials.instagram} target="_blank">
-              <FaInstagram size={24} aria-label="Instagram" />
-            </Link>
+          <Tooltip label="Instagram" href={socials.instagram}>
+            <FaInstagram size={24} aria-label="Instagram" />
           </Tooltip>
         </DockIcon>
       </Dock>

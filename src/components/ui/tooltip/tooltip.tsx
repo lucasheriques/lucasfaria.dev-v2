@@ -5,6 +5,7 @@ import {
   Tooltip as AriaTooltip,
   TooltipProps as AriaTooltipProps,
   Button,
+  Link,
   OverlayArrow,
   TooltipTrigger,
   composeRenderProps,
@@ -12,6 +13,7 @@ import {
 import { tv } from "tailwind-variants";
 
 export interface TooltipProps extends Omit<AriaTooltipProps, "children"> {
+  href?: string;
   children: React.ReactNode;
   label: string;
 }
@@ -28,10 +30,16 @@ const styles = tv({
   },
 });
 
-export function Tooltip({ children, label, ...props }: TooltipProps) {
+export function Tooltip({ children, label, href, ...props }: TooltipProps) {
   return (
     <TooltipTrigger>
-      <Button aria-label={label}>{children}</Button>
+      {href ? (
+        <Link href={href} target="_blank" aria-label={label}>
+          {children}
+        </Link>
+      ) : (
+        <Button aria-label={label}>{children}</Button>
+      )}
       <AriaTooltip
         {...props}
         offset={10}

@@ -75,6 +75,10 @@ export interface DockIconProps {
   props?: PropsWithChildren;
 }
 
+const Separator = () => {
+  return <div className="h-full w-px bg-gray-400 dark:bg-gray-800" />;
+};
+
 const DockIcon = ({
   size,
   magnification = DEFAULT_MAGNIFICATION,
@@ -121,4 +125,4 @@ const DockIcon = ({
 
 DockIcon.displayName = "DockIcon";
 
-export { Dock, DockIcon, dockVariants };
+export { Dock, DockIcon, Separator, dockVariants };

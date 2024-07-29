@@ -92,12 +92,12 @@ export default function Links() {
             <FaInstagram size={24} aria-label="Instagram" />
           </Tooltip>
         </DockIcon>
-        <DockIcon>
+        <DockIcon className="hidden sm:flex">
           <Tooltip label="TikTok" href={socials.tiktok}>
             <FaTiktok size={24} aria-label="TikTok" />
           </Tooltip>
         </DockIcon>
-        <DockIcon>
+        <DockIcon className="hidden sm:flex">
           <Tooltip label="Reddit" href={socials.reddit}>
             <FaReddit size={24} aria-label="Reddit" />
           </Tooltip>

@@ -2,7 +2,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
+import { getMessages } from "next-intl/server";
 import { Lora, Spline_Sans_Mono, Work_Sans } from "next/font/google";
 import { cookies } from "next/headers";
 
@@ -45,8 +45,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const theme = cookies().get("theme");
-  const locale = await getLocale();
+  const theme =
+    (cookies().get("theme")?.value as "light" | "dark" | undefined) || "dark";
+  const locale =
+    (cookies().get("lang")?.value as "pt-BR" | "en" | undefined) || "en";
   const messages = await getMessages();
 
   return (
@@ -56,11 +58,9 @@ export default async function RootLayout({
         className={cn(
           "bg-amber-50 bg-gradient-to-b from-amber-50 to-emerald-50 text-gray-900",
           "dark:bg-gray-900 dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900 dark:text-gray-200",
-          theme?.value === undefined || theme.value === "dark"
-            ? "dark"
-            : "light",
+          theme,
         )}
-        data-theme={theme?.value ?? "dark"}
+        data-theme={theme}
       >
         <NextIntlClientProvider messages={messages}>
           <body
@@ -71,11 +71,7 @@ export default async function RootLayout({
               "flex min-h-dvh flex-col font-sans text-lg",
             )}
           >
-            <Header
-              initialTheme={
-                theme?.value ? (theme.value as "light" | "dark") : "dark"
-              }
-            />
+            <Header initialTheme={theme} initialLocale={locale} />
             <main className="relative flex flex-1 flex-col">{children}</main>
             <Footer />
             <TailwindIndicator />

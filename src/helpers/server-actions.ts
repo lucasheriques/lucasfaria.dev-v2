@@ -13,3 +13,9 @@ export async function setThemeCookie(theme: "light" | "dark") {
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365 * 10),
   });
 }
+
+export async function setLocaleCookie(locale: "pt-BR" | "en") {
+  cookies().set("lang", locale, {
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365 * 10),
+  });
+}

@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  FaDev,
+  FaEnvelope,
   FaGithub,
   FaInstagram,
   FaLinkedin,
@@ -13,9 +13,9 @@ import {
   FaYoutube,
 } from "react-icons/fa6";
 
+import ChatMessage from "@/app/links/components/chat-message";
 import { Dock, DockIcon, Separator } from "@/components/dock";
 import PageWrapper from "@/components/page-wrapper";
-import { TypingText } from "@/components/text-animations";
 import Button from "@/components/ui/buttons/button";
 import ShinyButton from "@/components/ui/buttons/shiny-button";
 import { Tooltip } from "@/components/ui/tooltip/tooltip";
@@ -53,11 +53,7 @@ export default function Links() {
               })}
             </span>
           </div>
-          <TypingText
-            text={t("quickAbout")}
-            className="text-base"
-            duration={20}
-          />
+          <ChatMessage text={t("quickAbout")} className="text-base" />
         </div>
       </div>
 
@@ -72,8 +68,8 @@ export default function Links() {
           </Tooltip>
         </DockIcon>
         <DockIcon>
-          <Tooltip label="Dev.to" href={socials.devTo}>
-            <FaDev size={20} aria-label="Dev.to" />
+          <Tooltip label="Email" href={socials.email}>
+            <FaEnvelope size={20} aria-label="Email" />
           </Tooltip>
         </DockIcon>
         <Separator />
@@ -115,7 +111,7 @@ export default function Links() {
         <Link href="/#projects">
           <Button className="w-full" variant="outline" size="linktree">
             <FolderOpenDot size={18} />
-            Projects
+            {t("projects")}
           </Button>
         </Link>
         <Link href={socials.youtube} target="_blank">

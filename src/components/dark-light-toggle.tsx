@@ -2,7 +2,8 @@
 
 import React from "react";
 
-import { cn } from "@/helpers/functions";
+import AnimatedEmojiToggle from "./animated-emoji-toggle";
+
 import { setThemeCookie } from "@/helpers/server-actions";
 
 type DarkLightToggleProps = {
@@ -20,11 +21,10 @@ export default function DarkLightToggle({
     document
       .querySelector("hyvor-talk-comments")
       ?.setAttribute("colors", theme);
-  }, [setTheme, theme]);
+  }, [theme]);
 
   async function handleClick() {
     const nextTheme = theme === "light" ? "dark" : "light";
-
     setTheme(nextTheme);
     setThemeCookie(nextTheme);
 
@@ -36,8 +36,12 @@ export default function DarkLightToggle({
   }
 
   return (
-    <button onClick={handleClick} className={cn("text-4xl", className)}>
-      {theme === "light" ? "🌞" : "🌚"}
-    </button>
+    <AnimatedEmojiToggle
+      isActive={theme === "dark"}
+      activeEmoji="🌚"
+      inactiveEmoji="🌞"
+      onClick={handleClick}
+      className={className}
+    />
   );
 }

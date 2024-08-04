@@ -1,0 +1,11 @@
+{
+  "nav": {
+    "writing": "artigos",
+    "about": "sobre",
+    "links": "links"
+  },
+  "links": {
+    "quickAbout": "Olá, eu sou o Lucas! Meus conteúdos estão aqui em baixo.",
+    "projects": "Projetos"
+  }
+}

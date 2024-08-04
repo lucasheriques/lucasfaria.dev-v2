@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -14,8 +15,8 @@ import DarkLightToggle from "@/components/dark-light-toggle";
 import { cn } from "@/helpers/functions";
 
 const navItems = [
-  { label: "writing", href: "/writing" },
-  { label: "about", href: "/about" },
+  { key: "writing", href: "/writing" },
+  { key: "about", href: "/about" },
   // { label: "recommendations", href: "/recommendations" },
 ];
 
@@ -109,6 +110,7 @@ export function HeaderNavigationMobile({
   const [isOpen, setOpen] = React.useState(false);
   const buttonRef = React.useRef<HTMLButtonElement>(null); // Ref for the <button> element
   const navRef = React.useRef<HTMLElement>(null); // Ref for the <nav> element
+  const t = useTranslations("nav");
 
   const handleClickOutside = () => {
     setOpen(false);
@@ -148,7 +150,7 @@ export function HeaderNavigationMobile({
                       href={item.href}
                       prefetch={true}
                       onClick={toggleOpen}
-                      key={item.label}
+                      key={item.key}
                       className="px-8 py-4"
                     >
                       <motion.div
@@ -158,7 +160,7 @@ export function HeaderNavigationMobile({
                         exit="exit" // Use the exit variant when the modal is closing
                         variants={navItemVariants}
                       >
-                        {item.label}
+                        {t(item.key)}
                       </motion.div>
                     </Link>
                   ))}
@@ -179,6 +181,7 @@ export default function HeaderNavigation() {
   const [hoveredNavItem, setHoveredNavItem] = React.useState<string | null>(
     null,
   );
+  const t = useTranslations("nav");
 
   const pathname = usePathname();
 
@@ -196,7 +199,7 @@ export default function HeaderNavigation() {
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
-            <div key={item.label} className="relative flex items-center">
+            <div key={item.key} className="relative flex items-center">
               <HeaderBackdropAnimation
                 isVisible={hoveredNavItem === item.href}
               />
@@ -217,7 +220,7 @@ export default function HeaderNavigation() {
                     height={48}
                   />
                 ) : (
-                  item.label
+                  t(item.key)
                 )}
               </Link>
             </div>

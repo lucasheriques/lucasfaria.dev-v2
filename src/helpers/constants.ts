@@ -1,7 +1,7 @@
 export const SITE_URL = "https://lucasfaria.dev";
-export const SITE_TITLE = "Lucas Faria";
+export const SITE_TITLE = "Lucas Faria | Product-minded software engineer";
 export const SITE_DESCRIPTION =
-  "Product-minded software engineer focused on understanding the why. Writing about software engineering, product management, and personal growth.";
+  "Hi, I'm Lucas Faria. Product-minded software engineer focused shipping value. Writing about software engineering, product management, and personal growth.";
 
 export const socials = {
   github: "https://github.com/lucasheriques/",
@@ -14,6 +14,7 @@ export const socials = {
   tabNews: "https://www.tabnews.com.br/lucasfaria",
   reddit: "https://reddit.com/u/fanzika",
   youtube: "https://www.youtube.com/@LucasFariaDev",
+  email: "mailto:hi@lucasfaria.dev",
 };
 
 export const FANTASY_NAME_SERVICES = [

@@ -7,5 +7,37 @@
   "links": {
     "quickAbout": "Hi, I'm Lucas! Here you can find links to all my content.",
     "projects": "Projects"
+  },
+  "home": {
+    "welcome": "welcome to my",
+    "onTheWeb": "on the web!",
+    "imLucas": "I'm Lucas",
+    "softwareEngineer": "I'm a software engineer with a passion for impactful technology and building",
+    "magical": "magical",
+    "experiences": "experiences.",
+    "whenNotCoding": "When not coding, I'll probably be spending time with my fiancée and our pets, cooking, reading, or enjoying some time in nature. 🍂",
+    "aboutWriting": "In this page, you'll find some of my thoughts and projects. I divide my writing into two: ideas and bytes. Ideas are longer, more thought-out pieces, while bytes are shorter and more frequent.",
+    "latestIdeas": "latest ideas 💡",
+    "latestBytes": "latest bytes ⚡",
+    "projects": "projects 👨‍💻",
+    "devNaGringa": {
+      "title": "📰 Dev na Gringa",
+      "description": "A newsletter for brazilian engineers who wants to grow their careers and work for international companies."
+    },
+    "emojinx": {
+      "title": "👾 emojinx",
+      "description": "A multiplayer memory matching game. Features real-time gameplay and timed turns.",
+      "expandedContent": "Made with React, TypeScript and Convex (WebSockets)."
+    },
+    "mockinvoice": {
+      "title": "🧾 mockinvoice",
+      "description": "I work daily with invoices, and was tired to create a fake invoice every now and then.",
+      "expandedContent1": "REST API to easily mock realish invoices.",
+      "expandedContent2": "Supports these query parameters: paymentMethods, vendorName, accountNumber, numberOfItems, invoiceDate, dueDate, currency.",
+      "expandedContent3": "Made with Go, Gotenberg and Docker."
+    }
+  },
+  "littleHomeButton": {
+    "buttonText": "little home"
   }
 }

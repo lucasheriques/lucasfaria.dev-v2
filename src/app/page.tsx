@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { cookies } from "next/headers";
 
 import { LittleHomeButton } from "@/components/little-home-button";
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
+  const t = await getTranslations("home");
   const posts = await getLastXBlogPosts();
   const bytes = await getLastXBytePosts();
 
@@ -26,82 +28,63 @@ export default async function Home() {
     <PageWrapper>
       <section className="flex flex-col gap-4 text-lg">
         <Title as="h1">
-          welcome to my{" "}
+          {t("welcome")}{" "}
           <LittleHomeButton
             displayAnimation={!!playLittleHomeAnimation?.value}
           />{" "}
-          on the web! {"I'm"} Lucas
+          {t("onTheWeb")} {t("imLucas")}
         </Title>
         <p>
-          {"I'm"} a software engineer with a passion for impactful technology
-          and building{" "}
+          {t("softwareEngineer")}{" "}
           <SparklesText rainbow>
-            <GradientText>magical</GradientText>
+            <GradientText>{t("magical")}</GradientText>
           </SparklesText>{" "}
-          experiences.
+          {t("experiences")}
         </p>
-        <p>
-          When not coding, {"I'll"} probably be spending time with my fiancée
-          and our pets, cooking, reading, or enjoying some time in nature. 🍂
-        </p>
-        <p>
-          In this page, {"you'll"} find some of my thoughts and projects. I
-          divide my writing into two: ideas and bytes. Ideas are longer, more
-          thought-out pieces, while bytes are shorter and more frequent.
-        </p>
+        <p>{t("whenNotCoding")}</p>
+        <p>{t("aboutWriting")}</p>
       </section>
 
       <section className="grid gap-4">
-        <Title as="h2">latest ideas 💡</Title>
+        <Title as="h2">{t("latestIdeas")}</Title>
         <PostList posts={posts} />
       </section>
 
       <section className="grid gap-4">
-        <Title as="h2">latest bytes ⚡</Title>
+        <Title as="h2">{t("latestBytes")}</Title>
         <PostList posts={bytes} />
       </section>
 
       <section className="grid gap-4" id="projects">
-        <Title as="h2">projects 👨‍💻</Title>
+        <Title as="h2">{t("projects")}</Title>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Card
-            title="📰 Dev na Gringa"
+            title={t("devNaGringa.title")}
             link="https://devnagringa.substack.com?utm_source=lucasfaria.dev"
           >
-            A newsletter for brazilian engineers who wants to grow their careers
-            and work for international companies.
+            {t("devNaGringa.description")}
           </Card>
           <Card
-            title="👾 emojinx"
+            title={t("emojinx.title")}
             link="https://emojinx.lucasfaria.dev"
             expandable
-            expandedContent={
-              <p>Made with React, TypeScript and Convex (WebSockets).</p>
-            }
+            expandedContent={<p>{t("emojinx.expandedContent")}</p>}
           >
-            A multiplayer memory matching game. Features real-time gameplay and
-            timed turns.
+            {t("emojinx.description")}
           </Card>
           <Card
-            title="🧾 mockinvoice"
+            title={t("mockinvoice.title")}
             link="https://tools.lucasfaria.dev/v1/invoices/fake"
             expandable
             expandedContent={
               <div className="space-y-2">
-                <p>
-                  REST API to easily mock real
-                  <span className="italic">ish</span> invoices.
-                </p>
-                <p>
-                  Supports these query parameters: paymentMethods, vendorName,
-                  accountNumber, numberOfItems, invoiceDate, dueDate, currency.
-                </p>
-                <p>Made with Go, Gotenberg and Docker.</p>
+                <p>{t("mockinvoice.expandedContent1")}</p>
+                <p>{t("mockinvoice.expandedContent2")}</p>
+                <p>{t("mockinvoice.expandedContent3")}</p>
               </div>
             }
           >
-            I work daily with invoices, and was tired to create a fake invoice
-            every now and then.
+            {t("mockinvoice.description")}
           </Card>
         </div>
       </section>

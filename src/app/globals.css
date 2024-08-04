@@ -34,7 +34,7 @@
     --k8s-blue: #326ce5;
     --gradient-angle: 360deg;
 
-    --shiny-button: 142 5.9% 10%;
+    --shiny-button: 240 5.9% 10%;
   }
 
   html[data-theme="light"] {

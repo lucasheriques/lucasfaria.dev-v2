@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function IdeasPage() {
-  const posts = await getBlogPostList();
+  const ideas = await getBlogPostList();
   return (
     <PageWrapper>
       <section>
@@ -25,7 +25,7 @@ export default async function IdeasPage() {
         </p>
       </section>
       <section>
-        <PostList posts={posts} />
+        <PostList posts={ideas} />
       </section>
     </PageWrapper>
   );

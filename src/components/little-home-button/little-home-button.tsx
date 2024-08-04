@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { Button } from "react-aria-components";
 
 import { TooltipContent } from "@/components/little-home-button/tooltip-content";
@@ -15,6 +16,8 @@ export default function LittleHomeButton({
 }: {
   displayAnimation: boolean;
 }) {
+  const t = useTranslations("littleHomeButton");
+
   return (
     <Sheet
       triggerButton={({ onPress }) =>
@@ -35,7 +38,7 @@ export default function LittleHomeButton({
             }}
           >
             <GradientText darkModeColor="amber" lightModeColor="violet">
-              little home
+              {t("buttonText")}
             </GradientText>
           </MotionButton>
         ) : (
@@ -45,7 +48,7 @@ export default function LittleHomeButton({
               onPress();
             }}
           >
-            little home
+            {t("buttonText")}
           </Button>
         )
       }

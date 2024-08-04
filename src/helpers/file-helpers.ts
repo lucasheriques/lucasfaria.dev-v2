@@ -131,8 +131,9 @@ async function _getBlogPost(slug: string) {
 
 export const getBlogPost = cache(_getBlogPost);
 
-export async function getAboutMe() {
-  const filePath = path.join(process.cwd(), "content/about-me.mdx");
+export async function getAboutMe(lang: "en" | "pt-BR") {
+  const fileName = lang === "en" ? "about-me.mdx" : "about-me-ptBR.mdx";
+  const filePath = path.join(process.cwd(), `content/${fileName}`);
   const fileContents = await fs.readFile(filePath, "utf8");
   const { content } = matter(fileContents);
 

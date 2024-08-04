@@ -1,12 +1,11 @@
 import { Metadata } from "next";
+import { getLocale } from "next-intl/server";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import Image from "next/image";
-import Link from "next/link";
 
 import PageWrapper from "@/components/page-wrapper";
-import { Title } from "@/components/ui/typography";
 import { SITE_TITLE } from "@/helpers/constants";
 import { getAboutMe } from "@/helpers/file-helpers";
+import COMPONENT_MAP from "@/helpers/mdx-components";
 
 export const metadata: Metadata = {
   title: `About me | ${SITE_TITLE}`,
@@ -15,19 +14,12 @@ export const metadata: Metadata = {
 };
 
 export default async function About() {
-  const content = await getAboutMe();
+  const lang = await getLocale();
+  const content = await getAboutMe(lang as "en" | "pt-BR");
   return (
     <PageWrapper>
       <article className="prose max-w-full text-lg text-gray-950 dark:prose-invert dark:text-gray-200">
-        <Title as="h1">hi! {"I'm"} Lucas Faria, nice to meet you. 👋</Title>
-        <MDXRemote
-          components={{
-            Link: (props) => <Link {...props} />,
-            Image: (props) => <Image {...props} alt={props.alt} />,
-            a: (props) => <a {...props} target="_blank" />,
-          }}
-          source={content}
-        />
+        <MDXRemote components={COMPONENT_MAP} source={content} />
       </article>
     </PageWrapper>
   );

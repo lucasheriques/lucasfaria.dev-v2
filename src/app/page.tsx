@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { cookies } from "next/headers";
 
+import { PortugueseContentBanner } from "@/components/banners";
 import { LittleHomeButton } from "@/components/little-home-button";
 import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
@@ -44,6 +45,8 @@ export default async function Home() {
         <p>{t("whenNotCoding")}</p>
         <p>{t("aboutWriting")}</p>
       </section>
+
+      <PortugueseContentBanner />
 
       <section className="grid gap-4">
         <Title as="h2">{t("latestIdeas")}</Title>

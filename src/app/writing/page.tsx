@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
+import { PortugueseContentBanner } from "@/components/banners";
 import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
 import { Title } from "@/components/ui/typography";
@@ -19,6 +20,7 @@ export default async function WritingPage() {
   const bytes = await getBytesList();
   return (
     <PageWrapper>
+      <PortugueseContentBanner />
       <section>
         <Title as="h1">{t("ideasTitle")}</Title>
         <p className="pb-4">{t("ideasDescription")}</p>

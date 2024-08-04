@@ -1,13 +1,11 @@
 "use client";
 
-import { VariantProps, cva } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
 import { type AnimationProps, motion } from "framer-motion";
-import { Button, Link } from "react-aria-components";
+import React, { ComponentPropsWithoutRef, ElementType } from "react";
+import { Button as AriaButton } from "react-aria-components";
 
 import { cn } from "@/helpers/functions";
-
-const MotionLink = motion(Link);
-const MotionButton = motion(Button);
 
 const sizeVariants = cva(
   "relative rounded-lg font-medium backdrop-blur-xl transition-[box-shadow] duration-300 ease-in-out hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-2px_rgba(0,0,0,0.05)] bg-gradient-to-r from-sky-200 to-fuchsia-200 dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--shiny-button)/10%)_0%,transparent_60%)] dark:hover:shadow-[0_0_20px_hsl(var(--shiny-button)/10%)]",
@@ -26,7 +24,7 @@ const sizeVariants = cva(
   },
 );
 
-const animationProps = {
+const animationProps: AnimationProps = {
   initial: { "--x": "100%", scale: 0.8 },
   animate: { "--x": "-100%", scale: 1 },
   whileHover: { scale: 1.03 },
@@ -46,13 +44,15 @@ const animationProps = {
       mass: 0.5,
     },
   },
-} as AnimationProps;
+};
 
-interface ShinyButtonProps extends VariantProps<typeof sizeVariants> {
-  children: React.ReactNode;
-  className?: string;
-  href?: string;
-}
+type ShinyButtonProps<T extends ElementType> = VariantProps<
+  typeof sizeVariants
+> &
+  ComponentPropsWithoutRef<T> & {
+    as?: T;
+    children?: React.ReactNode;
+  };
 
 const Animation = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -77,33 +77,24 @@ const Animation = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const ShinyButton = ({
+function ShinyButton<T extends ElementType = typeof AriaButton>({
   children = "shiny-button",
   size = "default",
   className,
-  href,
-}: ShinyButtonProps) => {
-  if (href) {
-    return (
-      <MotionLink
-        {...animationProps}
-        href={href}
-        className={cn(sizeVariants({ size }), className)}
-        target="_blank"
-      >
-        <Animation>{children}</Animation>
-      </MotionLink>
-    );
-  }
+  as,
+  ...rest
+}: ShinyButtonProps<T>) {
+  const Component = motion(as || AriaButton);
 
   return (
-    <MotionButton
+    <Component
       {...animationProps}
       className={cn(sizeVariants({ size }), className)}
+      {...rest}
     >
       <Animation>{children}</Animation>
-    </MotionButton>
+    </Component>
   );
-};
+}
 
 export default ShinyButton;

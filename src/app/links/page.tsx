@@ -101,6 +101,8 @@ export default function Links() {
 
       <div className="flex flex-col gap-4">
         <ShinyButton
+          as="a"
+          target="_blank"
           href={socials.brNewsletter}
           className="w-full text-center"
           size="linktree"

@@ -17,9 +17,9 @@
     "experiences": "experiences.",
     "whenNotCoding": "When not coding, I'll probably be spending time with my fiancée and our pets, cooking, reading, or enjoying some time in nature. 🍂",
     "aboutWriting": "In this page, you'll find some of my thoughts and projects. I divide my writing into two: ideas and bytes. Ideas are longer, more thought-out pieces, while bytes are shorter and more frequent.",
-    "latestIdeas": "latest ideas 💡",
-    "latestBytes": "latest bytes ⚡",
-    "projects": "projects 👨‍💻",
+    "latestIdeas": "latest ideas",
+    "latestBytes": "latest bytes",
+    "projects": "projects",
     "devNaGringa": {
       "title": "Dev na Gringa",
       "description": "A newsletter for brazilian engineers who wants to grow their careers and work for international companies."

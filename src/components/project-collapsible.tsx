@@ -29,7 +29,7 @@ const ProjectCollapsible: React.FC<ProjectCollapsibleProps> = ({
     <Collapsible.Root
       open={isOpen}
       onOpenChange={setIsOpen}
-      className="overflow-hidden rounded-lg border border-amber-200 bg-amber-50 text-base shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl dark:border-gray-700 dark:bg-gray-800"
+      className="overflow-hidden rounded-lg border border-amber-200 bg-amber-50 text-base shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl dark:border-gray-700 dark:bg-gray-800 dark:shadow-[0_0_15px_rgba(59,130,246,0.1)]"
     >
       <Collapsible.Trigger className="flex w-full items-center justify-between p-4 text-left">
         <div className="flex items-center space-x-3">

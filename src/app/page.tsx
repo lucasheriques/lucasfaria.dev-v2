@@ -49,20 +49,17 @@ export default async function Home() {
       <PortugueseContentBanner />
 
       <section className="grid gap-4">
-        <Title as="h2">{t("latestIdeas")}</Title>
+        <Title as="h2">{t("latestIdeas")} 💡</Title>
         <PostList posts={posts} />
       </section>
 
       <section className="grid gap-4">
-        <Title as="h2">{t("latestBytes")}</Title>
+        <Title as="h2">{t("latestBytes")} ⚡</Title>
         <PostList posts={bytes} />
       </section>
 
       <section className="grid gap-6" id="projects">
-        <Title
-          as="h2"
-          className="text-3xl font-bold text-amber-900 dark:text-gray-100"
-        >
+        <Title as="h2">
           {t("projects")}{" "}
           <span className="text-amber-600 dark:text-blue-400">👨‍💻</span>
         </Title>

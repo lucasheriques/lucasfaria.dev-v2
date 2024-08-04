@@ -37,9 +37,9 @@ export default async function Home() {
         <p>
           {t("softwareEngineer")}{" "}
           <SparklesText rainbow>
-            <GradientText>{t("magical")}</GradientText>
-          </SparklesText>{" "}
-          {t("experiences")}
+            <GradientText>{t("magicalExperiences")}</GradientText>
+          </SparklesText>
+          .
         </p>
         <p>{t("whenNotCoding")}</p>
         <p>{t("aboutWriting")}</p>

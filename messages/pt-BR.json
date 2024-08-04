@@ -13,8 +13,7 @@
     "onTheWeb": "na web!",
     "imLucas": "Eu sou o Lucas",
     "softwareEngineer": "Sou um engenheiro de software apaixonado por tecnologia impactante e por criar",
-    "magical": "mágicas",
-    "experiences": "experiências.",
+    "magicalExperiences": "experiências mágicas",
     "whenNotCoding": "Quando não estou programando, provavelmente estarei passando tempo com minha noiva e nossos pets, cozinhando, lendo ou aproveitando um tempo na natureza. 🍂",
     "aboutWriting": "Nesta página, você encontrará alguns dos meus pensamentos e projetos. Divido minha escrita em duas partes: ideias e bytes. As ideias são textos mais longos e elaborados, enquanto os bytes são mais curtos e frequentes.",
     "latestIdeas": "últimas ideias 💡",
@@ -39,5 +38,16 @@
   },
   "littleHomeButton": {
     "buttonText": "pequena casa"
+  },
+  "writing": {
+    "metaDescription": "Reflexões sobre engenharia de software, gestão de produtos e crescimento pessoal. Inclui tanto reflexões mais longas quanto breves insights tecnológicos.",
+    "ideasMetaTitle": "Ideias",
+    "ideasMetaDescription": "Reflexões mais longas sobre engenharia de software, gestão de produtos e crescimento pessoal. Uma exploração pessoal dos assuntos pelos quais sou apaixonado.",
+    "bytesMetaTitle": "Bytes",
+    "bytesMetaDescription": "Notas breves sobre código, ferramentas e dicas. Insights rápidos dos meus encontros diários com tecnologia.",
+    "ideasTitle": "ideias 💡",
+    "ideasDescription": "Reflexões mais longas sobre engenharia de software, gestão de produtos e crescimento pessoal. Uma exploração pessoal dos assuntos pelos quais sou apaixonado.",
+    "bytesTitle": "bytes ⚡",
+    "bytesDescription": "Notas breves sobre código, ferramentas e dicas. Insights rápidos dos meus encontros diários com tecnologia."
   }
 }

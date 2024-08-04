@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
@@ -13,16 +14,13 @@ export const metadata: Metadata = {
 };
 
 export default async function IdeasPage() {
+  const t = await getTranslations("writing");
   const ideas = await getBlogPostList();
   return (
     <PageWrapper>
       <section>
-        <Title as="h1">ideas 💡</Title>
-        <p>
-          Longer reflections on software engineering, product management, and
-          personal growth. A personal exploration of the subjects {"I'm"}{" "}
-          passionate about.
-        </p>
+        <Title as="h1">{t("ideasTitle")}</Title>
+        <p>{t("ideasDescription")}</p>
       </section>
       <section>
         <PostList posts={ideas} />

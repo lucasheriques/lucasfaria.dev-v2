@@ -13,7 +13,7 @@
     "onTheWeb": "on the web!",
     "imLucas": "I'm Lucas",
     "softwareEngineer": "I'm a software engineer with a passion for impactful technology and building",
-    "magical": "magical",
+    "magicalExperiences": "magical experiences",
     "experiences": "experiences.",
     "whenNotCoding": "When not coding, I'll probably be spending time with my fiancée and our pets, cooking, reading, or enjoying some time in nature. 🍂",
     "aboutWriting": "In this page, you'll find some of my thoughts and projects. I divide my writing into two: ideas and bytes. Ideas are longer, more thought-out pieces, while bytes are shorter and more frequent.",
@@ -39,5 +39,16 @@
   },
   "littleHomeButton": {
     "buttonText": "little home"
+  },
+  "writing": {
+    "metaDescription": "Thoughts on software engineering, product management, and personal growth. Includes both longer reflections and brief tech insights.",
+    "ideasMetaTitle": "Ideas",
+    "ideasMetaDescription": "Longer reflections on software engineering, product management, and personal growth. A personal exploration of the subjects I'm passionate about.",
+    "bytesMetaTitle": "Bytes",
+    "bytesMetaDescription": "Brief notes on code, tools, and tips. Quick insights from my daily tech encounters.",
+    "ideasTitle": "ideas 💡",
+    "ideasDescription": "Longer reflections on software engineering, product management, and personal growth. A personal exploration of the subjects I'm passionate about.",
+    "bytesTitle": "bytes ⚡",
+    "bytesDescription": "Brief notes on code, tools, and tips. Quick insights from my daily tech encounters."
   }
 }

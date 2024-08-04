@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
@@ -7,31 +8,25 @@ import { SITE_TITLE } from "@/helpers/constants";
 import { getBlogPostList, getBytesList } from "@/helpers/file-helpers";
 
 export const metadata: Metadata = {
-  title: `Bytes | ${SITE_TITLE}`,
+  title: `Writing | ${SITE_TITLE}`,
   description:
     "Brief notes on code, tools, and tips. Quick insights from my daily tech encounters.",
 };
 
 export default async function WritingPage() {
+  const t = await getTranslations("writing");
   const ideas = await getBlogPostList();
   const bytes = await getBytesList();
   return (
     <PageWrapper>
       <section>
-        <Title as="h1">ideas 💡</Title>
-        <p className="pb-4">
-          Longer reflections on software engineering, product management, and
-          personal growth. A personal exploration of the subjects {"I'm"}{" "}
-          passionate about.
-        </p>
+        <Title as="h1">{t("ideasTitle")}</Title>
+        <p className="pb-4">{t("ideasDescription")}</p>
         <PostList posts={ideas} />
       </section>
       <section>
-        <Title as="h1">bytes ⚡</Title>
-        <p className="pb-4">
-          Brief notes on code, tools, and tips. Quick insights from my daily
-          tech encounters.
-        </p>
+        <Title as="h1">{t("bytesTitle")}</Title>
+        <p className="pb-4">{t("bytesDescription")}</p>
         <PostList posts={bytes} />
       </section>
     </PageWrapper>

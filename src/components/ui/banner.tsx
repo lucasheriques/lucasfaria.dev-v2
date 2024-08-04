@@ -33,9 +33,10 @@ const IconMap = {
 
 interface BaseBannerProps extends VariantProps<typeof banner> {
   children: React.ReactNode;
+  cta?: React.ReactNode;
 }
 
-export function Banner({ children, intent = "info" }: BaseBannerProps) {
+export function Banner({ children, intent = "info", cta }: BaseBannerProps) {
   const Icon = IconMap[intent];
 
   return (
@@ -44,10 +45,11 @@ export function Banner({ children, intent = "info" }: BaseBannerProps) {
       animate={{ opacity: 1, y: 0 }}
       className={banner({ intent })}
     >
-      <div className="flex flex-1 items-center space-x-3">
-        <Icon size={20} />
-        <div className="text-sm font-medium">{children}</div>
+      <div className="flex flex-1 items-center gap-3 text-sm font-medium">
+        <Icon size={20} className="min-w-fit" />
+        {children}
       </div>
+      {cta}
     </motion.div>
   );
 }
@@ -62,7 +64,6 @@ export function DismissableBanner({
   onDismiss,
 }: DismissableBannerProps) {
   const [isVisible, setIsVisible] = useState(true);
-  const Icon = IconMap[intent];
 
   const handleDismiss = () => {
     setIsVisible(false);
@@ -72,24 +73,20 @@ export function DismissableBanner({
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20, transition: { duration: 0.2 } }}
-          className={banner({ intent })}
+        <Banner
+          intent={intent}
+          cta={
+            <button
+              onClick={handleDismiss}
+              className="min-w-fit"
+              aria-label="Dismiss"
+            >
+              <X size={18} />
+            </button>
+          }
         >
-          <div className="flex flex-1 items-center space-x-3">
-            <Icon size={20} />
-            <div className="text-sm font-medium">{children}</div>
-          </div>
-          <button
-            onClick={handleDismiss}
-            className="ml-4 rounded text-current transition-colors hover:text-opacity-75 focus:outline-none focus:ring-2 focus:ring-current focus:ring-offset-2"
-            aria-label="Dismiss"
-          >
-            <X size={18} />
-          </button>
-        </motion.div>
+          {children}
+        </Banner>
       )}
     </AnimatePresence>
   );

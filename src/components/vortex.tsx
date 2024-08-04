@@ -240,7 +240,7 @@ const Vortex = (props: VortexProps) => {
   }, [draw, initParticles, resize]);
 
   return (
-    <div className={cn("absolute h-full w-full", props.containerClassName)}>
+    <div className={cn("absolute", props.containerClassName)}>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

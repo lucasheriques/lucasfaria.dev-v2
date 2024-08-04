@@ -1,9 +1,10 @@
 "use client";
 
 import { Sparkle } from "lucide-react";
-import React from "react";
+import React, { memo } from "react";
 import colors from "tailwindcss/colors";
 
+import Vortex from "@/components/vortex";
 import { random } from "@/helpers/functions";
 import usePrefersReducedMotion from "@/helpers/use-prefers-reduced.motion";
 import useRandomInterval from "@/helpers/use-random-interval";
@@ -65,7 +66,7 @@ const SparkleInstance = ({ color, style, size }: SparkleType) => (
   </span>
 );
 
-export default function SparklesText({ rainbow, children }: Props) {
+function SparklesText({ rainbow, children }: Props) {
   const [enabled, setEnabled] = React.useState(true);
   const [sparkles, setSparkles] = React.useState<SparkleType[]>(() =>
     Array.from({ length: 3 }).map(() =>
@@ -105,9 +106,20 @@ export default function SparklesText({ rainbow, children }: Props) {
 
   if (!enabled) {
     return (
-      <button onClick={toggleSparkles} className="cursor-pointer font-bold">
-        {children}
-      </button>
+      <>
+        <button
+          onClick={toggleSparkles}
+          className="inline-block cursor-pointer font-bold"
+        >
+          {children}
+        </button>
+        <Vortex
+          backgroundColor="transparent"
+          rangeY={1500}
+          particleCount={500}
+          baseHue={120}
+        />
+      </>
     );
   }
 
@@ -116,10 +128,12 @@ export default function SparklesText({ rainbow, children }: Props) {
       className="relative inline-block cursor-pointer"
       onClick={toggleSparkles}
     >
-      <strong className="relative z-20 font-bold">{children}</strong>
+      <strong className="relative z-20">{children}</strong>
       {sparkles.map((sparkle) => (
         <SparkleInstance key={sparkle.id} {...sparkle} />
       ))}
     </button>
   );
 }
+
+export default memo(SparklesText);

@@ -34,7 +34,12 @@ export function Tooltip({ children, label, href, ...props }: TooltipProps) {
   return (
     <TooltipTrigger>
       {href ? (
-        <Link href={href} target="_blank" aria-label={label}>
+        <Link
+          href={href}
+          target="_blank"
+          aria-label={label}
+          className="outline-none focus:ring-2 focus:ring-cyan-700/60 dark:focus:ring-cyan-400/50"
+        >
           {children}
         </Link>
       ) : (

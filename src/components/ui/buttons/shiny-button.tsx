@@ -1,28 +1,27 @@
 "use client";
 
-import { type VariantProps, cva } from "class-variance-authority";
 import { type AnimationProps, motion } from "framer-motion";
 import React, { ComponentPropsWithoutRef, ElementType } from "react";
 import { Button as AriaButton } from "react-aria-components";
+import { VariantProps, tv } from "tailwind-variants";
 
 import { cn } from "@/helpers/functions";
 
-const sizeVariants = cva(
-  "relative rounded-lg font-medium backdrop-blur-xl transition-[box-shadow] duration-300 ease-in-out hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-2px_rgba(0,0,0,0.05)] bg-gradient-to-r from-sky-200 to-fuchsia-200 dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--shiny-button)/10%)_0%,transparent_60%)] dark:hover:shadow-[0_0_20px_hsl(var(--shiny-button)/10%)]",
-  {
-    variants: {
-      size: {
-        default: "px-4 py-2 min-w-24",
-        small: "px-2 py-1 min-w-20 text-sm",
-        icon: "p-2 rounded-full",
-        linktree: "px-6 py-3 text-lg",
-      },
-    },
-    defaultVariants: {
-      size: "default",
+const sizeVariants = tv({
+  base: "relative rounded-lg font-medium backdrop-blur-xl transition-[box-shadow] duration-300 ease-in-out hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-2px_rgba(0,0,0,0.05)] bg-gradient-to-r from-sky-200 to-fuchsia-200 dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--shiny-button)/10%)_0%,transparent_60%)] dark:hover:shadow-[0_0_20px_hsl(var(--shiny-button)/10%)] outline-none focus:ring-2 focus:ring-cyan-700/60 dark:focus:ring-cyan-400/50",
+
+  variants: {
+    size: {
+      default: "px-4 py-2 min-w-24",
+      small: "px-2 py-1 min-w-20 text-sm",
+      icon: "p-2 rounded-full",
+      linktree: "px-6 py-3 text-lg",
     },
   },
-);
+  defaultVariants: {
+    size: "default",
+  },
+});
 
 const animationProps: AnimationProps = {
   initial: { "--x": "100%", scale: 0.8 },

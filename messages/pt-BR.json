@@ -34,7 +34,8 @@
       "expandedContent1": "API REST para criar facilmente faturas falsas realistas.",
       "expandedContent2": "Suporta estes parâmetros de consulta: paymentMethods, vendorName, accountNumber, numberOfItems, invoiceDate, dueDate, currency.",
       "expandedContent3": "Feito com Go, Gotenberg e Docker."
-    }
+    },
+    "visitProject": "Dá uma olhada"
   },
   "littleHomeButton": {
     "buttonText": "pequena casa"

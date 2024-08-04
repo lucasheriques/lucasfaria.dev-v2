@@ -22,8 +22,7 @@ const sizeVariants = tv({
     size: "default",
   },
 });
-
-const animationProps: AnimationProps = {
+const animationProps = {
   initial: { "--x": "100%", scale: 0.8 },
   animate: { "--x": "-100%", scale: 1 },
   whileHover: { scale: 1.03 },
@@ -43,7 +42,7 @@ const animationProps: AnimationProps = {
       mass: 0.5,
     },
   },
-};
+} as AnimationProps;
 
 type ShinyButtonProps<T extends ElementType> = VariantProps<
   typeof sizeVariants

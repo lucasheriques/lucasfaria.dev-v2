@@ -20,16 +20,16 @@
     "latestBytes": "últimos bytes ⚡",
     "projects": "projetos 👨‍💻",
     "devNaGringa": {
-      "title": "📰 Dev na Gringa",
+      "title": "Dev na Gringa",
       "description": "Uma newsletter para engenheiros brasileiros que desejam crescer em suas carreiras e trabalhar para empresas internacionais."
     },
     "emojinx": {
-      "title": "👾 emojinx",
+      "title": "emojinx",
       "description": "Um jogo de memória multiplayer. Possui jogabilidade em tempo real e turnos cronometrados.",
       "expandedContent": "Feito com React, TypeScript e Convex (WebSockets)."
     },
     "mockinvoice": {
-      "title": "🧾 mockinvoice",
+      "title": "mockinvoice",
       "description": "Eu trabalho diariamente com faturas e estava cansado de criar faturas falsas de vez em quando.",
       "expandedContent1": "API REST para criar facilmente faturas falsas realistas.",
       "expandedContent2": "Suporta estes parâmetros de consulta: paymentMethods, vendorName, accountNumber, numberOfItems, invoiceDate, dueDate, currency.",

@@ -6,8 +6,8 @@ import { PortugueseContentBanner } from "@/components/banners";
 import { LittleHomeButton } from "@/components/little-home-button";
 import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
+import ProjectList from "@/components/project-list";
 import { SparklesText } from "@/components/text-animations";
-import Card from "@/components/ui/card";
 import { Title } from "@/components/ui/typography";
 import { GradientText } from "@/components/ui/typography/gradient-text";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/helpers/constants";
@@ -58,38 +58,15 @@ export default async function Home() {
         <PostList posts={bytes} />
       </section>
 
-      <section className="grid gap-4" id="projects">
-        <Title as="h2">{t("projects")}</Title>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <Card
-            title={t("devNaGringa.title")}
-            link="https://devnagringa.substack.com?utm_source=lucasfaria.dev"
-          >
-            {t("devNaGringa.description")}
-          </Card>
-          <Card
-            title={t("emojinx.title")}
-            link="https://emojinx.lucasfaria.dev"
-            expandable
-            expandedContent={<p>{t("emojinx.expandedContent")}</p>}
-          >
-            {t("emojinx.description")}
-          </Card>
-          <Card
-            title={t("mockinvoice.title")}
-            link="https://tools.lucasfaria.dev/v1/invoices/fake"
-            expandable
-            expandedContent={
-              <div className="space-y-2">
-                <p>{t("mockinvoice.expandedContent1")}</p>
-                <p>{t("mockinvoice.expandedContent2")}</p>
-                <p>{t("mockinvoice.expandedContent3")}</p>
-              </div>
-            }
-          >
-            {t("mockinvoice.description")}
-          </Card>
-        </div>
+      <section className="grid gap-6" id="projects">
+        <Title
+          as="h2"
+          className="text-3xl font-bold text-amber-900 dark:text-gray-100"
+        >
+          {t("projects")}{" "}
+          <span className="text-amber-600 dark:text-blue-400">👨‍💻</span>
+        </Title>
+        <ProjectList />
       </section>
     </PageWrapper>
   );

@@ -21,21 +21,22 @@
     "latestBytes": "latest bytes ⚡",
     "projects": "projects 👨‍💻",
     "devNaGringa": {
-      "title": "📰 Dev na Gringa",
+      "title": "Dev na Gringa",
       "description": "A newsletter for brazilian engineers who wants to grow their careers and work for international companies."
     },
     "emojinx": {
-      "title": "👾 emojinx",
+      "title": "emojinx",
       "description": "A multiplayer memory matching game. Features real-time gameplay and timed turns.",
       "expandedContent": "Made with React, TypeScript and Convex (WebSockets)."
     },
     "mockinvoice": {
-      "title": "🧾 mockinvoice",
+      "title": "mockinvoice",
       "description": "I work daily with invoices, and was tired to create a fake invoice every now and then.",
       "expandedContent1": "REST API to easily mock realish invoices.",
       "expandedContent2": "Supports these query parameters: paymentMethods, vendorName, accountNumber, numberOfItems, invoiceDate, dueDate, currency.",
       "expandedContent3": "Made with Go, Gotenberg and Docker."
-    }
+    },
+    "visitProject": "Check it out"
   },
   "littleHomeButton": {
     "buttonText": "little home"

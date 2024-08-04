@@ -2,8 +2,12 @@
 
 import { VariantProps, cva } from "class-variance-authority";
 import { type AnimationProps, motion } from "framer-motion";
+import { Button, Link } from "react-aria-components";
 
 import { cn } from "@/helpers/functions";
+
+const MotionLink = motion(Link);
+const MotionButton = motion(Button);
 
 const sizeVariants = cva(
   "relative rounded-lg font-medium backdrop-blur-xl transition-[box-shadow] duration-300 ease-in-out hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-2px_rgba(0,0,0,0.05)] bg-gradient-to-r from-sky-200 to-fuchsia-200 dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--shiny-button)/10%)_0%,transparent_60%)] dark:hover:shadow-[0_0_20px_hsl(var(--shiny-button)/10%)]",
@@ -45,20 +49,14 @@ const animationProps = {
 } as AnimationProps;
 
 interface ShinyButtonProps extends VariantProps<typeof sizeVariants> {
-  text: string;
+  children: React.ReactNode;
   className?: string;
+  href?: string;
 }
 
-const ShinyButton = ({
-  text = "shiny-button",
-  size = "default",
-  className,
-}: ShinyButtonProps) => {
+const Animation = ({ children }: { children: React.ReactNode }) => {
   return (
-    <motion.button
-      {...animationProps}
-      className={cn(sizeVariants({ size }), className)}
-    >
+    <>
       <span
         className="relative block h-full w-full text-lg tracking-wide text-emerald-900 dark:text-[rgb(255,255,255,90%)]"
         style={{
@@ -66,7 +64,7 @@ const ShinyButton = ({
             "linear-gradient(-75deg,hsl(var(--shiny-button)) calc(var(--x) + 20%),transparent calc(var(--x) + 30%),hsl(var(--shiny-button)) calc(var(--x) + 100%))",
         }}
       >
-        {text}
+        {children}
       </span>
       <span
         style={{
@@ -75,7 +73,36 @@ const ShinyButton = ({
         }}
         className="absolute inset-0 z-10 block rounded-[inherit] bg-[linear-gradient(-75deg,hsl(var(--shiny-button)/20%)_calc(var(--x)+20%),hsl(var(--shiny-button)/60%)_calc(var(--x)+25%),hsl(var(--shiny-button)/20%)_calc(var(--x)+100%))] p-px"
       ></span>
-    </motion.button>
+    </>
+  );
+};
+
+const ShinyButton = ({
+  children = "shiny-button",
+  size = "default",
+  className,
+  href,
+}: ShinyButtonProps) => {
+  if (href) {
+    return (
+      <MotionLink
+        {...animationProps}
+        href={href}
+        className={cn(sizeVariants({ size }), className)}
+        target="_blank"
+      >
+        <Animation>{children}</Animation>
+      </MotionLink>
+    );
+  }
+
+  return (
+    <MotionButton
+      {...animationProps}
+      className={cn(sizeVariants({ size }), className)}
+    >
+      <Animation>{children}</Animation>
+    </MotionButton>
   );
 };
 

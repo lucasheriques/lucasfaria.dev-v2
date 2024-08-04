@@ -1,7 +1,6 @@
 import { FolderOpenDot } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
 import {
   FaEnvelope,
   FaGithub,
@@ -101,25 +100,34 @@ export default function Links() {
       </Dock>
 
       <div className="flex flex-col gap-4">
-        <a href={socials.brNewsletter} target="_blank">
-          <ShinyButton
-            text="🇧🇷 newsletter: Dev na Gringa"
-            className="w-full"
-            size="linktree"
-          />
-        </a>
-        <Link href="/#projects">
-          <Button className="w-full" variant="outline" size="linktree">
-            <FolderOpenDot size={18} />
-            {t("projects")}
-          </Button>
-        </Link>
-        <Link href={socials.youtube} target="_blank">
-          <Button className="w-full" variant="outline" size="linktree">
-            <FaYoutube size={18} />
-            YouTube
-          </Button>
-        </Link>
+        <ShinyButton
+          href={socials.brNewsletter}
+          className="w-full text-center"
+          size="linktree"
+        >
+          🇧🇷 newsletter: Dev na Gringa
+        </ShinyButton>
+        <Button
+          className="w-full"
+          variant="outline"
+          size="linktree"
+          as="a"
+          href="/#projects"
+        >
+          <FolderOpenDot size={18} />
+          {t("projects")}
+        </Button>
+        <Button
+          className="w-full"
+          variant="outline"
+          size="linktree"
+          as="a"
+          target="_blank"
+          href={socials.youtube}
+        >
+          <FaYoutube size={18} />
+          YouTube
+        </Button>
       </div>
     </PageWrapper>
   );

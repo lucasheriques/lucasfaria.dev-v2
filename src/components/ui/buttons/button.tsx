@@ -2,12 +2,10 @@
 
 import { type VariantProps, cva } from "class-variance-authority";
 import { motion } from "framer-motion";
-import React from "react";
-import { Button as AriaButton, ButtonProps } from "react-aria-components";
+import React, { ComponentPropsWithoutRef, ElementType } from "react";
+import { Button as AriaButton } from "react-aria-components";
 
 import { cn } from "@/helpers/functions";
-
-const MotionButton = motion(AriaButton);
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center rounded-md text-base font-medium transition-colors disabled:opacity-50 font-sans gap-2",
@@ -39,24 +37,33 @@ const buttonVariants = cva(
   },
 );
 
-type Props = ButtonProps &
-  React.RefAttributes<HTMLButtonElement> &
-  VariantProps<typeof buttonVariants> & {
+type ButtonProps<T extends ElementType> = VariantProps<typeof buttonVariants> &
+  ComponentPropsWithoutRef<T> & {
+    as?: T;
     onHoverStart?: (e: any) => void;
     onHoverEnd?: (e: any) => void;
     children?: React.ReactNode;
   };
 
-function Button({ variant, size, className, children, ...rest }: Props) {
+function Button<T extends ElementType = typeof AriaButton>({
+  variant,
+  size,
+  className,
+  children,
+  as,
+  ...rest
+}: ButtonProps<T>) {
+  const Component = motion(as || AriaButton);
+
   return (
-    <MotionButton
+    <Component
       className={cn(buttonVariants({ variant, size, className }))}
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.97 }}
       {...rest}
     >
       {children}
-    </MotionButton>
+    </Component>
   );
 }
 

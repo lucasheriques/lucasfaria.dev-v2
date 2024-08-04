@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { memo, useEffect, useRef } from "react";
 import { createNoise3D } from "simplex-noise";
 
-import { cn } from "@/helpers/functions";
+import { cn, random } from "@/helpers/functions";
 
 interface VortexProps {
   children?: any;
@@ -33,13 +33,13 @@ const Vortex = (props: VortexProps) => {
   const rangeSpeed = props.rangeSpeed || 1.5;
   const baseRadius = props.baseRadius || 1;
   const rangeRadius = props.rangeRadius || 2;
-  const baseHue = props.baseHue || 220;
+  const baseHue = props.baseHue || random(0, 256);
   const rangeHue = 100;
   const noiseSteps = 3;
   const xOff = 0.00125;
   const yOff = 0.00125;
   const zOff = 0.0005;
-  const backgroundColor = props.backgroundColor || "#000000";
+  const backgroundColor = props.backgroundColor || "transparent";
   let tick = 0;
   const noise3D = createNoise3D();
   let particleProps = new Float32Array(particlePropsLength);

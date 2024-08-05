@@ -1,7 +1,6 @@
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Lora, Spline_Sans_Mono, Work_Sans } from "next/font/google";
 import { cookies } from "next/headers";
@@ -10,6 +9,7 @@ import "./globals.css";
 
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import Providers from "@/components/providers";
 import RespectMotionPreferences from "@/components/respect-motion-preferences";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/helpers/constants";
@@ -62,7 +62,7 @@ export default async function RootLayout({
         )}
         data-theme={theme}
       >
-        <NextIntlClientProvider messages={messages}>
+        <Providers messages={messages} theme={theme} locale={locale}>
           <body
             className={cn(
               mainFont.variable,
@@ -71,14 +71,14 @@ export default async function RootLayout({
               "flex min-h-dvh flex-col font-sans text-lg",
             )}
           >
-            <Header initialTheme={theme} initialLocale={locale} />
+            <Header initialTheme={theme} />
             <main className="relative flex flex-1 flex-col">{children}</main>
             <Footer />
             <TailwindIndicator />
             <SpeedInsights />
             <Analytics />
           </body>
-        </NextIntlClientProvider>
+        </Providers>
       </html>
     </RespectMotionPreferences>
   );

@@ -1,12 +1,12 @@
 "use client";
 
-import { useAtom } from "jotai";
 import React from "react";
 
 import { Title } from "./ui/typography";
 
-import { currentHeadingAtom } from "@/helpers/atoms";
 import { cn } from "@/helpers/functions";
+import { setCurrentHeading } from "@/store/app-slice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 type TableOfContentsProps = {
   postLanguage?: string;
@@ -27,7 +27,8 @@ const marginsForHeadingLevels = {
 };
 
 function Heading({ level, title, id }: TableOfContentsProps["headings"][0]) {
-  const [activeHeading, setCurrentHeading] = useAtom(currentHeadingAtom);
+  const activeHeading = useAppSelector((state) => state.app.currentHeading);
+  const dispatch = useAppDispatch();
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -40,7 +41,7 @@ function Heading({ level, title, id }: TableOfContentsProps["headings"][0]) {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
-    setCurrentHeading(id || "");
+    dispatch(setCurrentHeading(id || ""));
   };
 
   return (

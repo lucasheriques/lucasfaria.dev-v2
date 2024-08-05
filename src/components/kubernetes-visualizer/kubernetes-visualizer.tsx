@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Skull, Trash } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 
 import ServiceIcon from "./icons/ServiceIcon.svg";
 
@@ -22,32 +21,18 @@ import {
 } from "@/components/kubernetes-visualizer/kubernetes-slice";
 import Button from "@/components/ui/buttons/button";
 import Slider from "@/components/ui/slider";
-import { cn, getNewService, randomNumberBetween } from "@/helpers/functions";
-import { useAppSelector } from "@/helpers/store-hooks";
+import { cn, getNewService, random } from "@/helpers/functions";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 type Deployment = {
   [podId: string]: Pod;
-};
-
-const getAvailableIdForPod = (deployment: Deployment) => {
-  if (Object.values(deployment).length > 0) {
-    let tentativeId = `pod-${randomNumberBetween({ min: 1, max: 9999 })}`;
-
-    while (deployment[tentativeId]) {
-      tentativeId = `pod-${randomNumberBetween({ min: 1, max: 9999 })}`;
-    }
-
-    return tentativeId;
-  }
-
-  return `pod-1`;
 };
 
 const getIdsForNewPods = (deployment: Deployment, numOfPods: number = 1) => {
   const ids = new Set<string>();
 
   while (ids.size < numOfPods) {
-    ids.add(`pod-${randomNumberBetween({ min: 1, max: 9999 })}`);
+    ids.add(`pod-${random(1, 9999)}`);
   }
 
   return Array.from(ids);
@@ -63,7 +48,7 @@ const getRandomIdFromDeployment = (
   const randomIds = new Set<string>();
 
   while (randomIds.size < numOfIds) {
-    randomIds.add(podIds[randomNumberBetween({ min: 0, max: podIds.length })]);
+    randomIds.add(podIds[random(0, podIds.length)]);
   }
 
   return Array.from(randomIds);
@@ -167,7 +152,7 @@ const DeploymentComponent = ({ serviceId }: DeploymentComponentProps) => {
   const serviceState = useAppSelector(
     (state) => state.kubernetes.services[serviceId],
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const serviceName = serviceState.name;
   const pods = serviceState.pods;
@@ -302,7 +287,7 @@ const DeploymentComponent = ({ serviceId }: DeploymentComponentProps) => {
 
 export default function KubernetesVisualizer() {
   const servicesMap = useAppSelector((state) => state.kubernetes.services);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [_, setCurrentTime] = useState(new Date());
 

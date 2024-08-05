@@ -1,25 +1,20 @@
 "use client";
 
-import React from "react";
+import { useLocale } from "next-intl";
 
 import AnimatedEmojiToggle from "./animated-emoji-toggle";
 
 import { setLocaleCookie } from "@/helpers/server-actions";
 
 type LocaleToggleProps = {
-  initialLocale: "pt-BR" | "en";
   className?: string;
 };
 
-export default function LocaleToggle({
-  initialLocale,
-  className,
-}: LocaleToggleProps) {
-  const [locale, setLocale] = React.useState<"pt-BR" | "en">(initialLocale);
+export default function LocaleToggle({ className }: LocaleToggleProps) {
+  const locale = useLocale();
 
   async function handleClick() {
     const nextLocale = locale === "pt-BR" ? "en" : "pt-BR";
-    setLocale(nextLocale);
     setLocaleCookie(nextLocale);
   }
 

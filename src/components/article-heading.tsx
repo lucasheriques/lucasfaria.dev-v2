@@ -1,11 +1,11 @@
 "use client";
 
-import { useSetAtom } from "jotai";
 import { useEffect, useRef } from "react";
 
 import { Title } from "./ui/typography";
 
-import { currentHeadingAtom } from "@/helpers/atoms";
+import { setCurrentHeading } from "@/store/app-slice";
+import { useAppDispatch } from "@/store/hooks";
 
 const ArticleHeading = ({
   title,
@@ -16,7 +16,7 @@ const ArticleHeading = ({
   as: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   className?: string;
 }) => {
-  const setCurrentHeading = useSetAtom(currentHeadingAtom);
+  const dispatch = useAppDispatch();
   const headingRef = useRef(null);
 
   const id = title
@@ -31,7 +31,7 @@ const ArticleHeading = ({
         const [entry] = entries;
 
         if (entry.isIntersecting) {
-          setCurrentHeading(id);
+          dispatch(setCurrentHeading(id));
         }
       },
       { rootMargin: "-10% 0px", threshold: 0 },
@@ -46,7 +46,7 @@ const ArticleHeading = ({
         observer.unobserve(ref);
       }
     };
-  }, [id, setCurrentHeading]);
+  }, [id, dispatch]);
 
   return (
     <Title

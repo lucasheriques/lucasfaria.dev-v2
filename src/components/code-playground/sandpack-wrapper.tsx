@@ -12,7 +12,6 @@ import {
 } from "@codesandbox/sandpack-react";
 import { nightOwl } from "@codesandbox/sandpack-themes";
 import { useAnimate, useSpring } from "framer-motion";
-import { useAtom, useAtomValue } from "jotai";
 import {
   AlertCircle,
   AlertTriangle,
@@ -22,8 +21,9 @@ import {
   RefreshCw,
 } from "lucide-react";
 
-import { sandboxActiveView } from "@/helpers/atoms";
 import { cn } from "@/helpers/functions";
+import { setSandboxActiveView } from "@/store/app-slice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 type SandpackMessageConsoleMethods =
   | "log"
@@ -64,13 +64,14 @@ function TitleBar({ title = "Code Playground" }) {
 }
 
 function Actions() {
-  const { sandpack, dispatch } = useSandpack();
-  const [activeView, setActiveView] = useAtom(sandboxActiveView); // 'preview' or 'console'
+  const { sandpack, dispatch: sandpackDispatch } = useSandpack();
+  const activeView = useAppSelector((state) => state.app.sandboxActiveView);
+  const appDispatch = useAppDispatch();
   const [scope, animate] = useAnimate();
   const spring = useSpring(180);
 
   const handleRefresh = () => {
-    dispatch({ type: "refresh" });
+    sandpackDispatch({ type: "refresh" });
     animate(
       scope.current,
       { rotate: 180 },
@@ -84,8 +85,8 @@ function Actions() {
     );
   };
 
-  const toggleView = (view: typeof activeView) => {
-    setActiveView(view);
+  const toggleView = (view: "preview" | "console") => {
+    appDispatch(setSandboxActiveView(view));
   };
 
   return (
@@ -202,7 +203,7 @@ function Console() {
     resetOnPreviewRestart: true,
   });
 
-  const activeView = useAtomValue(sandboxActiveView);
+  const activeView = useAppSelector((state) => state.app.sandboxActiveView);
 
   return (
     <div
@@ -223,7 +224,7 @@ function Console() {
 }
 
 function Preview() {
-  const activeView = useAtomValue(sandboxActiveView);
+  const activeView = useAppSelector((state) => state.app.sandboxActiveView);
 
   return (
     <>

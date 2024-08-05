@@ -113,7 +113,7 @@ function SparklesText({ rainbow, children }: Props) {
         >
           {children}
         </button>
-        <Vortex rangeY={1500} particleCount={500} />
+        <Vortex rangeY={1500} />
       </>
     );
   }

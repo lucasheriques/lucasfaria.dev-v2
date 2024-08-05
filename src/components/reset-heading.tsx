@@ -1,18 +1,18 @@
 "use client";
 
-import { useSetAtom } from "jotai";
-import * as React from "react";
+import { useEffect } from "react";
 
-import { currentHeadingAtom } from "@/helpers/atoms";
+import { setCurrentHeading } from "@/store/app-slice";
+import { useAppDispatch } from "@/store/hooks";
 
 export default function ResetHeading() {
-  const setHeading = useSetAtom(currentHeadingAtom);
+  const dispatch = useAppDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
-      setHeading("introduction");
+      dispatch(setCurrentHeading("introduction"));
     };
-  }, [setHeading]);
+  }, [dispatch]);
 
   return null;
 }

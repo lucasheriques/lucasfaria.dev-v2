@@ -6,7 +6,6 @@ import Link from "next/link";
 import Badge from "@/components/badge";
 import Comments from "@/components/comments";
 import ResetHeading from "@/components/reset-heading";
-import StoreProvider from "@/components/store-provider";
 import TableOfContents from "@/components/table-of-contents";
 import IdeasProgressBar from "@/components/ui/ideas-progress-bar";
 import { Title } from "@/components/ui/typography";
@@ -66,33 +65,31 @@ const Article = ({
   return (
     <div className="xl:article-grid mx-auto grid max-w-3xl grid-cols-1 px-6 sm:gap-y-12 xl:max-w-full">
       <aside className="hidden xl:flex"></aside>
-      <StoreProvider>
-        <article className="prose max-w-full font-serif text-xl text-gray-950 dark:prose-invert xl:px-6 dark:text-gray-300">
-          {type === "ideas" && <IdeasProgressBar />}
-          <Hero
-            type={type}
-            title={title}
-            humanizedDate={humanizedDate}
-            content={content}
-            tags={tags}
-          />
-          <MDXRemote source={content} components={COMPONENT_MAP} />
+      <article className="prose max-w-full font-serif text-xl text-gray-950 dark:prose-invert xl:px-6 dark:text-gray-300">
+        {type === "ideas" && <IdeasProgressBar />}
+        <Hero
+          type={type}
+          title={title}
+          humanizedDate={humanizedDate}
+          content={content}
+          tags={tags}
+        />
+        <MDXRemote source={content} components={COMPONENT_MAP} />
 
-          <Comments slug={slug} />
+        <Comments slug={slug} />
 
-          <div className="pt-32">
-            <Link
-              href={`
+        <div className="pt-32">
+          <Link
+            href={`
           /${type === "bytes" ? "bytes" : "ideas"}`}
-              className="flex items-center gap-2"
-              prefetch={true}
-            >
-              <ArrowLeft size={16} /> Back to{" "}
-              {type === "bytes" ? "bytes" : "ideas"}
-            </Link>
-          </div>
-        </article>
-      </StoreProvider>
+            className="flex items-center gap-2"
+            prefetch={true}
+          >
+            <ArrowLeft size={16} /> Back to{" "}
+            {type === "bytes" ? "bytes" : "ideas"}
+          </Link>
+        </div>
+      </article>
       {type === "ideas" && (
         <TableOfContents postLanguage={language} headings={headings} />
       )}

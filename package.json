@@ -25,7 +25,6 @@
     "framer-motion": "^11.0.3",
     "gray-matter": "^4.0.3",
     "immer": "^10.0.4",
-    "jotai": "^2.6.4",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.323.0",
     "next": "14.1.0",

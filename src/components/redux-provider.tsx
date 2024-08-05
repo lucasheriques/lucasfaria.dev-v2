@@ -1,13 +1,23 @@
 "use client";
 
+import { useRef } from "react";
 import { Provider } from "react-redux";
 
-import { store } from "@/store";
+import { AppStore, makeStore } from "@/store";
+import { setTheme } from "@/store/app-slice";
 
-export default function ReduxProvider({
-  children,
-}: {
+interface Props {
   children: React.ReactNode;
-}) {
-  return <Provider store={store}>{children}</Provider>;
+  theme: "light" | "dark";
+}
+
+export default function ReduxProvider({ children, theme }: Props) {
+  const storeRef = useRef<AppStore>();
+  if (!storeRef.current) {
+    // Create the store instance the first time this renders
+    storeRef.current = makeStore();
+    storeRef.current.dispatch(setTheme(theme));
+  }
+
+  return <Provider store={storeRef.current}>{children}</Provider>;
 }

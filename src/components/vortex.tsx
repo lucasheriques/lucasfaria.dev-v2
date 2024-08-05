@@ -5,6 +5,7 @@ import { memo, useEffect, useRef } from "react";
 import { createNoise3D } from "simplex-noise";
 
 import { cn, random } from "@/helpers/functions";
+import { useAppSelector } from "@/store/hooks";
 
 interface VortexProps {
   children?: any;
@@ -21,6 +22,7 @@ interface VortexProps {
 }
 
 const Vortex = (props: VortexProps) => {
+  const theme = useAppSelector((state) => state.app.theme);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef(null);
   const particleCount = props.particleCount || random(500, 1000);
@@ -33,7 +35,7 @@ const Vortex = (props: VortexProps) => {
   const rangeSpeed = props.rangeSpeed || 1.5;
   const baseRadius = props.baseRadius || 1;
   const rangeRadius = props.rangeRadius || 2;
-  const baseHue = props.baseHue || random(64, 256);
+  const baseHue = props.baseHue || random(theme === "dark" ? 0 : 180, 256);
   const rangeHue = 100;
   const noiseSteps = 3;
   const xOff = 0.00125;

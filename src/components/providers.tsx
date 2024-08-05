@@ -12,10 +12,15 @@ interface Props {
   theme: "light" | "dark";
 }
 
-export default function Providers({ messages, locale, children }: Props) {
+export default function Providers({
+  messages,
+  locale,
+  children,
+  theme,
+}: Props) {
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
-      <ReduxProvider>{children}</ReduxProvider>
+      <ReduxProvider theme={theme}>{children}</ReduxProvider>
     </NextIntlClientProvider>
   );
 }

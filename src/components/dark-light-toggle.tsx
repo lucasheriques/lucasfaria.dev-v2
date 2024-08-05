@@ -1,21 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { memo } from "react";
 
 import AnimatedEmojiToggle from "./animated-emoji-toggle";
 
 import { setThemeCookie } from "@/helpers/server-actions";
+import { setTheme } from "@/store/app-slice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 type DarkLightToggleProps = {
-  initialTheme: "light" | "dark";
   className?: string;
 };
 
-export default function DarkLightToggle({
-  initialTheme,
-  className,
-}: DarkLightToggleProps) {
-  const [theme, setTheme] = React.useState<"light" | "dark">(initialTheme);
+function DarkLightToggle({ className }: DarkLightToggleProps) {
+  const theme = useAppSelector((state) => state.app.theme);
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     document
@@ -23,9 +22,9 @@ export default function DarkLightToggle({
       ?.setAttribute("colors", theme);
   }, [theme]);
 
-  async function handleClick() {
+  function handleClick() {
     const nextTheme = theme === "light" ? "dark" : "light";
-    setTheme(nextTheme);
+    dispatch(setTheme(nextTheme));
     setThemeCookie(nextTheme);
 
     const root = document.documentElement;
@@ -45,3 +44,5 @@ export default function DarkLightToggle({
     />
   );
 }
+
+export default memo(DarkLightToggle);

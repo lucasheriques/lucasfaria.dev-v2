@@ -3,13 +3,13 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 interface AppState {
   currentHeading: string;
   sandboxActiveView: "preview" | "console";
-  currentTheme: "light" | "dark";
+  theme: "light" | "dark";
 }
 
 const initialState: AppState = {
   currentHeading: "introduction",
   sandboxActiveView: "preview",
-  currentTheme: "light",
+  theme: "light",
 };
 
 const appSlice = createSlice({
@@ -25,12 +25,12 @@ const appSlice = createSlice({
     ) => {
       state.sandboxActiveView = action.payload;
     },
-    setCurrentTheme: (state, action: PayloadAction<"light" | "dark">) => {
-      state.currentTheme = action.payload;
+    setTheme: (state, action: PayloadAction<"light" | "dark">) => {
+      state.theme = action.payload;
     },
   },
 });
 
-export const { setCurrentHeading, setSandboxActiveView, setCurrentTheme } =
+export const { setCurrentHeading, setSandboxActiveView, setTheme } =
   appSlice.actions;
 export default appSlice.reducer;

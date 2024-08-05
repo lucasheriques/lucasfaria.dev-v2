@@ -71,7 +71,7 @@ export default async function RootLayout({
               "flex min-h-dvh flex-col font-sans text-lg",
             )}
           >
-            <Header initialTheme={theme} />
+            <Header />
             <main className="relative flex flex-1 flex-col">{children}</main>
             <Footer />
             <TailwindIndicator />

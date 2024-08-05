@@ -103,11 +103,7 @@ const modalBackgroundVariants = {
   },
 };
 
-export function HeaderNavigationMobile({
-  initialTheme,
-}: {
-  initialTheme: "light" | "dark";
-}) {
+export function HeaderNavigationMobile() {
   const [isOpen, setOpen] = React.useState(false);
   const buttonRef = React.useRef<HTMLButtonElement>(null); // Ref for the <button> element
   const navRef = React.useRef<HTMLElement>(null); // Ref for the <nav> element
@@ -166,7 +162,7 @@ export function HeaderNavigationMobile({
                     </Link>
                   ))}
                   <div className="px-8 pt-16 duration-1000 animate-in fade-in">
-                    <DarkLightToggle initialTheme={initialTheme} />
+                    <DarkLightToggle />
                     <LocaleToggle />
                   </div>
                 </nav>

@@ -14,7 +14,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "@/helpers/constants";
 import { getLastXBlogPosts, getLastXBytePosts } from "@/helpers/file-helpers";
 
 export const metadata: Metadata = {
-  title: SITE_TITLE,
+  title: `${SITE_TITLE} | Product-minded software engineer`,
   description: SITE_DESCRIPTION,
 };
 

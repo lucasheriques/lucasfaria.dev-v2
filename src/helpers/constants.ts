@@ -1,5 +1,5 @@
 export const SITE_URL = "https://lucasfaria.dev";
-export const SITE_TITLE = "Lucas Faria | Product-minded software engineer";
+export const SITE_TITLE = "Lucas Faria";
 export const SITE_DESCRIPTION =
   "Hi, I'm Lucas Faria. Product-minded software engineer focused shipping value. Writing about software engineering, product management, and personal growth.";
 

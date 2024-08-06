@@ -34,7 +34,7 @@
     --k8s-blue: #326ce5;
     --gradient-angle: 360deg;
 
-    --shiny-button: 240 5.9% 10%;
+    --shiny-button: 178 100% 37%;
   }
 
   html[data-theme="light"] {
@@ -44,7 +44,7 @@
   html[data-theme="dark"] {
     scrollbar-color: var(--gray-950) var(--gray-900);
     /* --shiny-button: 0 0% 98%; */
-    --shiny-button: 168 70% 50%; /* Dark blue-ish color */
+    --shiny-button: 168 70% 50%;
   }
 
   body {

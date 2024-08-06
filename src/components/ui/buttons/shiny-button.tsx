@@ -5,11 +5,12 @@ import React, { ComponentPropsWithoutRef, ElementType } from "react";
 import { Button as AriaButton } from "react-aria-components";
 import { VariantProps, tv } from "tailwind-variants";
 
+import { buttonsFocusRing } from "@/components/ui/utils";
 import { cn } from "@/helpers/functions";
 
 const sizeVariants = tv({
-  base: "relative rounded-lg font-medium backdrop-blur-xl transition-[box-shadow] duration-300 ease-in-out hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-2px_rgba(0,0,0,0.05)] bg-gradient-to-r from-sky-200 to-fuchsia-200 dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--shiny-button)/10%)_0%,transparent_60%)] dark:hover:shadow-[0_0_20px_hsl(var(--shiny-button)/10%)] outline-none focus:ring-2 focus:ring-cyan-700/60 dark:focus:ring-cyan-400/50",
-
+  extend: buttonsFocusRing,
+  base: "relative rounded-lg font-medium backdrop-blur-xl transition-[box-shadow]  duration-300 ease-in-out hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-2px_rgba(0,0,0,0.05)] bg-gradient-to-r from-sky-200 to-fuchsia-200 dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--shiny-button)/25%)_0%,transparent_60%)] dark:hover:shadow-[0_0_20px_hsl(var(--shiny-button)/10%)] flex",
   variants: {
     size: {
       default: "px-4 py-2 min-w-24",

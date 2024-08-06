@@ -43,7 +43,8 @@
 
   html[data-theme="dark"] {
     scrollbar-color: var(--gray-950) var(--gray-900);
-    --shiny-button: 0 0% 98%;
+    /* --shiny-button: 0 0% 98%; */
+    --shiny-button: 168 70% 50%; /* Dark blue-ish color */
   }
 
   body {

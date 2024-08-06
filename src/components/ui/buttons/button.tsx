@@ -5,10 +5,12 @@ import React, { ComponentPropsWithoutRef, ElementType } from "react";
 import { Button as AriaButton } from "react-aria-components";
 import { VariantProps, tv } from "tailwind-variants";
 
+import { buttonsFocusRing } from "@/components/ui/utils";
 import { cn } from "@/helpers/functions";
 
 const buttonVariants = tv({
-  base: "inline-flex items-center justify-center rounded-md text-base font-medium transition-colors disabled:opacity-50 font-sans gap-2 outline-none focus:ring-2 focus:ring-cyan-700/60 dark:focus:ring-cyan-400/50",
+  extend: buttonsFocusRing,
+  base: "inline-flex items-center justify-center rounded-md text-base font-medium disabled:opacity-50 font-sans gap-2",
   variants: {
     variant: {
       default: "bg-emerald-600 dark:bg-emerald-700 text-slate-100",

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimationProps, motion } from "framer-motion";
 import React, { ComponentPropsWithoutRef, ElementType } from "react";
 import { Button as AriaButton } from "react-aria-components";
 import { VariantProps, tv } from "tailwind-variants";
@@ -10,7 +10,7 @@ import { cn } from "@/helpers/functions";
 
 const buttonVariants = tv({
   extend: buttonsFocusRing,
-  base: "inline-flex items-center justify-center rounded-md text-base font-medium disabled:opacity-50 font-sans gap-2",
+  base: "inline-flex items-center justify-center rounded-lg text-base font-medium disabled:opacity-50 font-sans gap-2",
   variants: {
     variant: {
       default: "bg-emerald-600 dark:bg-emerald-700 text-slate-100",
@@ -19,7 +19,7 @@ const buttonVariants = tv({
       purple: "bg-purple-600 dark:bg-purple-700 text-slate-100",
       destructive: "bg-rose-500 dark:bg-rose-700 text-white",
       outline:
-        "bg-white dark:bg-slate-800 border border-slate-400 dark:border-slate-500 text-slate-900 dark:text-slate-100",
+        "bg-slate-50 dark:bg-slate-900 border border-slate-400 dark:border-slate-700 text-slate-900 dark:text-slate-200",
       link: "bg-transparent",
       linktree:
         "w-full bg-gradient-to-r from-emerald-400 to-blue-500 dark:from-purple-600 dark:to-indigo-600 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 dark:shadow-purple-900/30 dark:hover:shadow-indigo-800/40",
@@ -45,6 +45,19 @@ type ButtonProps<T extends ElementType> = VariantProps<typeof buttonVariants> &
     children?: React.ReactNode;
   };
 
+const animationProps = {
+  whileHover: { scale: 1.03 },
+  whileTap: { scale: 0.97 },
+  transition: {
+    scale: {
+      type: "spring",
+      stiffness: 200,
+      damping: 5,
+      mass: 0.5,
+    },
+  },
+} as AnimationProps;
+
 function Button<T extends ElementType = typeof AriaButton>({
   variant,
   size,
@@ -58,8 +71,7 @@ function Button<T extends ElementType = typeof AriaButton>({
   return (
     <Component
       className={cn(buttonVariants({ variant, size, className }))}
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.97 }}
+      {...animationProps}
       {...rest}
     >
       {children}

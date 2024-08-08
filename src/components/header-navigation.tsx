@@ -139,7 +139,7 @@ export function HeaderNavigationMobile() {
             >
               <Dialog aria-label="Navigation menu" className="outline-none">
                 <nav
-                  className="absolute top-1/4 flex w-3/4 flex-col text-xl capitalize outline-none"
+                  className="absolute top-1/4 flex w-3/4 flex-col text-xl font-semibold capitalize outline-none"
                   ref={navRef}
                 >
                   {navItems.map((item, i) => (

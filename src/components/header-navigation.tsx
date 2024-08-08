@@ -131,7 +131,7 @@ export function HeaderNavigationMobile() {
             className="fixed inset-0 z-40 overflow-hidden"
           >
             <motion.div
-              className="absolute h-full w-full bg-emerald-100/85 dark:bg-gray-950/90"
+              className="absolute h-full w-full bg-emerald-100/95 dark:bg-gray-950/95"
               variants={modalBackgroundVariants}
               initial="hidden"
               animate="visible"

@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getMessages } from "next-intl/server";
 import { Lora, Spline_Sans_Mono, Work_Sans } from "next/font/google";
 import { cookies } from "next/headers";
+import NextTopLoader from "nextjs-toploader";
 
 import "./globals.css";
 
@@ -71,6 +72,17 @@ export default async function RootLayout({
               "flex min-h-dvh flex-col font-sans text-lg",
             )}
           >
+            <NextTopLoader
+              color="#a855f7"
+              height={3}
+              crawl={true}
+              crawlSpeed={200}
+              initialPosition={0.08}
+              easing="ease"
+              speed={200}
+              zIndex={1000}
+              showAtBottom={false}
+            />
             <Header />
             <main className="relative flex flex-1 flex-col">{children}</main>
             <Footer />

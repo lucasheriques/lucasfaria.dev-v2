@@ -15,6 +15,7 @@ export const socials = {
   reddit: "https://reddit.com/u/fanzika",
   youtube: "https://www.youtube.com/@LucasFariaDev",
   email: "mailto:hi@lucasfaria.dev",
+  resume: "https://cv.lucasfaria.dev",
 };
 
 export const FANTASY_NAME_SERVICES = [

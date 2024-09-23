@@ -10,7 +10,7 @@ import { cn } from "@/helpers/functions";
 
 const sizeVariants = tv({
   extend: buttonsFocusRing,
-  base: "relative rounded-lg font-medium backdrop-blur-xl transition-[box-shadow] duration-300 ease-in-out hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-2px_rgba(0,0,0,0.05)] bg-[radial-gradient(circle_at_50%_0%,hsl(var(--shiny-button)/25%)_0%,transparent_60%)] hover:shadow-[0_0_20px_hsl(var(--shiny-button)/10%)] flex",
+  base: "relative transition-[outline] rounded-lg font-medium backdrop-blur-xl transition-[box-shadow] duration-300 ease-in-out hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-2px_rgba(0,0,0,0.05)] bg-[radial-gradient(circle_at_50%_0%,hsl(var(--shiny-button)/25%)_0%,transparent_60%)] hover:shadow-[0_0_20px_hsl(var(--shiny-button)/10%)] flex",
   variants: {
     size: {
       default: "px-4 py-2 min-w-24",
@@ -88,7 +88,7 @@ function ShinyButton<T extends ElementType = typeof AriaButton>({
   return (
     <Component
       {...animationProps}
-      className={cn(sizeVariants({ size }), className)}
+      className={cn(sizeVariants({ size }), "transition-[outline]", className)}
       {...rest}
     >
       <Animation>{children}</Animation>

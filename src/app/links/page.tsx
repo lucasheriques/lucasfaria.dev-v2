@@ -1,4 +1,4 @@
-import { FolderOpenDot } from "lucide-react";
+import { FileText, FolderOpenDot } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import {
@@ -78,11 +78,6 @@ export default function Links() {
           </Tooltip>
         </DockIcon>
         <DockIcon>
-          <Tooltip label="Twitter/X" href={socials.twitter}>
-            <FaTwitter size={20} aria-label="Twitter/X" />
-          </Tooltip>
-        </DockIcon>
-        <DockIcon>
           <Tooltip label="Instagram" href={socials.instagram}>
             <FaInstagram size={20} aria-label="Instagram" />
           </Tooltip>
@@ -129,6 +124,17 @@ export default function Links() {
         >
           <FaYoutube size={18} />
           YouTube
+        </Button>
+                <Button
+          className="w-full"
+          variant="outline"
+          size="linktree"
+          as="a"
+          target="_blank"
+          href={socials.resume}
+        >
+          <FileText size={18} />
+          {t("resume")}
         </Button>
       </div>
     </PageWrapper>

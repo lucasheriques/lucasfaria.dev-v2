@@ -19,7 +19,7 @@ export default function Providers({
   theme,
 }: Props) {
   return (
-    <NextIntlClientProvider messages={messages} locale={locale}>
+    <NextIntlClientProvider messages={messages} locale={locale} timeZone="America/Sao_Paulo">
       <ReduxProvider theme={theme}>{children}</ReduxProvider>
     </NextIntlClientProvider>
   );

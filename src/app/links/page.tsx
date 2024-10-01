@@ -1,4 +1,4 @@
-import { FileText, FolderOpenDot } from "lucide-react";
+import { FileText, FolderOpenDot, PhoneCall } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import {
@@ -125,7 +125,7 @@ export default function Links() {
           <FaYoutube size={18} />
           YouTube
         </Button>
-                <Button
+        <Button
           className="w-full"
           variant="outline"
           size="linktree"
@@ -135,6 +135,17 @@ export default function Links() {
         >
           <FileText size={18} />
           {t("resume")}
+        </Button>
+       <Button
+          className="w-full"
+          variant="outline"
+          size="linktree"
+          as="a"
+          target="_blank"
+          href={socials.calendar}
+        >
+          <PhoneCall size={18} />
+          {t("bookACall")}
         </Button>
       </div>
     </PageWrapper>

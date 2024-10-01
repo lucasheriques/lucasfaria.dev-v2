@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { useRef } from "react";
 
 import ProjectCollapsible from "@/components/project-collapsible";
+import { socials } from "@/helpers/constants";
 
 export default function ProjectList() {
   const t = useTranslations("home");
@@ -17,7 +18,7 @@ export default function ProjectList() {
       id: "devnagringa",
       title: t("devNaGringa.title"),
       description: t("devNaGringa.description"),
-      link: "https://devnagringa.substack.com?utm_source=lucasfaria.dev",
+      link: `${socials.brNewsletter}?utm_source=lucasfaria.dev`,
     },
     {
       id: "emojinx",

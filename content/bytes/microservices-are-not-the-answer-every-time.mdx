@@ -1,0 +1,44 @@
+---
+title: "Microservices are not the answer every time"
+abstract: "Microservices are not the answer every time. Sometimes, a monolith is the best solution."
+createdAt: 2024-09-26
+tags: software architecture, microservices, monolith
+---
+
+Microservices: The Double-Edged Sword of Software Architecture 🔪
+
+Have you ever wondered why so many companies adopt microservices, even with all the challenges?
+
+[Navdeep Singh](https://www.linkedin.com/in/navdeep-singh-3aaa14161/) (founder of [NeetCode](https://neetcode.io/)) and [Matt Ranney](https://www.linkedin.com/in/mranney/) (Principal Eng @ DoorDash) had an amazing conversation about microservices, and how they can be considered technical debt.
+
+📈 In the beginning, microservices are great:
+Teams can work independently
+Deployments become faster and more frequent
+Scaling specific parts of the application becomes easier
+
+🔄 But over time, complexity grows:
+- A simple change can require 6 different deploys
+- At DoorDash, 1 frontend call results in 1000 internal RPCs!
+- Maintaining consistency between services becomes a nightmare
+
+🧠 The problem is sociotechnical:
+- With a team of 5 devs, it's easy for everyone to have the context of the entire application. - With 300 devs, who defines the boundaries between services?
+- How can we ensure that everyone follows the same standards?
+
+💡 What can we do?
+- Ask yourself if you really need microservices
+- If you decide to use them, start with a few well-defined ones
+- Invest heavily in observability tools
+- Create clear standards for communication between services
+
+🤔 What if there was a middle ground between monolith and microservices? Matt mentions in the video that the industry needs new abstractions.
+
+Who knows what the next solution will be?
+
+P.S: Navdeep has AMAZING content about algorithms and data structures. And now he is expanding to system design.
+
+Follow him and subscribe on YouTube if you like this type of content too.
+
+Full video here:
+
+<YoutubeEmbed videoId="LcJKxPXYudE" title="Microservices are Technical Debt" />

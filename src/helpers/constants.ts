@@ -9,13 +9,14 @@ export const socials = {
   twitter: "https://twitter.com/onelucasfaria",
   instagram: "https://www.instagram.com/lucasfaria.dev/",
   tiktok: "https://tiktok.com/@lucasfaria.dev",
-  brNewsletter: "https://devnagringa.substack.com/",
+  brNewsletter: "https://newsletter.nagringa.dev/",
   devTo: "https://dev.to/lucasheriques",
   tabNews: "https://www.tabnews.com.br/lucasfaria",
   reddit: "https://reddit.com/u/fanzika",
   youtube: "https://www.youtube.com/@LucasFariaDev",
   email: "mailto:hi@lucasfaria.dev",
   resume: "https://cv.lucasfaria.dev",
+  calendar: "https://cal.com/lucasfaria",
 };
 
 export const FANTASY_NAME_SERVICES = [

@@ -1,6 +1,7 @@
 import { useLocale } from "next-intl";
 
 import { LocalStorageDismissableBanner } from "../ui/banner";
+import { socials } from "@/helpers/constants";
 
 export default function PortugueseContentBanner() {
   const locale = useLocale();
@@ -17,7 +18,7 @@ export default function PortugueseContentBanner() {
       <div>
         Meu conteúdo aqui é apenas em inglês.{" "}
         <a
-          href="https://devnagringa.substack.com/"
+          href={socials.brNewsletter}
           target="_blank"
           rel="noopener noreferrer"
           className="font-semibold underline hover:text-blue-600"

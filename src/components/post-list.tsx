@@ -10,7 +10,7 @@ import Badge from "./badge";
 import { getPostInfoFromData } from "@/helpers/file-helpers";
 
 type PostListProps = {
-  posts: ReturnType<typeof getPostInfoFromData>[];
+  posts: (Pick<ReturnType<typeof getPostInfoFromData>, "slug" | "title" | "language"> & { target?: React.HTMLAttributeAnchorTarget })[];
   titleAs?: "h1" | "h2" | "h3" | "h4";
 };
 
@@ -21,7 +21,7 @@ export default function PostList({
   const [hoveredSlug, setHoveredSlug] = React.useState<string | null>(null);
 
   return (
-    <ul className="grid">
+    <ul className="">
       {posts.map((post) => (
         <li
           key={post.slug}
@@ -32,13 +32,14 @@ export default function PostList({
             href={post.slug}
             className="-ml-4 flex flex-col items-start gap-0 px-4 py-2 font-semibold transition-colors duration-300 hover:text-amber-700 md:flex-row md:items-center md:gap-2 dark:hover:text-amber-400"
             prefetch={true}
+            target={post.target}
           >
-            {post.language && <Badge>{post.language}</Badge>}
-            <Tag className="">{post.title}</Tag>
+            {post.language && <Badge className="min-w-fit">{post.language}</Badge>}
+            <Tag className="truncate">{post.title}</Tag>
             <motion.div
               aria-hidden
               animate={hoveredSlug === post.slug ? { x: 8, scale: 1.2 } : {}}
-              className="hidden md:block"
+              className="hidden md:block min-w-fit"
             >
               <ArrowRight size={16} />
             </motion.div>

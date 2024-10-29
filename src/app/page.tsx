@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { cookies } from "next/headers";
 
 import { PortugueseContentBanner } from "@/components/banners";
@@ -12,6 +12,28 @@ import { Title } from "@/components/ui/typography";
 import { GradientText } from "@/components/ui/typography/gradient-text";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/helpers/constants";
 import { getLastXBlogPosts, getLastXBytePosts } from "@/helpers/file-helpers";
+import Button from "@/components/ui/buttons/button";
+import Link from "next/link";
+
+const TALKS_BR = [
+  {
+    title:
+      "Produto vs. Plataforma: Será que a separação entre frontend e backend faz sentido para sua carreira?",
+    slug: "https://www.youtube.com/watch?v=WzHoMcLUQ4w",
+    language: "pt-BR",
+    target: "_blank",
+  },
+];
+
+const TALKS_EN = [
+  {
+    title:
+      "Product vs. Platform: Does separating frontend and backend make sense for your career?",
+    slug: "https://www.youtube.com/watch?v=WzHoMcLUQ4w",
+    language: "pt-BR",
+    target: "_blank",
+  },
+];
 
 export const metadata: Metadata = {
   title: `${SITE_TITLE} | Product-minded software engineer`,
@@ -22,6 +44,8 @@ export default async function Home() {
   const t = await getTranslations("home");
   const posts = await getLastXBlogPosts();
   const bytes = await getLastXBytePosts();
+
+  const locale = await getLocale();
 
   const playLittleHomeAnimation = cookies().get("playLittleHomeAnimation");
 
@@ -48,21 +72,31 @@ export default async function Home() {
 
       <PortugueseContentBanner />
 
-      <section className="grid gap-4">
+      <section className="flex flex-col gap-4">
         <Title as="h2">{t("latestIdeas")} 💡</Title>
         <PostList posts={posts} />
       </section>
 
-      <section className="grid gap-4">
+      <section className="flex flex-col gap-4">
         <Title as="h2">{t("latestBytes")} ⚡</Title>
         <PostList posts={bytes} />
+        <Button variant="linktree" as={Link} href="/writing">
+          {t("seeAllPosts")}
+        </Button>
       </section>
 
-      <section className="grid gap-6" id="projects">
-        <Title as="h2">
-          {t("projects")}{" "}
-          <span className="text-amber-600 dark:text-blue-400">👨‍💻</span>
-        </Title>
+
+      <section className="flex flex-col gap-4" id="talks">
+        <Title as="h2">{t("talks")} 💬</Title>
+        {locale === "pt-BR" ? (
+          <PostList posts={TALKS_BR} />
+        ) : (
+          <PostList posts={TALKS_EN} />
+        )}
+      </section>
+
+      <section className="flex flex-col gap-6" id="projects">
+        <Title as="h2">{t("projects")} 👨‍💻</Title>
         <ProjectList />
       </section>
     </PageWrapper>

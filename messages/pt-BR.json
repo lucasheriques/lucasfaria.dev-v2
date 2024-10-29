@@ -37,7 +37,9 @@
       "expandedContent2": "Suporta estes parâmetros de consulta: paymentMethods, vendorName, accountNumber, numberOfItems, invoiceDate, dueDate, currency.",
       "expandedContent3": "Feito com Go, Gotenberg e Docker."
     },
-    "visitProject": "Dá uma olhada"
+    "visitProject": "Dá uma olhada",
+    "talks": "palestras",
+    "seeAllPosts": "Ver todos os artigos"
   },
   "littleHomeButton": {
     "buttonText": "pequena casa"

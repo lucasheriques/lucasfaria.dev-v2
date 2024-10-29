@@ -1,5 +1,4 @@
 "use client";
-"use client";
 
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";

@@ -38,7 +38,9 @@
       "expandedContent2": "Supports these query parameters: paymentMethods, vendorName, accountNumber, numberOfItems, invoiceDate, dueDate, currency.",
       "expandedContent3": "Made with Go, Gotenberg and Docker."
     },
-    "visitProject": "Check it out"
+    "visitProject": "Check it out",
+    "talks": "talks",
+    "seeAllPosts": "See all articles"
   },
   "littleHomeButton": {
     "buttonText": "little home"

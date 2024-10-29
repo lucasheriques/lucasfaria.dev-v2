@@ -22,7 +22,7 @@ const buttonVariants = tv({
         "bg-slate-50 dark:bg-slate-900 border border-slate-400 dark:border-slate-700 text-slate-900 dark:text-slate-200",
       link: "bg-transparent",
       linktree:
-        "w-full bg-gradient-to-r from-emerald-400 to-blue-500 dark:from-purple-600 dark:to-indigo-600 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 dark:shadow-purple-900/30 dark:hover:shadow-indigo-800/40",
+        "w-full bg-gradient-to-r from-emerald-400 to-blue-500 dark:from-violet-600 dark:to-pink-600 text-white hover:shadow-xl dark:shadow-violet-900/30 dark:hover:shadow-violet-800/40",
     },
     size: {
       default: "px-4 py-2 min-w-24",

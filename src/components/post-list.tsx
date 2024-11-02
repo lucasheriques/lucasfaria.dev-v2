@@ -10,7 +10,10 @@ import Badge from "./badge";
 import { getPostInfoFromData } from "@/helpers/file-helpers";
 
 type PostListProps = {
-  posts: (Pick<ReturnType<typeof getPostInfoFromData>, "slug" | "title" | "language"> & { target?: React.HTMLAttributeAnchorTarget })[];
+  posts: (Pick<
+    ReturnType<typeof getPostInfoFromData>,
+    "slug" | "title" | "language"
+  > & { target?: React.HTMLAttributeAnchorTarget })[];
   titleAs?: "h1" | "h2" | "h3" | "h4";
 };
 
@@ -21,7 +24,7 @@ export default function PostList({
   const [hoveredSlug, setHoveredSlug] = React.useState<string | null>(null);
 
   return (
-    <ul className="">
+    <ul>
       {posts.map((post) => (
         <li
           key={post.slug}
@@ -34,12 +37,14 @@ export default function PostList({
             prefetch={true}
             target={post.target}
           >
-            {post.language && <Badge className="min-w-fit">{post.language}</Badge>}
-            <Tag className="truncate">{post.title}</Tag>
+            {post.language && (
+              <Badge className="min-w-fit">{post.language}</Badge>
+            )}
+            <Tag className="md:truncate">{post.title}</Tag>
             <motion.div
               aria-hidden
               animate={hoveredSlug === post.slug ? { x: 8, scale: 1.2 } : {}}
-              className="hidden md:block min-w-fit"
+              className="hidden min-w-fit md:block"
             >
               <ArrowRight size={16} />
             </motion.div>

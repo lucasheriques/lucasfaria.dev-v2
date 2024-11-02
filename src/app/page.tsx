@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { cookies } from "next/headers";
+import Link from "next/link";
 
 import { PortugueseContentBanner } from "@/components/banners";
 import { LittleHomeButton } from "@/components/little-home-button";
@@ -8,12 +9,11 @@ import PageWrapper from "@/components/page-wrapper";
 import PostList from "@/components/post-list";
 import ProjectList from "@/components/project-list";
 import { SparklesText } from "@/components/text-animations";
+import Button from "@/components/ui/buttons/button";
 import { Title } from "@/components/ui/typography";
 import { GradientText } from "@/components/ui/typography/gradient-text";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/helpers/constants";
 import { getLastXBlogPosts, getLastXBytePosts } from "@/helpers/file-helpers";
-import Button from "@/components/ui/buttons/button";
-import Link from "next/link";
 
 const TALKS_BR = [
   {
@@ -84,7 +84,6 @@ export default async function Home() {
           {t("seeAllPosts")}
         </Button>
       </section>
-
 
       <section className="flex flex-col gap-4" id="talks">
         <Title as="h2">{t("talks")} 💬</Title>

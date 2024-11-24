@@ -33,6 +33,13 @@ export default function ProjectList() {
       expandedContent: `${t("mockinvoice.expandedContent1")} ${t("mockinvoice.expandedContent2")} ${t("mockinvoice.expandedContent3")}`,
       link: "https://tools.lucasfaria.dev/v1/invoices/fake",
     },
+    {
+      id: "netsalarycalculator",
+      title: t("netsalarycalculator.title"),
+      description: t("netsalarycalculator.description"),
+      expandedContent: t("netsalarycalculator.expandedContent"),
+      link: "http://nagringa.dev/calculadora-clt-vs-pj",
+    },
   ];
 
   const containerVariants = {

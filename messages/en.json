@@ -38,6 +38,11 @@
       "expandedContent2": "Supports these query parameters: paymentMethods, vendorName, accountNumber, numberOfItems, invoiceDate, dueDate, currency.",
       "expandedContent3": "Made with Go, Gotenberg and Docker."
     },
+    "netsalarycalculator": {
+      "title": "BR Net Salary Calculator",
+      "description": "A tool to calculate the net salary of a Brazilian employee based on the gross salary.",
+      "expandedContent": "Made with Nextjs and Tailwind."
+    },
     "visitProject": "Check it out",
     "talks": "talks",
     "seeAllPosts": "See all articles"

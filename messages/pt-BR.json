@@ -37,6 +37,11 @@
       "expandedContent2": "Suporta estes parâmetros de consulta: paymentMethods, vendorName, accountNumber, numberOfItems, invoiceDate, dueDate, currency.",
       "expandedContent3": "Feito com Go, Gotenberg e Docker."
     },
+    "netsalarycalculator": {
+      "title": "Salário CLT vs PJ",
+      "description": "Uma ferramenta para calcular o salário líquido de um funcionário brasileiro com base no salário bruto. Permite comparar regimes CLT e PJ.",
+      "expandedContent": "Nextjs e Tailwind."
+    },
     "visitProject": "Dá uma olhada",
     "talks": "palestras",
     "seeAllPosts": "Ver todos os artigos"

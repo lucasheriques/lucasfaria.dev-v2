@@ -7,10 +7,10 @@ export default function Header() {
   return (
     <header className="mx-auto flex h-20 w-full items-center justify-between px-6 md:h-40 md:max-w-3xl">
       <HeaderNavigation />
-      <div className="flex gap-2">
+      <div className="flex gap-2 pr-8 md:pr-0">
         <HeaderNavigationMobile />
-        <DarkLightToggle className="hidden md:block" />
-        <LocaleToggle className="hidden md:block" />
+        <DarkLightToggle />
+        <LocaleToggle />
       </div>
     </header>
   );

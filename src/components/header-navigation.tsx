@@ -11,8 +11,6 @@ import { useOnClickOutside } from "usehooks-ts";
 
 import { HeaderBackdropAnimation } from "./header-backdrop-animation";
 
-import DarkLightToggle from "@/components/dark-light-toggle";
-import LocaleToggle from "@/components/locale-toggle";
 import { cn } from "@/helpers/functions";
 
 const navItems = [
@@ -54,7 +52,7 @@ const MenuToggle = forwardRef(
       >
         <svg
           width="23"
-          height="23"
+          height="32"
           viewBox="0 0 23 23"
           className="stroke-gray-900 dark:stroke-gray-300"
         >
@@ -161,10 +159,6 @@ export function HeaderNavigationMobile() {
                       </motion.div>
                     </Link>
                   ))}
-                  <div className="px-8 pt-16 duration-1000 animate-in fade-in">
-                    <DarkLightToggle />
-                    <LocaleToggle />
-                  </div>
                 </nav>
               </Dialog>
             </motion.div>

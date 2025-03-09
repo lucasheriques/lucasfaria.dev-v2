@@ -23,6 +23,13 @@ const TALKS_BR = [
     language: "pt-BR",
     target: "_blank",
   },
+  {
+    title:
+      "Como trabalhar em empresas Americanas: Um guia para Devs Brasileiros",
+    slug: "https://www.youtube.com/watch?v=PYMADF4hXtI",
+    language: "pt-BR",
+    target: "_blank",
+  },
 ];
 
 const TALKS_EN = [
@@ -31,6 +38,12 @@ const TALKS_EN = [
       "Product vs. Platform: Does separating frontend and backend make sense for your career?",
     slug: "https://www.youtube.com/watch?v=WzHoMcLUQ4w",
     language: "pt-BR",
+    target: "_blank",
+  },
+  {
+    title: "How to work in American companies: A guide for Brazilian Devs",
+    slug: "https://www.youtube.com/watch?v=PYMADF4hXtI",
+    language: "en",
     target: "_blank",
   },
 ];

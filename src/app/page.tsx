@@ -43,7 +43,7 @@ const TALKS_EN = [
   {
     title: "How to work in American companies: A guide for Brazilian Devs",
     slug: "https://www.youtube.com/watch?v=PYMADF4hXtI",
-    language: "en",
+    language: "pt-BR",
     target: "_blank",
   },
 ];

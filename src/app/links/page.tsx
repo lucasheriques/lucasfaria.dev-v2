@@ -4,11 +4,8 @@ import Image from "next/image";
 import {
   FaEnvelope,
   FaGithub,
-  FaInstagram,
   FaLinkedin,
   FaReddit,
-  FaTiktok,
-  FaTwitter,
   FaYoutube,
 } from "react-icons/fa6";
 
@@ -78,13 +75,8 @@ export default function Links() {
           </Tooltip>
         </DockIcon>
         <DockIcon>
-          <Tooltip label="Instagram" href={socials.instagram}>
-            <FaInstagram size={20} aria-label="Instagram" />
-          </Tooltip>
-        </DockIcon>
-        <DockIcon>
-          <Tooltip label="TikTok" href={socials.tiktok}>
-            <FaTiktok size={20} aria-label="TikTok" />
+          <Tooltip label="YouTube" href={socials.youtube}>
+            <FaYoutube size={20} aria-label="YouTube" />
           </Tooltip>
         </DockIcon>
         <DockIcon>
@@ -136,7 +128,7 @@ export default function Links() {
           <FileText size={18} />
           {t("resume")}
         </Button>
-       <Button
+        <Button
           className="w-full"
           variant="outline"
           size="linktree"

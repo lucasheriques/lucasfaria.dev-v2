@@ -94,7 +94,7 @@ export default function Links() {
           className="w-full text-center"
           size="linktree"
         >
-          🇧🇷 newsletter: Dev na Gringa
+          🇧🇷 NaGringa Newsletter: 8k+ readers
         </ShinyButton>
         <Button
           className="w-full"

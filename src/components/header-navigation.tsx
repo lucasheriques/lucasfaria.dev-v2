@@ -16,6 +16,7 @@ import { cn } from "@/helpers/functions";
 const navItems = [
   { key: "writing", href: "/writing" },
   { key: "about", href: "/about" },
+  { key: "my stuff", href: "/links" },
   // { label: "recommendations", href: "/recommendations" },
 ];
 

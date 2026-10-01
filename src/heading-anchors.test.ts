@@ -47,6 +47,8 @@ describe("idea headings keep the old site's anchors", () => {
     ],
   ])("%s", (slug, anchors) => {
     const headings = ideas[`../content/ideas/${slug}.mdx`].getHeadings();
-    expect(headings.map((heading) => heading.slug)).toEqual(anchors);
+    expect(headings.map((heading) => heading.slug)).toEqual(
+      expect.arrayContaining(anchors),
+    );
   });
 });

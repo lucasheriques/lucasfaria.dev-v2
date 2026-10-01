@@ -9,14 +9,16 @@ interface Props {
   priority?: boolean;
 }
 
-const { src, caption, alt = caption ?? "", priority } = Astro.props;
+const { src, caption, alt = caption, priority } = Astro.props;
+if (alt === undefined)
+  throw new Error(`ArticleImage ${src}: needs alt or caption`);
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "../../assets/**/*",
   { eager: true },
 );
 const image = images[`../../assets${src}`]?.default;
 if (!image) throw new Error(`ArticleImage: no image at src/assets${src}`);
-const srcset =
+const sizing =
   image.format === "svg"
     ? {}
     : {
@@ -27,6 +29,6 @@ const srcset =
 ---
 
 <figure>
-  <Image src={image} alt={alt} priority={priority} {...srcset} />
+  <Image src={image} alt={alt} priority={priority} {...sizing} />
   {caption && <figcaption>{caption}</figcaption>}
 </figure>

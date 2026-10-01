@@ -283,12 +283,17 @@ a:hover {
   }
 }
 
+.prose,
+.prose h2,
+.prose h3 {
+  scroll-margin-top: 24px;
+}
+
 .prose h2,
 .prose h3 {
   margin: 1.8em 0 0.5em;
   font-weight: 600;
   line-height: 1.25;
-  scroll-margin-top: 24px;
 }
 
 .prose h2 {

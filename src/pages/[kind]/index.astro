@@ -1,16 +1,15 @@
 ---
-import type { InferGetStaticPropsType } from "astro";
+import type { InferGetStaticParamsType } from "astro";
 
 import PostList from "../../components/PostList.astro";
 import Page from "../../layouts/Page.astro";
 import { getPosts, KINDS, kinds } from "../../lib/posts";
 
-export const getStaticPaths = () =>
-  kinds.map((kind) => ({ params: { kind }, props: { kind } }));
+export const getStaticPaths = () => kinds.map((kind) => ({ params: { kind } }));
 
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
-
-const { kind } = Astro.props;
+const { kind } = Astro.params as InferGetStaticParamsType<
+  typeof getStaticPaths
+>;
 const { title, description } = KINDS[kind];
 const posts = await getPosts([kind]);
 ---

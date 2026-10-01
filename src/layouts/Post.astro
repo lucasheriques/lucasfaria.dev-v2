@@ -1,0 +1,42 @@
+---
+import type { MarkdownHeading } from "astro";
+
+import { formatUtcDate, type Post } from "../lib/posts";
+import Page from "./Page.astro";
+
+interface Props {
+  post: Post;
+  headings: MarkdownHeading[];
+}
+
+const { post, headings } = Astro.props;
+const { title, abstract, createdAt, tags } = post.data;
+const toc =
+  post.collection === "ideas" && headings.length > 0
+    ? [{ depth: 2, slug: "introduction", text: "Introduction" }, ...headings]
+    : [];
+---
+
+<Page
+  title={title}
+  description={abstract}
+  meta={[formatUtcDate(createdAt), tags.join(", ")].filter(Boolean).join(" · ")}
+>
+  {toc.length > 0 && (
+    <nav class="toc" aria-labelledby="toc-label" style="--i:2">
+      <p class="label" id="toc-label">
+        Contents
+      </p>
+      <ol>
+        {toc.map(({ depth, slug, text }) => (
+          <li style={`--depth:${depth}`}>
+            <a href={`#${slug}`}>{text}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )}
+  <div class="prose" style="--i:2">
+    <slot />
+  </div>
+</Page>

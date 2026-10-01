@@ -1,0 +1,34 @@
+---
+import PostList from "../components/PostList.astro";
+import Base from "../layouts/Base.astro";
+import { getPosts, SITE } from "../lib/posts";
+
+const posts = await getPosts();
+---
+
+<Base>
+  <div class="scene" aria-hidden="true"></div>
+  <main class="col stack">
+    <section class="card" style="--i:0">
+      <h1 class="name">{SITE.title}</h1>
+      <p class="tag">A small house in the woods, writing about software.</p>
+      <nav aria-label="Elsewhere">
+        <a href="/about">about</a>
+        <a href="/writing">writing</a>
+        <a href="/rss.xml">rss</a>
+        <a href="https://x.com/onelucasfaria">x</a>
+        <a href="https://github.com/lucasheriques">github</a>
+        <a href="https://www.linkedin.com/in/lucas-faria/">linkedin</a>
+      </nav>
+      <p>
+        I'm a software engineer from Brazil. I write about AI, MCP and the craft
+        of building software. Short bytes most days, longer essays when
+        something deserves it.
+      </p>
+    </section>
+    <h2 class="label" style="--i:1">
+      Writing
+    </h2>
+    <PostList posts={posts} style="--i:2" />
+  </main>
+</Base>

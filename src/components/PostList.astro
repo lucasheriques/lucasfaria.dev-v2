@@ -1,0 +1,36 @@
+---
+import { formatUtcDate, KINDS, type Post, postPath } from "../lib/posts";
+
+interface Props {
+  posts: Post[];
+  style?: string;
+}
+
+const { posts, style } = Astro.props;
+const years = Map.groupBy(posts, (post) =>
+  post.data.createdAt.getUTCFullYear(),
+);
+const mixed = new Set(posts.map((post) => post.collection)).size > 1;
+---
+
+<div class="posts" style={style}>
+  {[...years].map(([year, postsOfYear]) => (
+    <section>
+      <h3>{year}</h3>
+      <ul>
+        {postsOfYear.map((post) => (
+          <li>
+            <time datetime={post.data.createdAt.toISOString().slice(0, 10)}>
+              {formatUtcDate(post.data.createdAt, {
+                month: "2-digit",
+                day: "2-digit",
+              })}
+            </time>
+            <a href={postPath(post)}>{post.data.title}</a>
+            {mixed && <span class="kind">{KINDS[post.collection].label}</span>}
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</div>

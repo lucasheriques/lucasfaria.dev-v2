@@ -1,0 +1,32 @@
+---
+import { SITE } from "../lib/posts";
+import Base from "./Base.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  meta?: string;
+}
+
+const { title, description, meta } = Astro.props;
+---
+
+<Base title={title} description={description}>
+  <main class="col page stack">
+    <a class="back" href="/" style="--i:0">
+      &larr; {SITE.title}
+    </a>
+    <h1 style="--i:1">{title}</h1>
+    {meta && (
+      <p class="meta" style="--i:1">
+        {meta}
+      </p>
+    )}
+    <div class="stripes" aria-hidden="true">
+      <i></i>
+      <i></i>
+      <i></i>
+    </div>
+    <slot />
+  </main>
+</Base>

@@ -1,0 +1,14 @@
+---
+import { Content } from "../../content/about-me.mdx";
+import { components } from "../components/mdx";
+import Page from "../layouts/Page.astro";
+---
+
+<Page
+  title="About me"
+  description="Lucas Faria, software engineer from Brazil: work, skills, and how to reach him."
+>
+  <div class="prose" style="--i:2">
+    <Content components={components} />
+  </div>
+</Page>

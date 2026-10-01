@@ -1,0 +1,18 @@
+---
+import PostList from "../components/PostList.astro";
+import Page from "../layouts/Page.astro";
+import { getPosts } from "../lib/posts";
+
+const posts = await getPosts();
+---
+
+<Page
+  title="Writing"
+  description="Every essay and byte by Lucas Faria, newest first."
+>
+  <p style="--i:2">
+    <a href="/ideas">Essays</a> are longer, more thought-out pieces.{" "}
+    <a href="/bytes">Bytes</a> are shorter and more frequent.
+  </p>
+  <PostList posts={posts} style="--i:3" />
+</Page>

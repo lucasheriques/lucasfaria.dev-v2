@@ -1,0 +1,27 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+interface Props {
+  src: string;
+  caption: string;
+  alt?: string;
+}
+
+const { src, caption, alt = caption } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/**/*",
+  { eager: true },
+);
+const image = images[`../../assets${src}`]?.default;
+if (!image) throw new Error(`ArticleImage: no image at src/assets${src}`);
+const srcset =
+  image.format === "svg"
+    ? {}
+    : { widths: [628, 1256], sizes: "(max-width: 660px) 100vw, 628px" };
+---
+
+<figure>
+  <Image src={image} alt={alt} {...srcset} />
+  <figcaption>{caption}</figcaption>
+</figure>

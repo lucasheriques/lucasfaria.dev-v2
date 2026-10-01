@@ -1,11 +1,5 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 
-export const SITE = {
-  title: "Lucas Faria",
-  description:
-    "Lucas Faria, a software engineer from Brazil, writing about AI, MCP and the craft of building software.",
-};
-
 export const KINDS = {
   ideas: {
     title: "Essays",

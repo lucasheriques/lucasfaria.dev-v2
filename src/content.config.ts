@@ -9,6 +9,7 @@ export const post = z.object({
   title: z.string(),
   abstract: z.string().optional(),
   createdAt: date,
+  updatedAt: date.optional(),
   tags: z
     .string()
     .default("")

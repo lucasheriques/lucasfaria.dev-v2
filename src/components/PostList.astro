@@ -3,10 +3,11 @@ import { formatUtcDate, KINDS, type Post, postPath } from "../lib/posts";
 
 interface Props {
   posts: Post[];
+  yearHeading: "h2" | "h3";
   style?: string;
 }
 
-const { posts, style } = Astro.props;
+const { posts, yearHeading: Year, style } = Astro.props;
 const years = Map.groupBy(posts, (post) =>
   post.data.createdAt.getUTCFullYear(),
 );
@@ -16,7 +17,7 @@ const mixed = new Set(posts.map((post) => post.collection)).size > 1;
 <div class="posts" style={style}>
   {[...years].map(([year, postsOfYear]) => (
     <section>
-      <h3>{year}</h3>
+      <Year class="year">{year}</Year>
       <ul>
         {postsOfYear.map((post) => (
           <li>

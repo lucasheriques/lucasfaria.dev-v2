@@ -2,7 +2,8 @@
 import type { Props } from "./TextPopover.astro";
 
 const { content, source } = Astro.props;
-const note = source ? `${content} Source: ${source}` : content;
+const sourceNote = source ? ` Source: ${source}` : "";
 ---
 
-<slot /> ({note})
+<slot /> ({content ?? <slot name="note" />}
+{sourceNote})

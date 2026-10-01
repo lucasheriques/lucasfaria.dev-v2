@@ -7,9 +7,9 @@ const external = /^https?:\/\//.test(String(Astro.props.href));
 ---
 
 <a
-  {...Astro.props}
   target={external ? "_blank" : undefined}
   rel={external ? "noopener noreferrer" : undefined}
+  {...Astro.props}
 >
   <slot />
 </a>

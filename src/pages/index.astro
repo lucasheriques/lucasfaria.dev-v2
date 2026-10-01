@@ -1,13 +1,13 @@
 ---
 import PostList from "../components/PostList.astro";
 import Base from "../layouts/Base.astro";
-import { getPosts, SITE } from "../lib/posts";
+import { getPosts } from "../lib/posts";
+import { SITE } from "../lib/site";
 
 const posts = await getPosts();
 ---
 
 <Base>
-  <div class="scene" aria-hidden="true"></div>
   <main class="col stack">
     <section class="card" style="--i:0">
       <h1 class="name">{SITE.title}</h1>
@@ -29,6 +29,6 @@ const posts = await getPosts();
     <h2 class="label" style="--i:1">
       Writing
     </h2>
-    <PostList posts={posts} style="--i:2" />
+    <PostList posts={posts} yearHeading="h3" style="--i:2" />
   </main>
 </Base>

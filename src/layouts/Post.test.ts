@@ -5,7 +5,7 @@ import Post from "./Post.astro";
 
 it("links every table of contents entry to an element on the essay page", async () => {
   const container = await AstroContainer.create({
-    astroConfig: { site: "https://lucasfaria.dev" },
+    astroConfig: { site: "https://lucasfaria.net" },
   });
   const html = await container.renderToString(Post, {
     props: {

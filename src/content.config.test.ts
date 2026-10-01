@@ -19,18 +19,20 @@ describe("post frontmatter", () => {
       },
     },
     {
-      shape: "quoted date string with an abstract",
+      shape: "quoted date strings with an abstract and an update",
       schema: post,
       frontmatter: {
         title: "Reward effort",
         abstract: "Embrace failure.",
         createdAt: "2024-02-25",
+        updatedAt: "2024-03-01",
         tags: "career",
       },
       expected: {
         title: "Reward effort",
         abstract: "Embrace failure.",
         createdAt: new Date("2024-02-25T00:00:00.000Z"),
+        updatedAt: new Date("2024-03-01T00:00:00.000Z"),
         tags: ["career"],
       },
     },

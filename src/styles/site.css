@@ -110,12 +110,8 @@ a:hover {
   font: 13px var(--sans);
 }
 
-.scene {
-  height: clamp(280px, 56vh, 500px);
-}
-
 .card {
-  margin-top: -96px;
+  margin-top: 48px;
   padding: 28px 30px;
   border: 1px solid color-mix(in srgb, var(--rule) 60%, transparent);
   border-radius: 18px;
@@ -149,7 +145,7 @@ a:hover {
   font: 14px var(--sans);
 }
 
-.posts h3 {
+.posts .year {
   margin: 26px 0 6px;
   color: var(--muted);
   font: 500 13px var(--mono);
@@ -362,8 +358,18 @@ a:hover {
   font: 0.82em var(--mono);
 }
 
+.astro-code,
+.astro-code span {
+  color: light-dark(var(--shiki-light), var(--shiki-dark));
+}
+
+.astro-code {
+  background-color: light-dark(var(--shiki-light-bg), var(--shiki-dark-bg));
+}
+
 .prose pre {
   margin: 1.5em 0;
+  border: 1px solid var(--rule);
   padding: 16px 18px;
   border-radius: 10px;
   overflow-x: auto;
@@ -439,7 +445,6 @@ a:hover {
   }
 
   .card {
-    margin-top: -72px;
     padding: 22px;
   }
 

@@ -3,10 +3,14 @@ import sitemap from "@astrojs/sitemap";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://lucasfaria.dev",
+  site: "https://lucasfaria.net",
   trailingSlash: "never",
   build: { format: "file" },
   integrations: [mdx(), sitemap()],
-  markdown: { shikiConfig: { theme: "material-theme-palenight" } },
-  redirects: { "/links": "/" },
+  markdown: {
+    shikiConfig: {
+      themes: { light: "github-light-default", dark: "github-dark-default" },
+      defaultColor: false,
+    },
+  },
 });

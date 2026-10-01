@@ -7,9 +7,11 @@ import { render } from "astro:content";
 
 import { feedComponents } from "../components/mdx";
 import { absoluteUrls } from "../lib/absolute-urls";
-import { SITE, getPosts, postPath } from "../lib/posts";
+import { getPosts, postPath } from "../lib/posts";
+import { SITE } from "../lib/site";
 
 export async function GET({ site }: APIContext) {
+  if (!site) throw new Error("rss.xml needs `site` in astro.config.mjs");
   const container = await AstroContainer.create({
     renderers: await loadRenderers([getContainerRenderer()]),
   });
@@ -26,14 +28,14 @@ export async function GET({ site }: APIContext) {
         pubDate: post.data.createdAt,
         link: postPath(post),
         categories: post.data.tags,
-        content: absoluteUrls(html, site!),
+        content: absoluteUrls(html, site),
       };
     }),
   );
   return rss({
     title: SITE.title,
     description: SITE.description,
-    site: site!,
+    site,
     items,
     trailingSlash: false,
   });

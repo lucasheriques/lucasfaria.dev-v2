@@ -1,0 +1,9 @@
+---
+import type { Props } from "./YoutubeEmbed.astro";
+
+const { videoId, title } = Astro.props;
+---
+
+<p>
+  <a href={`https://www.youtube.com/watch?v=${videoId}`}>Watch: {title}</a>
+</p>

@@ -1,9 +1,10 @@
 ---
+import type { InferGetStaticPropsType } from "astro";
 import { render } from "astro:content";
 
 import { components } from "../../components/mdx";
 import Post from "../../layouts/Post.astro";
-import { getPosts, type Post as PostEntry } from "../../lib/posts";
+import { getPosts } from "../../lib/posts";
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -13,7 +14,9 @@ export async function getStaticPaths() {
   }));
 }
 
-const { post } = Astro.props as { post: PostEntry };
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { post } = Astro.props;
 const { Content, headings } = await render(post);
 ---
 

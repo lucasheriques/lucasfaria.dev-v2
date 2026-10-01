@@ -4,11 +4,12 @@ import { Image } from "astro:assets";
 
 interface Props {
   src: string;
-  caption: string;
+  caption?: string;
   alt?: string;
+  priority?: boolean;
 }
 
-const { src, caption, alt = caption } = Astro.props;
+const { src, caption, alt = caption ?? "", priority } = Astro.props;
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "../../assets/**/*",
   { eager: true },
@@ -18,10 +19,14 @@ if (!image) throw new Error(`ArticleImage: no image at src/assets${src}`);
 const srcset =
   image.format === "svg"
     ? {}
-    : { widths: [628, 1256], sizes: "(max-width: 660px) 100vw, 628px" };
+    : {
+        width: Math.min(image.width, 1256),
+        widths: [628, 1256],
+        sizes: "(max-width: 660px) 100vw, 628px",
+      };
 ---
 
 <figure>
-  <Image src={image} alt={alt} {...srcset} />
-  <figcaption>{caption}</figcaption>
+  <Image src={image} alt={alt} priority={priority} {...srcset} />
+  {caption && <figcaption>{caption}</figcaption>}
 </figure>

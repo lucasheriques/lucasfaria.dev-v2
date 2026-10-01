@@ -6,12 +6,13 @@ interface Props {
   title: string;
   description?: string;
   meta?: string;
+  noindex?: boolean;
 }
 
-const { title, description, meta } = Astro.props;
+const { title, description, meta, noindex } = Astro.props;
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} noindex={noindex}>
   <main class="col page stack">
     <a class="back" href="/" style="--i:0">
       &larr; {SITE.title}

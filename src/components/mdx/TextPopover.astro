@@ -1,7 +1,7 @@
 ---
 import { hash } from "node:crypto";
 
-interface Props {
+export interface Props {
   content: string;
   source?: string;
 }
@@ -10,11 +10,16 @@ const { content, source } = Astro.props;
 const id = `pop-${hash("sha1", content).slice(0, 8)}`;
 ---
 
-<button type="button" class="popover-trigger" popovertarget={id}>
+<button
+  type="button"
+  class="popover-trigger"
+  popovertarget={id}
+  style={`anchor-name: --${id}`}
+>
   <slot />
   <sup aria-hidden="true">*</sup>
 </button>
-<span id={id} popover class="popover">
+<span id={id} popover class="popover" style={`position-anchor: --${id}`}>
   {content}{" "}
   {source && (
     <a href={source} target="_blank" rel="noopener noreferrer">

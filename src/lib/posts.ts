@@ -8,7 +8,7 @@ export const SITE = {
 
 export const KINDS = {
   ideas: {
-    title: "Ideas",
+    title: "Essays",
     label: "essay",
     description:
       "Longer reflections on software engineering, product management, and personal growth.",

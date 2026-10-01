@@ -22,13 +22,11 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "@astrojs/markdown-satteri": "0.4.2",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "eslint": "^10.11.0",
     "eslint-plugin-astro": "^3.2.1",
     "prettier": "^3.9.9",
     "prettier-plugin-astro": "^1.1.0",
-    "satteri": "0.10.5",
     "sharp": "^0.35.5",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.0",

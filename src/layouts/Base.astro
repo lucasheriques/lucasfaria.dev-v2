@@ -10,13 +10,14 @@ import "../styles/site.css";
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
-const { title, description = SITE.description } = Astro.props;
+const { title, description = SITE.description, noindex } = Astro.props;
 const fullTitle = title ? `${title} | ${SITE.title}` : SITE.title;
 // build.format "file" puts ".html" in Astro.url, but the served URLs have no extension.
 const canonical = new URL(
-  Astro.url.pathname.replace(/(index)?\.html$/, ""),
+  Astro.url.pathname.replace(/(\/index)?\.html$/, ""),
   Astro.site,
 );
 ---
@@ -28,9 +29,15 @@ const canonical = new URL(
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <>
+        <link rel="canonical" href={canonical} />
+        <meta property="og:url" content={canonical} />
+      </>
+    )}
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <link

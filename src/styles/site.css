@@ -396,6 +396,16 @@ a:hover {
   font: 15px/1.5 var(--sans);
 }
 
+/* Without anchor positioning the popover keeps the UA default, centered in the viewport. */
+@supports (position-area: top) {
+  .popover {
+    inset: auto;
+    margin: 8px 0;
+    position-area: top;
+    position-try-fallbacks: flip-block;
+  }
+}
+
 .expandable {
   margin: 1.5em 0;
   padding: 0 18px;
